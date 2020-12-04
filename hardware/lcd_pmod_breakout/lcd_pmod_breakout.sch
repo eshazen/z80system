@@ -1,0 +1,570 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L Connector_Generic:Conn_01x33 J5
+U 1 1 5FCB898E
+P 8400 3675
+F 0 "J5" H 7925 5625 50  0000 L CNN
+F 1 "Conn_01x33" H 7900 5525 50  0000 L CNN
+F 2 "lcd_adapter:FH12-33S-0.5" H 8400 3675 50  0001 C CNN
+F 3 "~" H 8400 3675 50  0001 C CNN
+F 4 "FH12-33S-0.5SH(55)" H 8300 5425 50  0000 C CNN "MfgNo"
+F 5 "798-FH12-33S-0.5SH55" H 8400 3675 50  0001 C CNN "CatNo"
+F 6 "Mouser" H 8400 3675 50  0001 C CNN "Supplier"
+	1    8400 3675
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8200 2075 8075 2075
+Wire Wire Line
+	8075 2075 8075 2475
+Wire Wire Line
+	8075 2475 8200 2475
+Wire Wire Line
+	8075 2475 8075 3175
+Wire Wire Line
+	8075 3175 8200 3175
+Connection ~ 8075 2475
+Wire Wire Line
+	8075 3175 8075 3875
+Wire Wire Line
+	8075 3875 8200 3875
+Connection ~ 8075 3175
+Wire Wire Line
+	8075 3875 8075 4575
+Wire Wire Line
+	8075 4575 8200 4575
+Connection ~ 8075 3875
+Wire Wire Line
+	8075 4575 8075 5075
+Connection ~ 8075 4575
+$Comp
+L power:GND #PWR07
+U 1 1 5FCB89A2
+P 8075 5525
+F 0 "#PWR07" H 8075 5275 50  0001 C CNN
+F 1 "GND" H 8080 5352 50  0000 C CNN
+F 2 "" H 8075 5525 50  0001 C CNN
+F 3 "" H 8075 5525 50  0001 C CNN
+	1    8075 5525
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8200 2175 7425 2175
+Text Label 7425 2175 0    50   ~ 0
+LCD_CLK
+Wire Wire Line
+	8200 2275 7425 2275
+Text Label 7425 2275 0    50   ~ 0
+LCD_HS
+Wire Wire Line
+	8200 2375 7425 2375
+Text Label 7425 2375 0    50   ~ 0
+LCD_VS
+Wire Wire Line
+	8200 2575 7425 2575
+Wire Wire Line
+	8200 2675 7425 2675
+Wire Wire Line
+	8200 2775 7425 2775
+Wire Wire Line
+	8200 2875 7425 2875
+Wire Wire Line
+	8200 2975 7425 2975
+Wire Wire Line
+	8200 3075 7425 3075
+Text Label 7425 2575 0    50   ~ 0
+LCD_R0
+Text Label 7425 2675 0    50   ~ 0
+LCD_R1
+Wire Wire Line
+	8200 3275 7425 3275
+Wire Wire Line
+	8200 3375 7425 3375
+Wire Wire Line
+	8200 3475 7425 3475
+Wire Wire Line
+	8200 3575 7425 3575
+Wire Wire Line
+	8200 3675 7425 3675
+Wire Wire Line
+	8200 3775 7425 3775
+Wire Wire Line
+	8200 3975 7425 3975
+Wire Wire Line
+	8200 4075 7425 4075
+Wire Wire Line
+	8200 4175 7425 4175
+Wire Wire Line
+	8200 4275 7425 4275
+Wire Wire Line
+	8200 4375 7425 4375
+Wire Wire Line
+	8200 4475 7425 4475
+Text Label 7425 2775 0    50   ~ 0
+LCD_R2
+Text Label 7425 2875 0    50   ~ 0
+LCD_R3
+Text Label 7425 2975 0    50   ~ 0
+LCD_R4
+Text Label 7425 3075 0    50   ~ 0
+LCD_R5
+Text Label 7425 3275 0    50   ~ 0
+LCD_G0
+Text Label 7425 3375 0    50   ~ 0
+LCD_G1
+Text Label 7425 3475 0    50   ~ 0
+LCD_G2
+Text Label 7425 3575 0    50   ~ 0
+LCD_G3
+Text Label 7425 3675 0    50   ~ 0
+LCD_G4
+Text Label 7425 3775 0    50   ~ 0
+LCD_G5
+Text Label 7425 3975 0    50   ~ 0
+LCD_B0
+Text Label 7425 4075 0    50   ~ 0
+LCD_B1
+Text Label 7425 4175 0    50   ~ 0
+LCD_B2
+Text Label 7425 4275 0    50   ~ 0
+LCD_B3
+Text Label 7425 4375 0    50   ~ 0
+LCD_B4
+Text Label 7425 4475 0    50   ~ 0
+LCD_B5
+Wire Wire Line
+	8200 4675 7425 4675
+Wire Wire Line
+	8200 4775 7950 4775
+Wire Wire Line
+	7950 4775 7950 4875
+Wire Wire Line
+	7950 4875 8200 4875
+Wire Wire Line
+	8200 4975 7425 4975
+Text Label 7425 4675 0    50   ~ 0
+LCD_DEN
+Text Label 7425 4975 0    50   ~ 0
+LCD_REV
+Wire Wire Line
+	8200 5075 8075 5075
+Connection ~ 8075 5075
+Wire Wire Line
+	8075 5075 8075 5275
+Wire Wire Line
+	8200 5275 8075 5275
+Connection ~ 8075 5275
+Wire Wire Line
+	8075 5275 8075 5525
+Wire Wire Line
+	8200 5175 7425 5175
+Text Label 7425 5175 0    50   ~ 0
+LCD_DISP
+Wire Wire Line
+	7950 4875 7800 4875
+Connection ~ 7950 4875
+$Comp
+L power:+3.3V #PWR06
+U 1 1 5FCB89E3
+P 7800 4875
+F 0 "#PWR06" H 7800 4725 50  0001 C CNN
+F 1 "+3.3V" H 7600 4950 50  0000 C CNN
+F 2 "" H 7800 4875 50  0001 C CNN
+F 3 "" H 7800 4875 50  0001 C CNN
+	1    7800 4875
+	1    0    0    -1  
+$EndComp
+Text Notes 8525 3725 0    50   ~ 0
+LCD Panel
+$Comp
+L power:GND #PWR01
+U 1 1 5FCBBC31
+P 5150 2950
+F 0 "#PWR01" H 5150 2700 50  0001 C CNN
+F 1 "GND" H 5155 2777 50  0000 C CNN
+F 2 "" H 5150 2950 50  0001 C CNN
+F 3 "" H 5150 2950 50  0001 C CNN
+	1    5150 2950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5150 2950 5150 2850
+Wire Wire Line
+	5150 2325 5300 2325
+Wire Wire Line
+	5800 2325 5925 2325
+Wire Wire Line
+	5925 2325 5925 2850
+Wire Wire Line
+	5925 2850 5150 2850
+Connection ~ 5150 2850
+Wire Wire Line
+	5150 2850 5150 2325
+$Comp
+L Connector_Generic:Conn_02x06_Odd_Even J1
+U 1 1 5FCBE6D2
+P 5500 2425
+F 0 "J1" H 5550 2842 50  0000 C CNN
+F 1 "Conn_02x06_Odd_Even" H 5550 2751 50  0000 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x06_P2.54mm_Vertical" H 5500 2425 50  0001 C CNN
+F 3 "~" H 5500 2425 50  0001 C CNN
+	1    5500 2425
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5300 2425 4700 2425
+Wire Wire Line
+	5300 2525 4700 2525
+Wire Wire Line
+	5300 2625 4700 2625
+Wire Wire Line
+	5300 2725 4700 2725
+Wire Wire Line
+	5800 2425 6350 2425
+Wire Wire Line
+	5800 2525 6350 2525
+Wire Wire Line
+	5800 2625 6350 2625
+Wire Wire Line
+	5800 2725 6350 2725
+Text Label 4700 2425 0    50   ~ 0
+LED_R0
+Text Label 6025 2425 0    50   ~ 0
+LCD_R1
+Text Label 4700 2525 0    50   ~ 0
+LCD_R2
+Text Label 6025 2525 0    50   ~ 0
+LCD_R3
+Text Label 4700 2625 0    50   ~ 0
+LCD_R4
+Text Label 6025 2625 0    50   ~ 0
+LCD_R5
+$Comp
+L power:GND #PWR02
+U 1 1 5FCC8658
+P 5150 4150
+F 0 "#PWR02" H 5150 3900 50  0001 C CNN
+F 1 "GND" H 5155 3977 50  0000 C CNN
+F 2 "" H 5150 4150 50  0001 C CNN
+F 3 "" H 5150 4150 50  0001 C CNN
+	1    5150 4150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5150 4150 5150 4050
+Wire Wire Line
+	5150 3525 5300 3525
+Wire Wire Line
+	5800 3525 5925 3525
+Wire Wire Line
+	5925 3525 5925 4050
+Wire Wire Line
+	5925 4050 5150 4050
+Connection ~ 5150 4050
+Wire Wire Line
+	5150 4050 5150 3525
+$Comp
+L Connector_Generic:Conn_02x06_Odd_Even J2
+U 1 1 5FCC8767
+P 5500 3625
+F 0 "J2" H 5550 4042 50  0000 C CNN
+F 1 "Conn_02x06_Odd_Even" H 5550 3951 50  0000 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x06_P2.54mm_Vertical" H 5500 3625 50  0001 C CNN
+F 3 "~" H 5500 3625 50  0001 C CNN
+	1    5500 3625
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5300 3625 4700 3625
+Wire Wire Line
+	5300 3725 4700 3725
+Wire Wire Line
+	5300 3825 4700 3825
+Wire Wire Line
+	5300 3925 4700 3925
+Wire Wire Line
+	5800 3625 6350 3625
+Wire Wire Line
+	5800 3725 6350 3725
+Wire Wire Line
+	5800 3825 6350 3825
+Wire Wire Line
+	5800 3925 6350 3925
+Text Label 4700 3625 0    50   ~ 0
+LED_G0
+Text Label 6025 3625 0    50   ~ 0
+LED_B1
+$Comp
+L power:GND #PWR03
+U 1 1 5FCCC5FD
+P 5150 5350
+F 0 "#PWR03" H 5150 5100 50  0001 C CNN
+F 1 "GND" H 5155 5177 50  0000 C CNN
+F 2 "" H 5150 5350 50  0001 C CNN
+F 3 "" H 5150 5350 50  0001 C CNN
+	1    5150 5350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5150 5350 5150 5250
+Wire Wire Line
+	5150 4725 5300 4725
+Wire Wire Line
+	5800 4725 5925 4725
+Wire Wire Line
+	5925 4725 5925 5250
+Wire Wire Line
+	5925 5250 5150 5250
+Connection ~ 5150 5250
+Wire Wire Line
+	5150 5250 5150 4725
+$Comp
+L Connector_Generic:Conn_02x06_Odd_Even J3
+U 1 1 5FCCC754
+P 5500 4825
+F 0 "J3" H 5550 5242 50  0000 C CNN
+F 1 "Conn_02x06_Odd_Even" H 5550 5151 50  0000 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x06_P2.54mm_Vertical" H 5500 4825 50  0001 C CNN
+F 3 "~" H 5500 4825 50  0001 C CNN
+	1    5500 4825
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5300 4825 4700 4825
+Wire Wire Line
+	5300 4925 4700 4925
+Wire Wire Line
+	5300 5025 4700 5025
+Wire Wire Line
+	5300 5125 4700 5125
+Wire Wire Line
+	5800 4825 6350 4825
+Wire Wire Line
+	5800 4925 6350 4925
+Wire Wire Line
+	5800 5025 6350 5025
+Wire Wire Line
+	5800 5125 6350 5125
+Text Label 4700 4825 0    50   ~ 0
+LED_B0
+Text Label 6025 4825 0    50   ~ 0
+LCD_B1
+Text Label 4700 4925 0    50   ~ 0
+LCD_B2
+Text Label 6025 4925 0    50   ~ 0
+LCD_B3
+Text Label 4700 5025 0    50   ~ 0
+LCD_B4
+Text Label 6025 5025 0    50   ~ 0
+LCD_B5
+Text Label 6025 3825 0    50   ~ 0
+LCD_G5
+Text Label 4700 3825 0    50   ~ 0
+LCD_G4
+Text Label 6025 3725 0    50   ~ 0
+LCD_G3
+Text Label 4700 3725 0    50   ~ 0
+LED_G2
+Text Label 4700 2725 0    50   ~ 0
+LCD_CLK
+Text Label 4700 3925 0    50   ~ 0
+LCD_HS
+Text Label 6025 3925 0    50   ~ 0
+LCD_VS
+Text Label 6025 2725 0    50   ~ 0
+LCD_DEN
+Text Label 4700 5125 0    50   ~ 0
+LCD_REV
+Text Label 6025 5125 0    50   ~ 0
+LCD_DISP
+$Comp
+L Connector_Generic:Conn_01x02 J4
+U 1 1 5FCD1BE5
+P 5500 6000
+F 0 "J4" H 5418 6217 50  0000 C CNN
+F 1 "Conn_01x02" H 5418 6126 50  0000 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 5500 6000 50  0001 C CNN
+F 3 "~" H 5500 6000 50  0001 C CNN
+	1    5500 6000
+	-1   0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR04
+U 1 1 5FCD231E
+P 5800 6150
+F 0 "#PWR04" H 5800 5900 50  0001 C CNN
+F 1 "GND" H 5805 5977 50  0000 C CNN
+F 2 "" H 5800 6150 50  0001 C CNN
+F 3 "" H 5800 6150 50  0001 C CNN
+	1    5800 6150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5700 6100 5800 6100
+Wire Wire Line
+	5800 6100 5800 6150
+$Comp
+L power:+3.3V #PWR05
+U 1 1 5FCD599B
+P 5950 5900
+F 0 "#PWR05" H 5950 5750 50  0001 C CNN
+F 1 "+3.3V" H 5950 6100 50  0000 C CNN
+F 2 "" H 5950 5900 50  0001 C CNN
+F 3 "" H 5950 5900 50  0001 C CNN
+	1    5950 5900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5950 5900 5950 6000
+Wire Wire Line
+	5950 6000 5700 6000
+Wire Wire Line
+	5300 2225 5000 2225
+Wire Wire Line
+	5000 2225 5000 2125
+Wire Wire Line
+	5800 2225 6150 2225
+Wire Wire Line
+	6150 2225 6150 2075
+$Comp
+L power:+3.3VA #PWR012
+U 1 1 5FCB9F62
+P 5000 2125
+F 0 "#PWR012" H 5000 1975 50  0001 C CNN
+F 1 "+3.3VA" H 5015 2298 50  0000 C CNN
+F 2 "" H 5000 2125 50  0001 C CNN
+F 3 "" H 5000 2125 50  0001 C CNN
+	1    5000 2125
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3VA #PWR015
+U 1 1 5FCBA42C
+P 6150 2075
+F 0 "#PWR015" H 6150 1925 50  0001 C CNN
+F 1 "+3.3VA" H 6165 2248 50  0000 C CNN
+F 2 "" H 6150 2075 50  0001 C CNN
+F 3 "" H 6150 2075 50  0001 C CNN
+	1    6150 2075
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5300 3425 4950 3425
+Wire Wire Line
+	4950 3425 4950 3325
+Wire Wire Line
+	5800 3425 6125 3425
+Wire Wire Line
+	6125 3425 6125 3300
+$Comp
+L power:+3.3VA #PWR014
+U 1 1 5FCC1BFE
+P 6125 3300
+F 0 "#PWR014" H 6125 3150 50  0001 C CNN
+F 1 "+3.3VA" H 6140 3473 50  0000 C CNN
+F 2 "" H 6125 3300 50  0001 C CNN
+F 3 "" H 6125 3300 50  0001 C CNN
+	1    6125 3300
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3VA #PWR010
+U 1 1 5FCC1EFE
+P 4950 3325
+F 0 "#PWR010" H 4950 3175 50  0001 C CNN
+F 1 "+3.3VA" H 4750 3450 50  0000 C CNN
+F 2 "" H 4950 3325 50  0001 C CNN
+F 3 "" H 4950 3325 50  0001 C CNN
+	1    4950 3325
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5300 4625 4975 4625
+Wire Wire Line
+	4975 4625 4975 4575
+Wire Wire Line
+	5800 4625 6100 4625
+Wire Wire Line
+	6100 4625 6100 4575
+$Comp
+L power:+3.3VA #PWR013
+U 1 1 5FCC9DB9
+P 6100 4575
+F 0 "#PWR013" H 6100 4425 50  0001 C CNN
+F 1 "+3.3VA" H 6115 4748 50  0000 C CNN
+F 2 "" H 6100 4575 50  0001 C CNN
+F 3 "" H 6100 4575 50  0001 C CNN
+	1    6100 4575
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3VA #PWR011
+U 1 1 5FCCA371
+P 4975 4575
+F 0 "#PWR011" H 4975 4425 50  0001 C CNN
+F 1 "+3.3VA" H 4990 4748 50  0000 C CNN
+F 2 "" H 4975 4575 50  0001 C CNN
+F 3 "" H 4975 4575 50  0001 C CNN
+	1    4975 4575
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x02 J6
+U 1 1 5FCCA6CF
+P 4025 6000
+F 0 "J6" H 3943 6217 50  0000 C CNN
+F 1 "Conn_01x02" H 3943 6126 50  0000 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 4025 6000 50  0001 C CNN
+F 3 "~" H 4025 6000 50  0001 C CNN
+	1    4025 6000
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	4225 6000 4500 6000
+Wire Wire Line
+	4500 6000 4500 5875
+Wire Wire Line
+	4225 6100 4725 6100
+Wire Wire Line
+	4725 6100 4725 5875
+$Comp
+L power:+3.3V #PWR09
+U 1 1 5FCD2FCE
+P 4725 5875
+F 0 "#PWR09" H 4725 5725 50  0001 C CNN
+F 1 "+3.3V" H 4725 6075 50  0000 C CNN
+F 2 "" H 4725 5875 50  0001 C CNN
+F 3 "" H 4725 5875 50  0001 C CNN
+	1    4725 5875
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3VA #PWR08
+U 1 1 5FCD33C4
+P 4500 5875
+F 0 "#PWR08" H 4500 5725 50  0001 C CNN
+F 1 "+3.3VA" H 4515 6048 50  0000 C CNN
+F 2 "" H 4500 5875 50  0001 C CNN
+F 3 "" H 4500 5875 50  0001 C CNN
+	1    4500 5875
+	1    0    0    -1  
+$EndComp
+Text Notes 3775 6500 0    50   ~ 0
+Jumper to power\nLCD from PMODs
+Text Notes 5350 6550 0    50   ~ 0
+External LCD power
+$EndSCHEMATC

@@ -1,0 +1,3 @@
+(fp_lib_table
+  (lib (name lcd_adapter)(type KiCad)(uri ${KIPRJMOD}/lcd_adapter.pretty)(options "")(descr ""))
+)
