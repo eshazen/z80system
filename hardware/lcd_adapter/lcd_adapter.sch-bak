@@ -1,4 +1,874 @@
-EESchema Schematic File Version 2
-EELAYER 25 0
+EESchema Schematic File Version 4
+EELAYER 30 0
 EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L Connector_Generic:Conn_01x33 J?
+U 1 1 5FCA4B81
+P 10475 3450
+F 0 "J?" H 10000 5400 50  0000 L CNN
+F 1 "Conn_01x33" H 9975 5300 50  0000 L CNN
+F 2 "" H 10475 3450 50  0001 C CNN
+F 3 "~" H 10475 3450 50  0001 C CNN
+F 4 "FH12-33S-0.5SH(55)" H 10375 5200 50  0000 C CNN "MfgNo"
+F 5 "798-FH12-33S-0.5SH55" H 10475 3450 50  0001 C CNN "CatNo"
+F 6 "Mouser" H 10475 3450 50  0001 C CNN "Supplier"
+	1    10475 3450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10275 1850 10150 1850
+Wire Wire Line
+	10150 1850 10150 2250
+Wire Wire Line
+	10150 2250 10275 2250
+Wire Wire Line
+	10150 2250 10150 2950
+Wire Wire Line
+	10150 2950 10275 2950
+Connection ~ 10150 2250
+Wire Wire Line
+	10150 2950 10150 3650
+Wire Wire Line
+	10150 3650 10275 3650
+Connection ~ 10150 2950
+Wire Wire Line
+	10150 3650 10150 4350
+Wire Wire Line
+	10150 4350 10275 4350
+Connection ~ 10150 3650
+Wire Wire Line
+	10150 4350 10150 4850
+Connection ~ 10150 4350
+$Comp
+L power:GND #PWR?
+U 1 1 5FCA4E98
+P 10150 5300
+F 0 "#PWR?" H 10150 5050 50  0001 C CNN
+F 1 "GND" H 10155 5127 50  0000 C CNN
+F 2 "" H 10150 5300 50  0001 C CNN
+F 3 "" H 10150 5300 50  0001 C CNN
+	1    10150 5300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10275 1950 9500 1950
+Text Label 9500 1950 0    50   ~ 0
+LCD_CLK
+Wire Wire Line
+	10275 2050 9500 2050
+Text Label 9500 2050 0    50   ~ 0
+LCD_HS
+Wire Wire Line
+	10275 2150 9500 2150
+Text Label 9500 2150 0    50   ~ 0
+LCD_VS
+Wire Wire Line
+	10275 2350 9500 2350
+Wire Wire Line
+	10275 2450 9500 2450
+Wire Wire Line
+	10275 2550 9500 2550
+Wire Wire Line
+	10275 2650 9500 2650
+Wire Wire Line
+	10275 2750 9500 2750
+Wire Wire Line
+	10275 2850 9500 2850
+Text Label 9500 2350 0    50   ~ 0
+LCD_R0
+Text Label 9500 2450 0    50   ~ 0
+LCD_R1
+Wire Wire Line
+	10275 3050 9500 3050
+Wire Wire Line
+	10275 3150 9500 3150
+Wire Wire Line
+	10275 3250 9500 3250
+Wire Wire Line
+	10275 3350 9500 3350
+Wire Wire Line
+	10275 3450 9500 3450
+Wire Wire Line
+	10275 3550 9500 3550
+Wire Wire Line
+	10275 3750 9500 3750
+Wire Wire Line
+	10275 3850 9500 3850
+Wire Wire Line
+	10275 3950 9500 3950
+Wire Wire Line
+	10275 4050 9500 4050
+Wire Wire Line
+	10275 4150 9500 4150
+Wire Wire Line
+	10275 4250 9500 4250
+Text Label 9500 2550 0    50   ~ 0
+LCD_R2
+Text Label 9500 2650 0    50   ~ 0
+LCD_R3
+Text Label 9500 2750 0    50   ~ 0
+LCD_R4
+Text Label 9500 2850 0    50   ~ 0
+LCD_R5
+Text Label 9500 3050 0    50   ~ 0
+LCD_G0
+Text Label 9500 3150 0    50   ~ 0
+LCD_G1
+Text Label 9500 3250 0    50   ~ 0
+LCD_G2
+Text Label 9500 3350 0    50   ~ 0
+LCD_G3
+Text Label 9500 3450 0    50   ~ 0
+LCD_G4
+Text Label 9500 3550 0    50   ~ 0
+LCD_G5
+Text Label 9500 3750 0    50   ~ 0
+LCD_B0
+Text Label 9500 3850 0    50   ~ 0
+LCD_B1
+Text Label 9500 3950 0    50   ~ 0
+LCD_B2
+Text Label 9500 4050 0    50   ~ 0
+LCD_B3
+Text Label 9500 4150 0    50   ~ 0
+LCD_B4
+Text Label 9500 4250 0    50   ~ 0
+LCD_B5
+Wire Wire Line
+	10275 4450 9500 4450
+Wire Wire Line
+	10275 4550 10025 4550
+Wire Wire Line
+	10025 4550 10025 4650
+Wire Wire Line
+	10025 4650 10275 4650
+Wire Wire Line
+	10275 4750 9500 4750
+Text Label 9500 4450 0    50   ~ 0
+LCD_DEN
+Text Label 9500 4750 0    50   ~ 0
+LCD_REV
+Wire Wire Line
+	10275 4850 10150 4850
+Connection ~ 10150 4850
+Wire Wire Line
+	10150 4850 10150 5050
+Wire Wire Line
+	10275 5050 10150 5050
+Connection ~ 10150 5050
+Wire Wire Line
+	10150 5050 10150 5300
+Wire Wire Line
+	10275 4950 9500 4950
+Text Label 9500 4950 0    50   ~ 0
+LCD_DISP
+Wire Wire Line
+	10025 4650 9875 4650
+Connection ~ 10025 4650
+$Comp
+L power:+3.3V #PWR?
+U 1 1 5FCAF977
+P 9875 4650
+F 0 "#PWR?" H 9875 4500 50  0001 C CNN
+F 1 "+3.3V" H 9675 4725 50  0000 C CNN
+F 2 "" H 9875 4650 50  0001 C CNN
+F 3 "" H 9875 4650 50  0001 C CNN
+	1    9875 4650
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:DB15_Female J?
+U 1 1 5FCB0467
+P 8625 3625
+F 0 "J?" H 8450 4625 50  0000 L CNN
+F 1 "DB15_Female" H 8425 4525 50  0000 L CNN
+F 2 "" H 8625 3625 50  0001 C CNN
+F 3 " ~" H 8625 3625 50  0001 C CNN
+	1    8625 3625
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_US R?
+U 1 1 5FCB5487
+P 7175 2150
+F 0 "R?" V 7125 2275 50  0000 C CNN
+F 1 "R_US" V 7125 1950 50  0000 C CNN
+F 2 "" V 7215 2140 50  0001 C CNN
+F 3 "~" H 7175 2150 50  0001 C CNN
+	1    7175 2150
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_US R?
+U 1 1 5FCB5E72
+P 7175 2300
+F 0 "R?" V 7125 2425 50  0000 C CNN
+F 1 "R_US" V 7125 2100 50  0000 C CNN
+F 2 "" V 7215 2290 50  0001 C CNN
+F 3 "~" H 7175 2300 50  0001 C CNN
+	1    7175 2300
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_US R?
+U 1 1 5FCB6817
+P 7175 2450
+F 0 "R?" V 7125 2575 50  0000 C CNN
+F 1 "R_US" V 7125 2250 50  0000 C CNN
+F 2 "" V 7215 2440 50  0001 C CNN
+F 3 "~" H 7175 2450 50  0001 C CNN
+	1    7175 2450
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_US R?
+U 1 1 5FCB6BF9
+P 7175 2600
+F 0 "R?" V 7125 2725 50  0000 C CNN
+F 1 "R_US" V 7125 2400 50  0000 C CNN
+F 2 "" V 7215 2590 50  0001 C CNN
+F 3 "~" H 7175 2600 50  0001 C CNN
+	1    7175 2600
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	7325 2150 7425 2150
+Wire Wire Line
+	7425 2150 7425 2300
+Wire Wire Line
+	7425 2300 7325 2300
+Wire Wire Line
+	7425 2300 7425 2450
+Wire Wire Line
+	7425 2450 7325 2450
+Connection ~ 7425 2300
+Wire Wire Line
+	7425 2450 7425 2600
+Wire Wire Line
+	7425 2600 7325 2600
+Connection ~ 7425 2450
+$Comp
+L Device:R_US R?
+U 1 1 5FCBF8DD
+P 7175 2800
+F 0 "R?" V 7125 2925 50  0000 C CNN
+F 1 "R_US" V 7125 2600 50  0000 C CNN
+F 2 "" V 7215 2790 50  0001 C CNN
+F 3 "~" H 7175 2800 50  0001 C CNN
+	1    7175 2800
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_US R?
+U 1 1 5FCBFA6F
+P 7175 2950
+F 0 "R?" V 7125 3075 50  0000 C CNN
+F 1 "R_US" V 7125 2750 50  0000 C CNN
+F 2 "" V 7215 2940 50  0001 C CNN
+F 3 "~" H 7175 2950 50  0001 C CNN
+	1    7175 2950
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_US R?
+U 1 1 5FCBFA79
+P 7175 3100
+F 0 "R?" V 7125 3225 50  0000 C CNN
+F 1 "R_US" V 7125 2900 50  0000 C CNN
+F 2 "" V 7215 3090 50  0001 C CNN
+F 3 "~" H 7175 3100 50  0001 C CNN
+	1    7175 3100
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_US R?
+U 1 1 5FCBFA83
+P 7175 3250
+F 0 "R?" V 7125 3375 50  0000 C CNN
+F 1 "R_US" V 7125 3050 50  0000 C CNN
+F 2 "" V 7215 3240 50  0001 C CNN
+F 3 "~" H 7175 3250 50  0001 C CNN
+	1    7175 3250
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	7325 2800 7425 2800
+Wire Wire Line
+	7425 2800 7425 2950
+Wire Wire Line
+	7425 2950 7325 2950
+Wire Wire Line
+	7425 2950 7425 3100
+Wire Wire Line
+	7425 3100 7325 3100
+Connection ~ 7425 2950
+Wire Wire Line
+	7425 3100 7425 3250
+Wire Wire Line
+	7425 3250 7325 3250
+Connection ~ 7425 3100
+$Comp
+L Device:R_US R?
+U 1 1 5FCC31CE
+P 7175 3425
+F 0 "R?" V 7125 3550 50  0000 C CNN
+F 1 "R_US" V 7125 3225 50  0000 C CNN
+F 2 "" V 7215 3415 50  0001 C CNN
+F 3 "~" H 7175 3425 50  0001 C CNN
+	1    7175 3425
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_US R?
+U 1 1 5FCC33C0
+P 7175 3575
+F 0 "R?" V 7125 3700 50  0000 C CNN
+F 1 "R_US" V 7125 3375 50  0000 C CNN
+F 2 "" V 7215 3565 50  0001 C CNN
+F 3 "~" H 7175 3575 50  0001 C CNN
+	1    7175 3575
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_US R?
+U 1 1 5FCC33CA
+P 7175 3725
+F 0 "R?" V 7125 3850 50  0000 C CNN
+F 1 "R_US" V 7125 3525 50  0000 C CNN
+F 2 "" V 7215 3715 50  0001 C CNN
+F 3 "~" H 7175 3725 50  0001 C CNN
+	1    7175 3725
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_US R?
+U 1 1 5FCC33D4
+P 7175 3875
+F 0 "R?" V 7125 4000 50  0000 C CNN
+F 1 "R_US" V 7125 3675 50  0000 C CNN
+F 2 "" V 7215 3865 50  0001 C CNN
+F 3 "~" H 7175 3875 50  0001 C CNN
+	1    7175 3875
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	7325 3425 7425 3425
+Wire Wire Line
+	7425 3425 7425 3575
+Wire Wire Line
+	7425 3575 7325 3575
+Wire Wire Line
+	7425 3575 7425 3725
+Wire Wire Line
+	7425 3725 7325 3725
+Connection ~ 7425 3575
+Wire Wire Line
+	7425 3725 7425 3875
+Wire Wire Line
+	7425 3875 7325 3875
+Connection ~ 7425 3725
+Wire Wire Line
+	7025 3875 6450 3875
+Wire Wire Line
+	8325 2925 8325 2600
+Wire Wire Line
+	8325 2600 7425 2600
+Connection ~ 7425 2600
+Wire Wire Line
+	8325 3125 7525 3125
+Wire Wire Line
+	7525 3125 7525 3250
+Wire Wire Line
+	7525 3250 7425 3250
+Connection ~ 7425 3250
+Wire Wire Line
+	8325 3325 7600 3325
+Wire Wire Line
+	7600 3325 7600 3425
+Wire Wire Line
+	7600 3425 7425 3425
+Connection ~ 7425 3425
+$Comp
+L Device:R_US R?
+U 1 1 5FCD08EB
+P 7175 4150
+F 0 "R?" V 7125 4275 50  0000 C CNN
+F 1 "R_US" V 7125 3950 50  0000 C CNN
+F 2 "" V 7215 4140 50  0001 C CNN
+F 3 "~" H 7175 4150 50  0001 C CNN
+	1    7175 4150
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_US R?
+U 1 1 5FCD0D60
+P 7175 4350
+F 0 "R?" V 7125 4475 50  0000 C CNN
+F 1 "R_US" V 7125 4150 50  0000 C CNN
+F 2 "" V 7215 4340 50  0001 C CNN
+F 3 "~" H 7175 4350 50  0001 C CNN
+	1    7175 4350
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	7325 4150 7675 4150
+Wire Wire Line
+	7675 4150 7675 3825
+Wire Wire Line
+	7675 3825 8325 3825
+Wire Wire Line
+	7325 4350 7825 4350
+Wire Wire Line
+	7825 4350 7825 4025
+Wire Wire Line
+	7825 4025 8325 4025
+Wire Wire Line
+	7025 4150 6450 4150
+Wire Wire Line
+	7025 4350 6450 4350
+Wire Wire Line
+	8325 3725 8150 3725
+Wire Wire Line
+	8150 3725 8150 3925
+Wire Wire Line
+	8150 3925 8325 3925
+Wire Wire Line
+	8150 3925 8150 4125
+Wire Wire Line
+	8150 4125 8325 4125
+Connection ~ 8150 3925
+Wire Wire Line
+	8150 4125 8150 4325
+Wire Wire Line
+	8150 4325 8325 4325
+Connection ~ 8150 4125
+$Comp
+L power:GND #PWR?
+U 1 1 5FCE8453
+P 8150 4325
+F 0 "#PWR?" H 8150 4075 50  0001 C CNN
+F 1 "GND" H 8155 4152 50  0000 C CNN
+F 2 "" H 8150 4325 50  0001 C CNN
+F 3 "" H 8150 4325 50  0001 C CNN
+	1    8150 4325
+	1    0    0    -1  
+$EndComp
+Connection ~ 8150 4325
+Wire Wire Line
+	8325 3225 8150 3225
+Wire Wire Line
+	8150 3225 8150 3725
+Connection ~ 8150 3725
+Text Label 6450 2150 0    50   ~ 0
+VGA_R0
+Text Label 6450 2300 0    50   ~ 0
+VGA_R1
+Text Label 6450 2450 0    50   ~ 0
+VGA_R2
+Text Label 6450 2600 0    50   ~ 0
+VGA_R3
+Text Label 6450 2800 0    50   ~ 0
+VGA_G0
+Text Label 6450 2950 0    50   ~ 0
+VGA_G1
+Text Label 6450 3100 0    50   ~ 0
+VGA_G2
+Text Label 6450 3250 0    50   ~ 0
+VGA_G3
+Text Label 6450 3425 0    50   ~ 0
+VGA_B0
+Text Label 6450 3575 0    50   ~ 0
+VGA_B1
+Text Label 6450 3725 0    50   ~ 0
+VGA_B2
+Text Label 6450 3875 0    50   ~ 0
+VGA_B3
+Text Label 6450 4150 0    50   ~ 0
+VGA_HS
+Text Label 6450 4350 0    50   ~ 0
+VGA_VS
+$Comp
+L Connector_Generic:Conn_02x24_Counter_Clockwise J?
+U 1 1 5FCFE959
+P 3000 3275
+F 0 "J?" H 3050 4592 50  0000 C CNN
+F 1 "CMOD-A7" H 3050 4501 50  0000 C CNN
+F 2 "" H 3000 3275 50  0001 C CNN
+F 3 "~" H 3000 3275 50  0001 C CNN
+	1    3000 3275
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3300 4475 3500 4475
+Wire Wire Line
+	3500 4475 3500 4625
+$Comp
+L power:GND #PWR?
+U 1 1 5FD04DE5
+P 3500 4625
+F 0 "#PWR?" H 3500 4375 50  0001 C CNN
+F 1 "GND" H 3505 4452 50  0000 C CNN
+F 2 "" H 3500 4625 50  0001 C CNN
+F 3 "" H 3500 4625 50  0001 C CNN
+	1    3500 4625
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x02_Male J?
+U 1 1 5FD05A8B
+P 3075 1425
+F 0 "J?" V 3137 1469 50  0000 L CNN
+F 1 "Conn_01x02_Male" V 3228 1469 50  0000 L CNN
+F 2 "" H 3075 1425 50  0001 C CNN
+F 3 "~" H 3075 1425 50  0001 C CNN
+	1    3075 1425
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	2975 1625 2975 1750
+Wire Wire Line
+	2975 1750 3025 1750
+Wire Wire Line
+	3075 1750 3075 1625
+$Comp
+L power:GND #PWR?
+U 1 1 5FD0A306
+P 3025 1750
+F 0 "#PWR?" H 3025 1500 50  0001 C CNN
+F 1 "GND" H 3175 1725 50  0000 C CNN
+F 2 "" H 3025 1750 50  0001 C CNN
+F 3 "" H 3025 1750 50  0001 C CNN
+	1    3025 1750
+	1    0    0    -1  
+$EndComp
+Connection ~ 3025 1750
+Wire Wire Line
+	3025 1750 3075 1750
+Text Notes 2850 1325 0    50   ~ 0
+PMOD GND\n(to improve signal integrity)
+Wire Wire Line
+	7025 3725 6450 3725
+Wire Wire Line
+	7025 3575 6450 3575
+Wire Wire Line
+	7025 3425 6450 3425
+Wire Wire Line
+	7025 3250 6450 3250
+Wire Wire Line
+	7025 3100 6450 3100
+Wire Wire Line
+	7025 2950 6450 2950
+Wire Wire Line
+	7025 2800 6450 2800
+Wire Wire Line
+	7025 2600 6450 2600
+Wire Wire Line
+	7025 2450 6450 2450
+Wire Wire Line
+	7025 2300 6450 2300
+Wire Wire Line
+	7025 2150 6450 2150
+Wire Wire Line
+	4075 2175 3300 2175
+Text Label 3675 2175 0    50   ~ 0
+LCD_CLK
+Wire Wire Line
+	4075 2275 3300 2275
+Text Label 3675 2275 0    50   ~ 0
+LCD_HS
+Wire Wire Line
+	4075 2375 3300 2375
+Text Label 3675 2375 0    50   ~ 0
+LCD_VS
+Wire Wire Line
+	4075 2475 3300 2475
+Wire Wire Line
+	4075 2575 3300 2575
+Wire Wire Line
+	4075 2675 3300 2675
+Wire Wire Line
+	4075 2775 3300 2775
+Wire Wire Line
+	4075 2875 3300 2875
+Wire Wire Line
+	4075 2975 3300 2975
+Text Label 3675 2475 0    50   ~ 0
+LCD_R0
+Text Label 3675 2575 0    50   ~ 0
+LCD_R1
+Wire Wire Line
+	4075 3075 3300 3075
+Wire Wire Line
+	4075 3175 3300 3175
+Wire Wire Line
+	4075 3275 3300 3275
+Wire Wire Line
+	4075 3375 3300 3375
+Wire Wire Line
+	4075 3475 3300 3475
+Wire Wire Line
+	4075 3575 3300 3575
+Wire Wire Line
+	4075 3675 3300 3675
+Wire Wire Line
+	4075 3775 3300 3775
+Wire Wire Line
+	4075 3875 3300 3875
+Wire Wire Line
+	4075 3975 3300 3975
+Wire Wire Line
+	4075 4075 3300 4075
+Wire Wire Line
+	4075 4175 3300 4175
+Text Label 3675 2675 0    50   ~ 0
+LCD_R2
+Text Label 3675 2775 0    50   ~ 0
+LCD_R3
+Text Label 3675 2875 0    50   ~ 0
+LCD_R4
+Text Label 3675 2975 0    50   ~ 0
+LCD_R5
+Text Label 3675 3075 0    50   ~ 0
+LCD_G0
+Text Label 3675 3175 0    50   ~ 0
+LCD_G1
+Text Label 3675 3275 0    50   ~ 0
+LCD_G2
+Text Label 3675 3375 0    50   ~ 0
+LCD_G3
+Text Label 3675 3475 0    50   ~ 0
+LCD_G4
+Text Label 3675 3575 0    50   ~ 0
+LCD_G5
+Text Label 3675 3675 0    50   ~ 0
+LCD_B0
+Text Label 3675 3775 0    50   ~ 0
+LCD_B1
+Text Label 3675 3875 0    50   ~ 0
+LCD_B2
+Text Label 3675 3975 0    50   ~ 0
+LCD_B3
+Text Label 3675 4075 0    50   ~ 0
+LCD_B4
+Text Label 3675 4175 0    50   ~ 0
+LCD_B5
+Wire Wire Line
+	4075 4275 3300 4275
+Text Label 3675 4275 0    50   ~ 0
+LCD_DEN
+Text Label 3675 5625 0    50   ~ 0
+LCD_REV
+Wire Wire Line
+	4075 4375 3300 4375
+Text Label 3675 4375 0    50   ~ 0
+LCD_DISP
+$Comp
+L power:+3.3V #PWR?
+U 1 1 5FE1ED01
+P 3100 5225
+F 0 "#PWR?" H 3100 5075 50  0001 C CNN
+F 1 "+3.3V" H 3100 5400 50  0000 C CNN
+F 2 "" H 3100 5225 50  0001 C CNN
+F 3 "" H 3100 5225 50  0001 C CNN
+	1    3100 5225
+	1    0    0    -1  
+$EndComp
+$Comp
+L Jumper:Jumper_3_Open JP?
+U 1 1 5FE20151
+P 2850 5400
+F 0 "JP?" H 2850 5624 50  0000 C CNN
+F 1 "JPR3" H 2850 5533 50  0000 C CNN
+F 2 "" H 2850 5400 50  0001 C CNN
+F 3 "~" H 2850 5400 50  0001 C CNN
+	1    2850 5400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2850 5550 2850 5625
+Wire Wire Line
+	3100 5225 3100 5400
+$Comp
+L power:GND #PWR?
+U 1 1 5FE305A7
+P 2600 5625
+F 0 "#PWR?" H 2600 5375 50  0001 C CNN
+F 1 "GND" H 2605 5452 50  0000 C CNN
+F 2 "" H 2600 5625 50  0001 C CNN
+F 3 "" H 2600 5625 50  0001 C CNN
+	1    2600 5625
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2600 5625 2600 5400
+Wire Wire Line
+	2850 5625 4075 5625
+$Comp
+L Connector_Generic:Conn_02x14_Odd_Even J?
+U 1 1 5FE405EB
+P 5275 2750
+F 0 "J?" H 5325 3567 50  0000 C CNN
+F 1 "Conn_02x14_Odd_Even" H 5325 3476 50  0000 C CNN
+F 2 "" H 5275 2750 50  0001 C CNN
+F 3 "~" H 5275 2750 50  0001 C CNN
+	1    5275 2750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5575 2150 5950 2150
+Wire Wire Line
+	5575 2250 5950 2250
+Wire Wire Line
+	5575 2350 5950 2350
+Wire Wire Line
+	5575 2450 5950 2450
+Wire Wire Line
+	5575 2550 5950 2550
+Wire Wire Line
+	5575 2650 5950 2650
+Wire Wire Line
+	5575 2750 5950 2750
+Wire Wire Line
+	5575 2850 5950 2850
+Wire Wire Line
+	5575 2950 5950 2950
+Wire Wire Line
+	5575 3050 5950 3050
+Wire Wire Line
+	5575 3150 5950 3150
+Wire Wire Line
+	5575 3250 5950 3250
+Wire Wire Line
+	5575 3350 5950 3350
+Wire Wire Line
+	5575 3450 5950 3450
+Text Label 5675 2150 0    50   ~ 0
+VGA_R0
+Text Label 5675 2250 0    50   ~ 0
+VGA_R1
+Text Label 5675 2450 0    50   ~ 0
+VGA_R3
+Text Label 5675 2350 0    50   ~ 0
+VGA_R2
+Text Label 5675 2550 0    50   ~ 0
+VGA_G0
+Text Label 5675 2650 0    50   ~ 0
+VGA_G1
+Text Label 5675 2750 0    50   ~ 0
+VGA_G2
+Text Label 5675 2850 0    50   ~ 0
+VGA_G3
+Text Label 5675 2950 0    50   ~ 0
+VGA_B0
+Text Label 5675 3050 0    50   ~ 0
+VGA_B1
+Text Label 5675 3150 0    50   ~ 0
+VGA_B2
+Text Label 5675 3250 0    50   ~ 0
+VGA_B3
+Text Label 5675 3350 0    50   ~ 0
+VGA_HS
+Text Label 5700 3450 0    50   ~ 0
+VGA_VS
+Wire Wire Line
+	5075 2150 4725 2150
+Wire Wire Line
+	5075 2250 4725 2250
+Wire Wire Line
+	5075 2350 4725 2350
+Wire Wire Line
+	5075 2450 4725 2450
+Wire Wire Line
+	5075 2550 4725 2550
+Wire Wire Line
+	5075 2650 4725 2650
+Wire Wire Line
+	5075 2750 4725 2750
+Wire Wire Line
+	5075 2850 4725 2850
+Wire Wire Line
+	5075 2950 4725 2950
+Wire Wire Line
+	5075 3050 4725 3050
+Wire Wire Line
+	5075 3150 4725 3150
+Wire Wire Line
+	5075 3250 4725 3250
+Wire Wire Line
+	5075 3350 4725 3350
+Wire Wire Line
+	5075 3450 4725 3450
+Text Label 4725 2150 0    50   ~ 0
+LCD_R0
+Text Label 4725 2250 0    50   ~ 0
+LCD_R1
+Text Label 4725 2350 0    50   ~ 0
+LCD_R2
+Text Label 4725 2450 0    50   ~ 0
+LCD_R3
+Text Label 4725 2550 0    50   ~ 0
+LCD_G0
+Text Label 4725 2650 0    50   ~ 0
+LCD_G1
+Text Label 4725 2750 0    50   ~ 0
+LCD_G2
+Text Label 4725 2850 0    50   ~ 0
+LCD_G3
+Text Label 4725 2950 0    50   ~ 0
+LCD_B0
+Text Label 4725 3050 0    50   ~ 0
+LCD_B1
+Text Label 4725 3150 0    50   ~ 0
+LCD_B2
+Text Label 4725 3250 0    50   ~ 0
+LCD_B3
+Text Label 4725 3350 0    50   ~ 0
+LCD_HS
+Text Label 4725 3450 0    50   ~ 0
+LCD_VS
+Text Notes 4975 1800 0    50   ~ 0
+Jumper all for VGA
+Text Notes 10725 3150 0    50   ~ 0
+LCD Panel
+Text Notes 8825 3625 0    50   ~ 0
+VGA
+$Comp
+L power:+3.3V #PWR?
+U 1 1 5FF325D2
+P 2450 4725
+F 0 "#PWR?" H 2450 4575 50  0001 C CNN
+F 1 "+3.3V" H 2450 4900 50  0000 C CNN
+F 2 "" H 2450 4725 50  0001 C CNN
+F 3 "" H 2450 4725 50  0001 C CNN
+	1    2450 4725
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2450 4725 2800 4725
+Wire Wire Line
+	2800 4725 2800 4475
+Text Notes 7075 6850 0    175  ~ 0
+UPCO Graphics Systems
+Text Notes 7525 7525 0    100  ~ 0
+CMOD S7 LCD/VGA Adapter
+Text Notes 10750 7650 0    100  ~ 0
+A
+Wire Wire Line
+	2800 3575 2500 3575
+Wire Wire Line
+	2800 3675 2500 3675
+NoConn ~ 2500 3575
+NoConn ~ 2500 3675
 $EndSCHEMATC
