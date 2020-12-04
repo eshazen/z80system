@@ -1,0 +1,4 @@
+(sym_lib_table
+  (lib (name video_symbols)(type Legacy)(uri ${KIPRJMOD}/video_symbols.lib)(options "")(descr ""))
+  (lib (name 28c256)(type Legacy)(uri ${KIPRJMOD}/28c256.lib)(options "")(descr ""))
+)
