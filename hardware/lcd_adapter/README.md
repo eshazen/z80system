@@ -1,0 +1,22 @@
+# LCD/VGA adapter for Digilent CMOD A7
+
+This is a small board to host a Digilent CMOD A7:
+
+https://reference.digilentinc.com/reference/programmable-logic/cmod-a7
+
+This is a 48-pin DIP form-factor FPGA board.  It contains a Xilinx
+Artix FPGA (either XC7A15T or XC7A35T), plus a 512KB SRAM with 8ns
+access time (perfect for video ram!).
+
+Features of this board (proposed):
+
+- 48 pin DIP site for CMOD A7
+- Power brick input
+- 33-pin connector FFC connector: Hirose FH12-33S-0.5SH(55) (100mm jumper
+  cable Wurth 687633100002)
+   - All timing/video signals routed to CMOD A7
+- VGA connector with resistor-ladder DAC (copied from Digilent Basys 3
+  schematic)
+- Some sort of Z80 CPU interface depending on how many pins are free
+
+
