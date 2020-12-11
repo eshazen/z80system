@@ -16,14 +16,14 @@ $EndDescr
 $Comp
 L 74xx:74LS157 U?
 U 1 1 5F3C002B
-P 5225 2125
+P 5175 1775
 AR Path="/5F3C002B" Ref="U?"  Part="1" 
 AR Path="/5F3BFE79/5F3C002B" Ref="U5"  Part="1" 
-F 0 "U5" H 5350 3025 50  0000 C CNN
-F 1 "74LS157" H 5450 2925 50  0000 C CNN
-F 2 "Package_DIP:DIP-16_W7.62mm_Socket_LongPads" H 5225 2125 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS157" H 5225 2125 50  0001 C CNN
-	1    5225 2125
+F 0 "U5" H 5300 2675 50  0000 C CNN
+F 1 "74LS157" H 5400 2575 50  0000 C CNN
+F 2 "Package_DIP:DIP-16_W7.62mm_Socket_LongPads" H 5175 1775 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS157" H 5175 1775 50  0001 C CNN
+	1    5175 1775
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -87,223 +87,223 @@ RA13
 Text Label 6500 3350 0    50   ~ 0
 RA14
 Wire Wire Line
-	5725 1525 6025 1525
+	5675 1175 5975 1175
 Wire Wire Line
-	5725 1825 6025 1825
+	5675 1475 5975 1475
 Wire Wire Line
-	5725 2125 6025 2125
+	5675 1775 5975 1775
 Wire Wire Line
-	5725 2425 6025 2425
-Text Label 5775 1525 0    50   ~ 0
+	5675 2075 5975 2075
+Text Label 5725 1175 0    50   ~ 0
 RA0
-Text Label 5775 1825 0    50   ~ 0
+Text Label 5725 1475 0    50   ~ 0
 RA1
-Text Label 5775 2125 0    50   ~ 0
+Text Label 5725 1775 0    50   ~ 0
 RA2
-Text Label 5775 2425 0    50   ~ 0
+Text Label 5725 2075 0    50   ~ 0
 RA3
 Wire Wire Line
-	4450 1525 4725 1525
+	4400 1175 4675 1175
 Wire Wire Line
-	4450 1625 4725 1625
+	4400 1275 4675 1275
 Wire Wire Line
-	4450 1825 4725 1825
+	4400 1475 4675 1475
 Wire Wire Line
-	4450 1925 4725 1925
+	4400 1575 4675 1575
 Wire Wire Line
-	4450 2125 4725 2125
+	4400 1775 4675 1775
 Wire Wire Line
-	4450 2225 4725 2225
+	4400 1875 4675 1875
 Wire Wire Line
-	4450 2425 4725 2425
+	4400 2075 4675 2075
 Wire Wire Line
-	4450 2525 4725 2525
-Text Label 4500 1525 0    50   ~ 0
+	4400 2175 4675 2175
+Text Label 4450 1175 0    50   ~ 0
 MA0
-Text Label 4500 1625 0    50   ~ 0
+Text Label 4450 1275 0    50   ~ 0
 A0
-Text Label 4500 1825 0    50   ~ 0
+Text Label 4450 1475 0    50   ~ 0
 MA1
-Text Label 4500 1925 0    50   ~ 0
+Text Label 4450 1575 0    50   ~ 0
 A1
-Text Label 4500 2125 0    50   ~ 0
+Text Label 4450 1775 0    50   ~ 0
 MA2
-Text Label 4500 2225 0    50   ~ 0
+Text Label 4450 1875 0    50   ~ 0
 A2
-Text Label 4500 2425 0    50   ~ 0
+Text Label 4450 2075 0    50   ~ 0
 MA3
-Text Label 4500 2525 0    50   ~ 0
+Text Label 4450 2175 0    50   ~ 0
 A3
 $Comp
 L 74xx:74LS157 U?
 U 1 1 5F3C49F8
-P 5225 4750
+P 5175 4100
 AR Path="/5F3C49F8" Ref="U?"  Part="1" 
 AR Path="/5F3BFE79/5F3C49F8" Ref="U6"  Part="1" 
-F 0 "U6" H 5325 5650 50  0000 C CNN
-F 1 "74LS157" H 5450 5550 50  0000 C CNN
-F 2 "Package_DIP:DIP-16_W7.62mm_Socket_LongPads" H 5225 4750 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS157" H 5225 4750 50  0001 C CNN
-	1    5225 4750
+F 0 "U6" H 5275 5000 50  0000 C CNN
+F 1 "74LS157" H 5400 4900 50  0000 C CNN
+F 2 "Package_DIP:DIP-16_W7.62mm_Socket_LongPads" H 5175 4100 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS157" H 5175 4100 50  0001 C CNN
+	1    5175 4100
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	5725 4150 6025 4150
+	5675 3500 5975 3500
 Wire Wire Line
-	5725 4450 6025 4450
+	5675 3800 5975 3800
 Wire Wire Line
-	5725 4750 6025 4750
+	5675 4100 5975 4100
 Wire Wire Line
-	5725 5050 6025 5050
-Text Label 5775 4150 0    50   ~ 0
+	5675 4400 5975 4400
+Text Label 5725 3500 0    50   ~ 0
 RA4
-Text Label 5775 4450 0    50   ~ 0
+Text Label 5725 3800 0    50   ~ 0
 RA5
-Text Label 5775 4750 0    50   ~ 0
+Text Label 5725 4100 0    50   ~ 0
 RA6
-Text Label 5775 5050 0    50   ~ 0
+Text Label 5725 4400 0    50   ~ 0
 RA7
 Wire Wire Line
-	4450 4150 4725 4150
+	4400 3500 4675 3500
 Wire Wire Line
-	4450 4250 4725 4250
+	4400 3600 4675 3600
 Wire Wire Line
-	4450 4450 4725 4450
+	4400 3800 4675 3800
 Wire Wire Line
-	4450 4550 4725 4550
+	4400 3900 4675 3900
 Wire Wire Line
-	4450 4750 4725 4750
+	4400 4100 4675 4100
 Wire Wire Line
-	4450 4850 4725 4850
+	4400 4200 4675 4200
 Wire Wire Line
-	4450 5050 4725 5050
+	4400 4400 4675 4400
 Wire Wire Line
-	4450 5150 4725 5150
-Text Label 4500 4150 0    50   ~ 0
+	4400 4500 4675 4500
+Text Label 4450 3500 0    50   ~ 0
 MA4
-Text Label 4500 4250 0    50   ~ 0
+Text Label 4450 3600 0    50   ~ 0
 A4
-Text Label 4500 4450 0    50   ~ 0
+Text Label 4450 3800 0    50   ~ 0
 MA5
-Text Label 4500 4550 0    50   ~ 0
+Text Label 4450 3900 0    50   ~ 0
 A5
-Text Label 4500 4750 0    50   ~ 0
+Text Label 4450 4100 0    50   ~ 0
 MA6
-Text Label 4500 4850 0    50   ~ 0
+Text Label 4450 4200 0    50   ~ 0
 A6
-Text Label 4500 5050 0    50   ~ 0
+Text Label 4450 4400 0    50   ~ 0
 MA7
-Text Label 4500 5150 0    50   ~ 0
+Text Label 4450 4500 0    50   ~ 0
 A7
 $Comp
 L 74xx:74LS157 U?
 U 1 1 5F3C5917
-P 3350 2125
+P 3300 1775
 AR Path="/5F3C5917" Ref="U?"  Part="1" 
 AR Path="/5F3BFE79/5F3C5917" Ref="U3"  Part="1" 
-F 0 "U3" H 3475 3025 50  0000 C CNN
-F 1 "74LS157" H 3575 2925 50  0000 C CNN
-F 2 "Package_DIP:DIP-16_W7.62mm_Socket_LongPads" H 3350 2125 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS157" H 3350 2125 50  0001 C CNN
-	1    3350 2125
+F 0 "U3" H 3425 2675 50  0000 C CNN
+F 1 "74LS157" H 3525 2575 50  0000 C CNN
+F 2 "Package_DIP:DIP-16_W7.62mm_Socket_LongPads" H 3300 1775 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS157" H 3300 1775 50  0001 C CNN
+	1    3300 1775
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	3850 1525 4150 1525
+	3800 1175 4100 1175
 Wire Wire Line
-	3850 1825 4150 1825
+	3800 1475 4100 1475
 Wire Wire Line
-	3850 2125 4150 2125
+	3800 1775 4100 1775
 Wire Wire Line
-	3850 2425 4150 2425
-Text Label 3900 1525 0    50   ~ 0
+	3800 2075 4100 2075
+Text Label 3850 1175 0    50   ~ 0
 RA8
-Text Label 3900 1825 0    50   ~ 0
+Text Label 3850 1475 0    50   ~ 0
 RA9
-Text Label 3900 2125 0    50   ~ 0
+Text Label 3850 1775 0    50   ~ 0
 RA10
-Text Label 3900 2425 0    50   ~ 0
+Text Label 3850 2075 0    50   ~ 0
 RA11
 Wire Wire Line
-	2575 1525 2850 1525
+	2525 1175 2800 1175
 Wire Wire Line
-	2575 1625 2850 1625
+	2525 1275 2800 1275
 Wire Wire Line
-	2575 1825 2850 1825
+	2525 1475 2800 1475
 Wire Wire Line
-	2575 1925 2850 1925
+	2525 1575 2800 1575
 Wire Wire Line
-	2575 2125 2850 2125
+	2525 1775 2800 1775
 Wire Wire Line
-	2575 2225 2850 2225
+	2525 1875 2800 1875
 Wire Wire Line
-	2575 2425 2850 2425
+	2525 2075 2800 2075
 Wire Wire Line
-	2575 2525 2850 2525
-Text Label 2625 1525 0    50   ~ 0
+	2525 2175 2800 2175
+Text Label 2575 1175 0    50   ~ 0
 MA8
-Text Label 2625 1625 0    50   ~ 0
+Text Label 2575 1275 0    50   ~ 0
 A8
-Text Label 2625 1825 0    50   ~ 0
+Text Label 2575 1475 0    50   ~ 0
 MA9
-Text Label 2625 1925 0    50   ~ 0
+Text Label 2575 1575 0    50   ~ 0
 A9
-Text Label 2625 2125 0    50   ~ 0
+Text Label 2575 1775 0    50   ~ 0
 MA10
-Text Label 2625 2225 0    50   ~ 0
+Text Label 2575 1875 0    50   ~ 0
 A10
-Text Label 2625 2425 0    50   ~ 0
+Text Label 2575 2075 0    50   ~ 0
 MA11
-Text Label 2625 2525 0    50   ~ 0
+Text Label 2575 2175 0    50   ~ 0
 A11
 $Comp
 L 74xx:74LS157 U?
 U 1 1 5F3C5935
-P 3350 4750
+P 3300 4100
 AR Path="/5F3C5935" Ref="U?"  Part="1" 
 AR Path="/5F3BFE79/5F3C5935" Ref="U4"  Part="1" 
-F 0 "U4" H 3475 5650 50  0000 C CNN
-F 1 "74LS157" H 3575 5550 50  0000 C CNN
-F 2 "Package_DIP:DIP-16_W7.62mm_Socket_LongPads" H 3350 4750 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS157" H 3350 4750 50  0001 C CNN
-	1    3350 4750
+F 0 "U4" H 3425 5000 50  0000 C CNN
+F 1 "74LS157" H 3525 4900 50  0000 C CNN
+F 2 "Package_DIP:DIP-16_W7.62mm_Socket_LongPads" H 3300 4100 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS157" H 3300 4100 50  0001 C CNN
+	1    3300 4100
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	3850 4150 4150 4150
+	3800 3500 4100 3500
 Wire Wire Line
-	3850 4450 4150 4450
+	3800 3800 4100 3800
 Wire Wire Line
-	3850 4750 4150 4750
-Text Label 3900 4150 0    50   ~ 0
+	3800 4100 4100 4100
+Text Label 3850 3500 0    50   ~ 0
 RA12
-Text Label 3900 4450 0    50   ~ 0
+Text Label 3850 3800 0    50   ~ 0
 RA13
-Text Label 3900 4750 0    50   ~ 0
+Text Label 3850 4100 0    50   ~ 0
 RA14
 Wire Wire Line
-	2575 4150 2850 4150
+	2525 3500 2800 3500
 Wire Wire Line
-	2575 4250 2850 4250
+	2525 3600 2800 3600
 Wire Wire Line
-	2575 4450 2850 4450
+	2525 3800 2800 3800
 Wire Wire Line
-	2575 4550 2850 4550
+	2525 3900 2800 3900
 Wire Wire Line
-	2575 4750 2850 4750
+	2525 4100 2800 4100
 Wire Wire Line
-	2575 4850 2850 4850
-Text Label 2625 4150 0    50   ~ 0
+	2525 4200 2800 4200
+Text Label 2575 3500 0    50   ~ 0
 MA12
-Text Label 2625 4250 0    50   ~ 0
+Text Label 2575 3600 0    50   ~ 0
 A12
-Text Label 2625 4450 0    50   ~ 0
+Text Label 2575 3800 0    50   ~ 0
 MA13
-Text Label 2625 4550 0    50   ~ 0
+Text Label 2575 3900 0    50   ~ 0
 A13
-Text Label 2625 4750 0    50   ~ 0
+Text Label 2575 4100 0    50   ~ 0
 MA14
-Text Label 2625 4850 0    50   ~ 0
+Text Label 2575 4200 0    50   ~ 0
 A14
 $Comp
 L 74xx:74LS374 U9
@@ -317,9 +317,9 @@ F 3 "http://www.ti.com/lit/gpn/sn74LS374" H 9400 4550 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Text HLabel 1350 1525 0    50   Input ~ 0
-MA[15..0]
+MA[18..0]
 Text HLabel 1350 1750 0    50   Input ~ 0
-A[15..0]
+A[18..0]
 Wire Wire Line
 	7850 1950 8275 1950
 Wire Wire Line
@@ -435,9 +435,9 @@ Wire Bus Line
 Wire Bus Line
 	1350 1750 1850 1750
 Text Label 1800 1525 2    50   ~ 0
-MA[15..0]
+MA[18..0]
 Text Label 1800 1750 2    50   ~ 0
-A[15..0]
+A[18..0]
 Text HLabel 10800 4050 2    50   Output ~ 0
 LD[7..0]
 Wire Bus Line
@@ -479,111 +479,111 @@ LD7
 $Comp
 L power:GND #PWR0101
 U 1 1 5F43C851
-P 3350 3125
-F 0 "#PWR0101" H 3350 2875 50  0001 C CNN
-F 1 "GND" H 3355 2952 50  0000 C CNN
-F 2 "" H 3350 3125 50  0001 C CNN
-F 3 "" H 3350 3125 50  0001 C CNN
-	1    3350 3125
+P 3300 2775
+F 0 "#PWR0101" H 3300 2525 50  0001 C CNN
+F 1 "GND" H 3450 2800 50  0000 C CNN
+F 2 "" H 3300 2775 50  0001 C CNN
+F 3 "" H 3300 2775 50  0001 C CNN
+	1    3300 2775
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:+5V #PWR0102
 U 1 1 5F441583
-P 3350 1225
-F 0 "#PWR0102" H 3350 1075 50  0001 C CNN
-F 1 "+5V" H 3365 1398 50  0000 C CNN
-F 2 "" H 3350 1225 50  0001 C CNN
-F 3 "" H 3350 1225 50  0001 C CNN
-	1    3350 1225
+P 3300 875
+F 0 "#PWR0102" H 3300 725 50  0001 C CNN
+F 1 "+5V" H 3315 1048 50  0000 C CNN
+F 2 "" H 3300 875 50  0001 C CNN
+F 3 "" H 3300 875 50  0001 C CNN
+	1    3300 875 
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:+5V #PWR0103
 U 1 1 5F441609
-P 5225 1225
-F 0 "#PWR0103" H 5225 1075 50  0001 C CNN
-F 1 "+5V" H 5240 1398 50  0000 C CNN
-F 2 "" H 5225 1225 50  0001 C CNN
-F 3 "" H 5225 1225 50  0001 C CNN
-	1    5225 1225
+P 5175 875
+F 0 "#PWR0103" H 5175 725 50  0001 C CNN
+F 1 "+5V" H 5190 1048 50  0000 C CNN
+F 2 "" H 5175 875 50  0001 C CNN
+F 3 "" H 5175 875 50  0001 C CNN
+	1    5175 875 
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:+5V #PWR0104
 U 1 1 5F4416DA
-P 3350 3850
-F 0 "#PWR0104" H 3350 3700 50  0001 C CNN
-F 1 "+5V" H 3365 4023 50  0000 C CNN
-F 2 "" H 3350 3850 50  0001 C CNN
-F 3 "" H 3350 3850 50  0001 C CNN
-	1    3350 3850
+P 3300 3200
+F 0 "#PWR0104" H 3300 3050 50  0001 C CNN
+F 1 "+5V" H 3150 3250 50  0000 C CNN
+F 2 "" H 3300 3200 50  0001 C CNN
+F 3 "" H 3300 3200 50  0001 C CNN
+	1    3300 3200
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:+5V #PWR0105
 U 1 1 5F4416F3
-P 5225 3850
-F 0 "#PWR0105" H 5225 3700 50  0001 C CNN
-F 1 "+5V" H 5240 4023 50  0000 C CNN
-F 2 "" H 5225 3850 50  0001 C CNN
-F 3 "" H 5225 3850 50  0001 C CNN
-	1    5225 3850
+P 5175 3200
+F 0 "#PWR0105" H 5175 3050 50  0001 C CNN
+F 1 "+5V" H 5000 3250 50  0000 C CNN
+F 2 "" H 5175 3200 50  0001 C CNN
+F 3 "" H 5175 3200 50  0001 C CNN
+	1    5175 3200
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR0106
 U 1 1 5F44174C
-P 5225 3125
-F 0 "#PWR0106" H 5225 2875 50  0001 C CNN
-F 1 "GND" H 5230 2952 50  0000 C CNN
-F 2 "" H 5225 3125 50  0001 C CNN
-F 3 "" H 5225 3125 50  0001 C CNN
-	1    5225 3125
+P 5175 2775
+F 0 "#PWR0106" H 5175 2525 50  0001 C CNN
+F 1 "GND" H 5300 2800 50  0000 C CNN
+F 2 "" H 5175 2775 50  0001 C CNN
+F 3 "" H 5175 2775 50  0001 C CNN
+	1    5175 2775
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	5225 3125 4725 3125
+	5175 2775 4675 2775
 Wire Wire Line
-	4725 3125 4725 2825
-Connection ~ 5225 3125
+	4675 2775 4675 2475
+Connection ~ 5175 2775
 Wire Wire Line
-	3350 3125 2850 3125
+	3300 2775 2800 2775
 Wire Wire Line
-	2850 3125 2850 2825
-Connection ~ 3350 3125
+	2800 2775 2800 2475
+Connection ~ 3300 2775
 $Comp
 L power:GND #PWR0107
 U 1 1 5F44B7A6
-P 3350 5750
-F 0 "#PWR0107" H 3350 5500 50  0001 C CNN
-F 1 "GND" H 3355 5577 50  0000 C CNN
-F 2 "" H 3350 5750 50  0001 C CNN
-F 3 "" H 3350 5750 50  0001 C CNN
-	1    3350 5750
+P 3300 5100
+F 0 "#PWR0107" H 3300 4850 50  0001 C CNN
+F 1 "GND" H 3305 4927 50  0000 C CNN
+F 2 "" H 3300 5100 50  0001 C CNN
+F 3 "" H 3300 5100 50  0001 C CNN
+	1    3300 5100
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR0108
 U 1 1 5F44B7BF
-P 5225 5750
-F 0 "#PWR0108" H 5225 5500 50  0001 C CNN
-F 1 "GND" H 5230 5577 50  0000 C CNN
-F 2 "" H 5225 5750 50  0001 C CNN
-F 3 "" H 5225 5750 50  0001 C CNN
-	1    5225 5750
+P 5175 5100
+F 0 "#PWR0108" H 5175 4850 50  0001 C CNN
+F 1 "GND" H 5180 4927 50  0000 C CNN
+F 2 "" H 5175 5100 50  0001 C CNN
+F 3 "" H 5175 5100 50  0001 C CNN
+	1    5175 5100
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	5225 5750 4725 5750
+	5175 5100 4675 5100
 Wire Wire Line
-	4725 5750 4725 5450
-Connection ~ 5225 5750
+	4675 5100 4675 4800
+Connection ~ 5175 5100
 Wire Wire Line
-	3350 5750 2850 5750
+	3300 5100 2800 5100
 Wire Wire Line
-	2850 5750 2850 5450
-Connection ~ 3350 5750
+	2800 5100 2800 4800
+Connection ~ 3300 5100
 $Comp
 L power:+5V #PWR030
 U 1 1 5F3CCAE2
@@ -651,20 +651,20 @@ F 3 "" H 9400 5450 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	4725 2725 4450 2725
-Text Label 4450 2725 0    50   ~ 0
+	4675 2375 4400 2375
+Text Label 4400 2375 0    50   ~ 0
 MMUX
 Wire Wire Line
-	2850 2725 2575 2725
-Text Label 2575 2725 0    50   ~ 0
+	2800 2375 2525 2375
+Text Label 2525 2375 0    50   ~ 0
 MMUX
 Wire Wire Line
-	4725 5350 4450 5350
-Text Label 4450 5350 0    50   ~ 0
+	4675 4700 4400 4700
+Text Label 4400 4700 0    50   ~ 0
 MMUX
 Wire Wire Line
-	2850 5350 2575 5350
-Text Label 2575 5350 0    50   ~ 0
+	2800 4700 2525 4700
+Text Label 2525 4700 0    50   ~ 0
 MMUX
 Text HLabel 1350 1975 0    50   Input ~ 0
 MMUX
@@ -789,21 +789,122 @@ RA17
 Text Label 6500 3750 0    50   ~ 0
 RA18
 Wire Wire Line
-	3850 5050 4150 5050
+	3800 4400 4100 4400
 Wire Wire Line
-	2850 5050 2575 5050
+	2800 4400 2525 4400
 Wire Wire Line
-	2850 5150 2575 5150
-Text Label 3925 5050 0    50   ~ 0
+	2800 4500 2525 4500
+Text Label 3875 4400 0    50   ~ 0
 RA15
-Text Label 2625 5050 0    50   ~ 0
+Text Label 2575 4400 0    50   ~ 0
 MA15
-Text Label 2625 5150 0    50   ~ 0
+Text Label 2575 4500 0    50   ~ 0
 A15
-Text HLabel 1350 1325 0    50   Input ~ 0
-RA[18..16]
-Wire Bus Line
-	1350 1325 1850 1325
-Text Label 1800 1325 2    50   ~ 0
-RA[18..16]
+$Comp
+L 74xx:74LS157 U?
+U 1 1 5FD6FCD7
+P 3300 6400
+AR Path="/5FD6FCD7" Ref="U?"  Part="1" 
+AR Path="/5F3BFE79/5FD6FCD7" Ref="U?"  Part="1" 
+F 0 "U?" H 3425 7300 50  0000 C CNN
+F 1 "74LS157" H 3525 7200 50  0000 C CNN
+F 2 "Package_DIP:DIP-16_W7.62mm_Socket_LongPads" H 3300 6400 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS157" H 3300 6400 50  0001 C CNN
+	1    3300 6400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3800 5800 4100 5800
+Wire Wire Line
+	3800 6100 4100 6100
+Wire Wire Line
+	3800 6400 4100 6400
+Text Label 3850 5800 0    50   ~ 0
+RA16
+Text Label 3850 6100 0    50   ~ 0
+RA17
+Text Label 3850 6400 0    50   ~ 0
+RA18
+Wire Wire Line
+	2525 5800 2800 5800
+Wire Wire Line
+	2525 5900 2800 5900
+Wire Wire Line
+	2525 6100 2800 6100
+Wire Wire Line
+	2525 6200 2800 6200
+Wire Wire Line
+	2525 6400 2800 6400
+Wire Wire Line
+	2525 6500 2800 6500
+Text Label 2575 5800 0    50   ~ 0
+MA16
+Text Label 2575 5900 0    50   ~ 0
+A16
+Text Label 2575 6100 0    50   ~ 0
+MA17
+Text Label 2575 6200 0    50   ~ 0
+A17
+Text Label 2575 6400 0    50   ~ 0
+MA18
+Text Label 2575 6500 0    50   ~ 0
+A18
+$Comp
+L power:+5V #PWR?
+U 1 1 5FD6FF5D
+P 3300 5500
+F 0 "#PWR?" H 3300 5350 50  0001 C CNN
+F 1 "+5V" H 3150 5550 50  0000 C CNN
+F 2 "" H 3300 5500 50  0001 C CNN
+F 3 "" H 3300 5500 50  0001 C CNN
+	1    3300 5500
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5FD6FF67
+P 3300 7400
+F 0 "#PWR?" H 3300 7150 50  0001 C CNN
+F 1 "GND" H 3305 7227 50  0000 C CNN
+F 2 "" H 3300 7400 50  0001 C CNN
+F 3 "" H 3300 7400 50  0001 C CNN
+	1    3300 7400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3300 7400 2800 7400
+Wire Wire Line
+	2800 7400 2800 7100
+Connection ~ 3300 7400
+Wire Wire Line
+	2800 7000 2525 7000
+Text Label 2525 7000 0    50   ~ 0
+MMUX
+NoConn ~ 3800 6700
+Wire Wire Line
+	2800 6800 2600 6800
+Wire Wire Line
+	2600 6800 2600 6700
+Wire Wire Line
+	2600 6700 2800 6700
+$Comp
+L power:GND #PWR?
+U 1 1 5FDA8AE7
+P 2500 6700
+F 0 "#PWR?" H 2500 6450 50  0001 C CNN
+F 1 "GND" H 2350 6650 50  0000 C CNN
+F 2 "" H 2500 6700 50  0001 C CNN
+F 3 "" H 2500 6700 50  0001 C CNN
+	1    2500 6700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2500 6700 2600 6700
+Connection ~ 2600 6700
+Text Notes 7050 6750 0    100  ~ 0
+UPCO Graphic Systems
+Text Notes 7050 6950 0    100  ~ 0
+Video RAM
+Text Notes 6550 1100 0    75   ~ 0
+512K x 8 multiplexed video RAM\n  MMUX = H for CPU access, L for CRTC\n  nWE, nOE, DIR, nBE for CPU access\n  CCLK latches RAM coutput for display
 $EndSCHEMATC
