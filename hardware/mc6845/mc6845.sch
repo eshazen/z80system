@@ -18,8 +18,8 @@ S 6075 1100 1000 1575
 U 5F3BFE79
 F0 "memory" 50
 F1 "memory.sch" 50
-F2 "MA[13..0]" I L 6075 1300 50 
-F3 "A[13..0]" I L 6075 1450 50 
+F2 "MA[15..0]" I L 6075 1300 50 
+F3 "A[15..0]" I L 6075 1450 50 
 F4 "D[7..0]" B R 7075 1300 50 
 F5 "LD[7..0]" O R 7075 1450 50 
 F6 "MMUX" I L 6075 1600 50 
@@ -28,6 +28,7 @@ F8 "nWE" I L 6075 1975 50
 F9 "DIR" I L 6075 2100 50 
 F10 "nBE" I L 6075 2225 50 
 F11 "CCLK" I L 6075 2350 50 
+F12 "MA[15..0]" I L 6075 2500 50 
 $EndSheet
 Wire Bus Line
 	6075 1300 5650 1300
@@ -36,7 +37,7 @@ Wire Bus Line
 Wire Bus Line
 	7075 1300 7450 1300
 Text Label 5975 1300 2    50   ~ 0
-MA[13..0]
+MA[15..0]
 Wire Bus Line
 	7075 1450 7450 1450
 $Comp
@@ -87,7 +88,7 @@ LD[7..0]
 Text Label 7175 1300 0    50   ~ 0
 D[7..0]
 Text Label 5675 1450 0    50   ~ 0
-A[13..0]
+A[15..0]
 Wire Wire Line
 	8000 2100 7650 2100
 Wire Wire Line
@@ -652,14 +653,6 @@ Wire Wire Line
 	4775 2575 5200 2575
 Wire Wire Line
 	4775 2475 5200 2475
-Text Label 5100 2275 2    50   ~ 0
-MA13
-Wire Wire Line
-	4775 2275 5200 2275
-Text Label 5100 2175 2    50   ~ 0
-MA12
-Wire Wire Line
-	4775 2175 5200 2175
 Text Label 5100 2075 2    50   ~ 0
 MA11
 Wire Wire Line
@@ -1395,4 +1388,10 @@ Wire Wire Line
 	10125 1200 10450 1200
 Wire Wire Line
 	8100 3875 8100 4325
+Wire Bus Line
+	6075 2500 5650 2500
+Text Label 5650 2500 0    50   ~ 0
+PAGE[2..0]
+Text Notes 5425 2975 0    75   ~ 0
+MA[15..12] to mux (RA, latch)
 $EndSCHEMATC

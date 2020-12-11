@@ -317,9 +317,9 @@ F 3 "http://www.ti.com/lit/gpn/sn74LS374" H 9400 4550 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Text HLabel 1350 1525 0    50   Input ~ 0
-MA[13..0]
+MA[15..0]
 Text HLabel 1350 1750 0    50   Input ~ 0
-A[13..0]
+A[15..0]
 Wire Wire Line
 	7850 1950 8275 1950
 Wire Wire Line
@@ -435,9 +435,9 @@ Wire Bus Line
 Wire Bus Line
 	1350 1750 1850 1750
 Text Label 1800 1525 2    50   ~ 0
-MA[13..0]
+MA[15..0]
 Text Label 1800 1750 2    50   ~ 0
-A[13..0]
+A[15..0]
 Text HLabel 10800 4050 2    50   Output ~ 0
 LD[7..0]
 Wire Bus Line
@@ -761,8 +761,8 @@ $Comp
 L Memory_RAM:AS6C4008-55PCN U?
 U 1 1 5FD424F6
 P 7350 2850
-F 0 "U?" H 7350 4131 50  0000 C CNN
-F 1 "AS6C4008-55PCN" H 7350 4040 50  0000 C CNN
+F 0 "U?" H 7475 4050 50  0000 C CNN
+F 1 "AS6C4008-55PCN" H 7775 3950 50  0000 C CNN
 F 2 "Package_DIP:DIP-32_W15.24mm" H 7350 2950 50  0001 C CNN
 F 3 "https://www.alliancememory.com/wp-content/uploads/pdf/AS6C4008.pdf" H 7350 2950 50  0001 C CNN
 	1    7350 2850
@@ -800,4 +800,10 @@ Text Label 2625 5050 0    50   ~ 0
 MA15
 Text Label 2625 5150 0    50   ~ 0
 A15
+Text HLabel 1350 1325 0    50   Input ~ 0
+RA[18..16]
+Wire Bus Line
+	1350 1325 1850 1325
+Text Label 1800 1325 2    50   ~ 0
+RA[18..16]
 $EndSCHEMATC
