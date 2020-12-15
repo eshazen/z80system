@@ -19,4 +19,4 @@ This will be derived from my https://github.com/eshazen/retro-25 project.  Tenta
 ## Video
 Targeting at least 24x80 or greater VGA text with 640x480 pixel resolution.  Eventually would like an in-period solution, maybe an MC6845.  First version will use a Basys-3 FPGA board with this opencores VHDL code:  https://opencores.org/projects/interface_vga80x40.  I bought a 5.7 in 640x480 LCD:  <a href="https://www.ebay.com/itm/5-7-LCD-Touchscreen-Display-640x480-OSD644803-6UFLWB-VGG644803-6UFLWB/112554850427?ssPageName=STRK%3AMEBIDX%3AIT&_trksid=p2057872.m2749.l2649">eBay</a>.  It has an annoying 0.5mm pitch flexi connector so I made a breakout board:
 
-<img src=https://github.com/eshazen/z80system/blob/master/pictures/screen_board.jpg width=300>
+<img src=https://github.com/eshazen/z80system/blob/master/pictures/screen_boardH.jpg width=300>
