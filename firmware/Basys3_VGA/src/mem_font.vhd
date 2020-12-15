@@ -4,8 +4,9 @@
 
 library ieee;
 use ieee.std_logic_1164.all;
+use ieee.std_logic_unsigned.all;
 
-entity mem_text is
+entity mem_font is
 
   port (
     -- one port, read-only
@@ -13,13 +14,14 @@ entity mem_text is
     dout : out std_logic_vector(07 downto 0)
     );
 
-end entity mem_text;
+end entity mem_font;
 
 
-architecture arch of mem_text is
+architecture arch of mem_font is
 
   type ram_type is array (0 to 3071) of std_logic_vector(7 downto 0);
-  -- font supplied with the signal RAM : ram_type := ( X"7E", X"C3",
+  -- font supplied with the core
+  signal RAM : ram_type := ( X"7E", X"C3",
   X"99", X"99", X"F3", X"E7", X"E7", X"FF", X"E7", X"E7", X"7E",
   X"00", X"00", X"00", X"00", X"76", X"DC", X"00", X"76", X"DC",
   X"00", X"00", X"00", X"00", X"6E", X"D8", X"D8", X"D8", X"D8",
