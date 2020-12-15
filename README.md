@@ -17,8 +17,6 @@ This will be derived from my https://github.com/eshazen/retro-25 project.  Tenta
 * MAX232 or equiv; DB-25 for RS-232
 
 ## Video
-Looking at various options.  For starters I think I'm going to cheat and use an FPGA, probably the Digilent CMOD A7: https://reference.digilentinc.com/reference/programmable-logic/cmod-a7
+Targeting at least 24x80 or greater VGA text with 640x480 pixel resolution.  Eventually would like an in-period solution, maybe an MC6845.  First version will use a Basys-3 FPGA board with this opencores VHDL code:  https://opencores.org/projects/interface_vga80x40.  I bought a 5.7 in 640x480 LCD:  <a href="https://www.ebay.com/itm/5-7-LCD-Touchscreen-Display-640x480-OSD644803-6UFLWB-VGG644803-6UFLWB/112554850427?ssPageName=STRK%3AMEBIDX%3AIT&_trksid=p2057872.m2749.l2649">eBay</a>.  It has an annoying 0.5mm pitch flexi connector so I made a breakout board:
 
-This can driver either a VGA monitor or in principle a bare RGB LCD.
-
-Other appealing options are an MC6845 CRTC or bare TTL logic.
+<img src=https://github.com/eshazen/z80system/blob/master/pictures/screen_board.jpg width=300>
