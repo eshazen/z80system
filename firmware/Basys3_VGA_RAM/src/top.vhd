@@ -1,8 +1,8 @@
 --
 -- VGA 80x40 text on 640x480 raster
 -- 
--- switches 0-7 set ascii char displayed at all locations
--- switches 8-10 set color
+-- character RAM added
+-- not wired up yet, thinking of switch/button interface
 
 library IEEE;
 use IEEE.std_logic_1164.all;
@@ -24,6 +24,17 @@ entity top is
 end entity top;
 
 architecture arch of top is
+
+  component mem_text is
+    port (
+      clk   : in  std_logic;
+      addra : in  std_logic_vector(11 downto 0);
+      douta : out std_logic_vector(07 downto 0);
+      dinb  : in  std_logic_vector(07 downto 0);
+      addrb : in  std_logic_vector(11 downto 0);
+      web   : in  std_logic;
+      doutb : out std_logic_vector(07 downto 0));
+  end component mem_text;
 
   component clk_vga is
     port (
@@ -62,14 +73,19 @@ architecture arch of top is
   signal s_vsync, s_hsync : std_logic;
 
   signal R, G, B        : std_logic;
+
   signal TEXT_A, FONT_A : std_logic_vector(11 downto 0);
   signal TEXT_D, FONT_D : std_logic_vector(7 downto 0);
+
+  signal TEXT_WR_A : std_logic_vector(11 downto 0);
+  signal TEXT_WR_D : std_logic_vector(7 downto 0);
+  signal TEXT_RD_D : std_logic_vector(7 downto 0);
+  signal TEXT_WR_WE : std_logic;
 
   signal locked : std_logic;
 
   signal color : std_logic_vector(2 downto 0);
 
-  signal frames : std_logic_vector(7 downto 0);
   signal vs0    : std_logic;
 
   signal control : std_logic_vector(7 downto 0);
@@ -78,13 +94,9 @@ begin  -- architecture arch
 
   reset <= '0';                         -- we don't need no steenkin reset!
 
-  led <= frames;
-
   color <= sw(10 downto 8);
 
   control <= "10000" & color;
-
-  TEXT_D <= sw(7 downto 0);
 
   -- all full intensity
   vgaRed(0) <= R;
@@ -125,6 +137,17 @@ begin  -- architecture arch
       hsync    => s_hsync,
       vsync    => s_vsync);
 
+  -- video RAM
+  mem_text_1: entity work.mem_text
+    port map (
+      clk   => clk,
+      addra => TEXT_A,
+      douta => TEXT_D,
+      dinb  => TEXT_WR_D,
+      addrb => TEXT_WR_A,
+      web   => TEXT_WR_WE,
+      doutb => TEXT_RD_D);
+
   -- character generator
   mem_font_1 : entity work.mem_font
     port map (
@@ -134,13 +157,8 @@ begin  -- architecture arch
   process (clk) is
   begin  -- process
     if clk'event and clk = '1' then     -- rising clock edge
-      vs0 <= s_vsync;
-      if(vs0 = '0' and s_vsync = '1') then
-        frames <= frames + 1;
-        if( frames = X"3b") then
-          frames <= (others => '0');
-        end if;
-      end if;
+
+
     end if;
   end process;
 
