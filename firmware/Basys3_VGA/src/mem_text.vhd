@@ -4,6 +4,7 @@
 
 library ieee;
 use ieee.std_logic_1164.all;
+use ieee.std_logic_unsigned.all;
 
 
 entity mem_text is
@@ -34,7 +35,7 @@ begin  -- architecture arch
   process(clk, web, addrb)
   begin
     if(rising_edge(clk)) then
-      if(we = '1') then
+      if(web = '1') then
         RAM(conv_integer(addrb)) <= dinb;
       end if;
     end if;
