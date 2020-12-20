@@ -44,7 +44,8 @@ entity vga80x40 is
     G        : out std_logic;
     B        : out std_logic;
     hsync    : out std_logic;
-    vsync    : out std_logic
+    vsync    : out std_logic;
+    disp     : out std_logic
     );
 end vga80x40;
 
@@ -150,6 +151,8 @@ begin
 -- Proboscide99 31/08/08
 --  blank <= '0' when (hctr > 639) or (vctr > 479) else '1';
   blank <= '0' when (hctr < 8) or (hctr > 647) or (vctr > 479) else '1';
+
+  disp <= not blank;
 
 -------------------------------------------------------------------------------
 -------------------------------------------------------------------------------  
