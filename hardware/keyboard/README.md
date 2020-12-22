@@ -1,6 +1,8 @@
-Thinking of a "60%" inspired minimalist keyboard without any post-1980 keys.
+Thinking of a "60%" inspired minimalist keyboard without any post-1980 keys, with
+Ctrl in the correct location and no caps lock, alt, windoze keys etc.  Might consider
+to fill in the empty spaces around the space bar with some extra keys.
 
-
+<img src="https://github.com/eshazen/z80system/blob/master/docs/kb_example.png" width=600>
 
 Here is a nice python tool which more-or-less handles transition from
 the online keyboard-layout-editor.com to KiCAD.  There are a few bugs,
@@ -8,11 +10,9 @@ but overall it does a reasonable job:
 
 * https://github.com/jeroen94704/klepcbgen
 
-Depating how to readout the keyboard.  For a "period" implementation,
-could scan directly with the Z80.  This would be OK but would require
-a timer interrupt or something to behave well.
-
-The CDP1871A looks like a possible option, though the ASCII code is
-quite archaic and a few things like "~" and "`" are missing entirely!
-A LUT or a bit of code could fix this easily though.
+For decoding, I like the classic 
+<a href="https://github.com/eshazen/z80system/blob/master/docs/CDP1871A.pdf">Intersil CDP1871A</a>.  
+The ASCII code is a bit funny
+but that could be fixed with a LUT.  Also, it needs a clock in the sub-MHz range and
+has parallel output.  
 
