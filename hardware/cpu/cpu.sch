@@ -1,6 +1,5 @@
 EESchema Schematic File Version 4
-LIBS:cpu-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr B 17000 11000
 encoding utf-8
@@ -56,17 +55,6 @@ F 1 "AS6C4008" H 7975 10150 50  0000 C CNN
 F 2 "Package_DIP:DIP-32_W15.24mm_LongPads" H 7025 10000 50  0001 C CNN
 F 3 "http://www.issi.com/WW/pdf/61-64C5128AL.pdf" H 7525 8850 50  0001 C CNN
 	1    7525 8850
-	1    0    0    -1  
-$EndComp
-$Comp
-L Oscillator:ACO-xxxMHz X1
-U 1 1 5DB9DE8A
-P 1725 2775
-F 0 "X1" H 1925 3175 50  0000 R CNN
-F 1 "8.0000MHz" H 2250 3075 50  0000 R CNN
-F 2 "Package_DIP:DIP-14_W7.62mm_Socket_LongPads" H 2175 2425 50  0001 C CNN
-F 3 "http://www.conwin.com/datasheets/cx/cx030.pdf" H 1625 2775 50  0001 C CNN
-	1    1725 2775
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -1260,34 +1248,34 @@ Wire Wire Line
 $Comp
 L 74xx:74HC14 U6
 U 7 1 5E8B614B
-P 4825 1975
-F 0 "U6" H 5055 2021 50  0000 L CNN
-F 1 "74HC14" H 5055 1930 50  0000 L CNN
-F 2 "Package_DIP:DIP-14_W7.62mm_LongPads" H 4825 1975 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74HC14" H 4825 1975 50  0001 C CNN
-	7    4825 1975
+P 3175 1300
+F 0 "U6" H 3405 1346 50  0000 L CNN
+F 1 "74HC14" H 3405 1255 50  0000 L CNN
+F 2 "Package_DIP:DIP-14_W7.62mm_LongPads" H 3175 1300 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74HC14" H 3175 1300 50  0001 C CNN
+	7    3175 1300
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:+5V #PWR018
 U 1 1 5E8C7B4F
-P 4825 1475
-F 0 "#PWR018" H 4825 1325 50  0001 C CNN
-F 1 "+5V" H 4840 1648 50  0000 C CNN
-F 2 "" H 4825 1475 50  0001 C CNN
-F 3 "" H 4825 1475 50  0001 C CNN
-	1    4825 1475
+P 3175 800
+F 0 "#PWR018" H 3175 650 50  0001 C CNN
+F 1 "+5V" H 3190 973 50  0000 C CNN
+F 2 "" H 3175 800 50  0001 C CNN
+F 3 "" H 3175 800 50  0001 C CNN
+	1    3175 800 
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR019
 U 1 1 5E8C7B80
-P 4825 2475
-F 0 "#PWR019" H 4825 2225 50  0001 C CNN
-F 1 "GND" H 4830 2302 50  0000 C CNN
-F 2 "" H 4825 2475 50  0001 C CNN
-F 3 "" H 4825 2475 50  0001 C CNN
-	1    4825 2475
+P 3175 1800
+F 0 "#PWR019" H 3175 1550 50  0001 C CNN
+F 1 "GND" H 3180 1627 50  0000 C CNN
+F 2 "" H 3175 1800 50  0001 C CNN
+F 3 "" H 3175 1800 50  0001 C CNN
+	1    3175 1800
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -1391,7 +1379,7 @@ Text Label 7750 1950 0    50   ~ 0
 nRST
 Text Notes 2000 2050 0    100  ~ 0
 CLOCK
-Text Notes 5225 1075 0    100  ~ 0
+Text Notes 5825 1050 0    100  ~ 0
 RESET
 Text Notes 9800 5500 0    100  ~ 0
 PIO
@@ -1505,7 +1493,7 @@ F 3 "http://www.ti.com/lit/gpn/sn74LS32" H 15650 4900 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L 74xx:74LS157 U10
+L cpu-rescue:74LS157-74xx U10
 U 1 1 5E51C658
 P 9800 1925
 F 0 "U10" H 9950 2825 50  0000 C CNN
@@ -1861,8 +1849,8 @@ BAUD_A
 Text Label 13275 6550 0    50   ~ 0
 BAUD_A
 Wire Wire Line
-	13150 7550 13550 7550
-Text Label 13300 7550 0    50   ~ 0
+	13150 7550 14100 7550
+Text Label 13975 7300 0    50   ~ 0
 BAUD_B
 Wire Wire Line
 	15650 7400 16000 7400
@@ -2925,4 +2913,179 @@ F 3 "" H 4750 9175 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	4400 9175 4750 9175
+$Comp
+L Oscillator:CXO_DIP8 X1
+U 1 1 5FE69621
+P 1725 2775
+F 0 "X1" H 1850 3175 50  0000 L CNN
+F 1 "7.3728MHz" H 1825 3075 50  0000 L CNN
+F 2 "Oscillator:Oscillator_DIP-8" H 2175 2425 50  0001 C CNN
+F 3 "http://cdn-reichelt.de/documents/datenblatt/B400/OSZI.pdf" H 1625 2775 50  0001 C CNN
+	1    1725 2775
+	1    0    0    -1  
+$EndComp
+$Comp
+L 74xx:74LS74 U18
+U 1 1 5FE6C14A
+P 4150 2775
+F 0 "U18" H 3800 2675 50  0000 C CNN
+F 1 "74AS74" H 3750 2575 50  0000 C CNN
+F 2 "Package_DIP:DIP-14_W7.62mm_LongPads" H 4150 2775 50  0001 C CNN
+F 3 "74xx/74hc_hct74.pdf" H 4150 2775 50  0001 C CNN
+	1    4150 2775
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3475 2675 3575 2675
+Wire Wire Line
+	3575 2675 3575 2775
+Wire Wire Line
+	3575 2775 3850 2775
+Connection ~ 3475 2675
+Wire Wire Line
+	3850 2675 3850 2375
+Wire Wire Line
+	3850 2375 4675 2375
+Wire Wire Line
+	4675 2375 4675 2875
+Wire Wire Line
+	4675 2875 4450 2875
+$Comp
+L power:+5V #PWR063
+U 1 1 5FEF4BAD
+P 4150 2325
+F 0 "#PWR063" H 4150 2175 50  0001 C CNN
+F 1 "+5V" H 4165 2498 50  0000 C CNN
+F 2 "" H 4150 2325 50  0001 C CNN
+F 3 "" H 4150 2325 50  0001 C CNN
+	1    4150 2325
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4150 2325 4150 2425
+$Comp
+L 74xx:74LS74 U18
+U 3 1 5FF7E694
+P 4200 1300
+F 0 "U18" H 3850 1200 50  0000 C CNN
+F 1 "74AS74" H 3800 1100 50  0000 C CNN
+F 2 "Package_DIP:DIP-14_W7.62mm_LongPads" H 4200 1300 50  0001 C CNN
+F 3 "74xx/74hc_hct74.pdf" H 4200 1300 50  0001 C CNN
+	3    4200 1300
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR064
+U 1 1 5FF80261
+P 4200 900
+F 0 "#PWR064" H 4200 750 50  0001 C CNN
+F 1 "+5V" H 4215 1073 50  0000 C CNN
+F 2 "" H 4200 900 50  0001 C CNN
+F 3 "" H 4200 900 50  0001 C CNN
+	1    4200 900 
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR065
+U 1 1 5FF80710
+P 4200 1700
+F 0 "#PWR065" H 4200 1450 50  0001 C CNN
+F 1 "GND" H 4205 1527 50  0000 C CNN
+F 2 "" H 4200 1700 50  0001 C CNN
+F 3 "" H 4200 1700 50  0001 C CNN
+	1    4200 1700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4150 3075 4550 3075
+Wire Wire Line
+	4550 3075 4550 2425
+Wire Wire Line
+	4550 2425 4150 2425
+Connection ~ 4150 2425
+Wire Wire Line
+	4150 2425 4150 2475
+Wire Wire Line
+	4450 2675 5000 2675
+Text Label 4775 2675 0    50   ~ 0
+CLK2
+Wire Wire Line
+	15650 6400 16125 6400
+Wire Wire Line
+	15650 6700 16125 6700
+Text Label 15850 6400 0    50   ~ 0
+CLK2
+Text Label 15850 6700 0    50   ~ 0
+CLK2
+$Comp
+L Jumper:Jumper_3_Bridged12 JP1
+U 1 1 60128346
+P 14250 7550
+F 0 "JP1" V 14125 7325 50  0000 L CNN
+F 1 "JPR3" V 14200 7300 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 14250 7550 50  0001 C CNN
+F 3 "~" H 14250 7550 50  0001 C CNN
+	1    14250 7550
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	14250 7300 13975 7300
+Wire Wire Line
+	14250 7800 13975 7800
+Text Label 13975 7800 0    50   ~ 0
+CLK2
+Text Notes 12150 8975 0    50   ~ 0
+Port B:  jumper 115.2k fixed or CTC
+Text Notes 12150 9075 0    50   ~ 0
+Port A:  CTC clock
+Text Notes 14825 8625 0    50   ~ 0
+CTC main clock 3.6864MHz\nTRG1, TRG2 - 1.8432MHz
+$Comp
+L 74xx:74LS74 U18
+U 2 1 602D69C0
+P 5125 1225
+F 0 "U18" H 4900 1650 50  0000 C CNN
+F 1 "74AS74" H 4825 1575 50  0000 C CNN
+F 2 "Package_DIP:DIP-14_W7.62mm_LongPads" H 5125 1225 50  0001 C CNN
+F 3 "74xx/74hc_hct74.pdf" H 5125 1225 50  0001 C CNN
+	2    5125 1225
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4825 1225 4700 1225
+Wire Wire Line
+	4700 1225 4700 1475
+$Comp
+L power:GND #PWR066
+U 1 1 60320058
+P 4700 1475
+F 0 "#PWR066" H 4700 1225 50  0001 C CNN
+F 1 "GND" H 4705 1302 50  0000 C CNN
+F 2 "" H 4700 1475 50  0001 C CNN
+F 3 "" H 4700 1475 50  0001 C CNN
+	1    4700 1475
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR067
+U 1 1 60320346
+P 5125 875
+F 0 "#PWR067" H 5125 725 50  0001 C CNN
+F 1 "+5V" H 5140 1048 50  0000 C CNN
+F 2 "" H 5125 875 50  0001 C CNN
+F 3 "" H 5125 875 50  0001 C CNN
+	1    5125 875 
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5125 875  5500 875 
+Wire Wire Line
+	5500 875  5500 1525
+Wire Wire Line
+	5500 1525 5125 1525
+Wire Wire Line
+	5125 925  5125 875 
+Connection ~ 5125 875 
+Text Notes 4975 1675 0    50   ~ 0
+spare
 $EndSCHEMATC
