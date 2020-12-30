@@ -46,7 +46,7 @@ U 1 1 5F45BF7E
 P 8400 2200
 F 0 "U10" H 8400 3478 50  0000 C CNN
 F 1 "AT28C16" H 8400 3387 50  0000 C CNN
-F 2 "Package_DIP:DIP-24_W10.16mm_Socket_LongPads" H 8400 2200 50  0001 C CNN
+F 2 "Package_DIP:DIP-24_W15.24mm_LongPads" H 8400 2200 50  0001 C CNN
 F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/doc0006.pdf" H 8400 2200 50  0001 C CNN
 	1    8400 2200
 	1    0    0    -1  
@@ -128,17 +128,6 @@ Wire Wire Line
 	8800 1900 9125 1900
 Wire Wire Line
 	8800 2000 9125 2000
-$Comp
-L Oscillator:CXO_DIP14 X1
-U 1 1 5F3D9844
-P 3850 4400
-F 0 "X1" H 3975 4800 50  0000 L CNN
-F 1 "25.175_DIP14" V 3450 4175 50  0000 L CNN
-F 2 "Package_DIP:DIP-4_W7.62mm_Socket_LongPads" H 4300 4050 50  0001 C CNN
-F 3 "http://cdn-reichelt.de/documents/datenblatt/B400/OSZI.pdf" H 3750 4400 50  0001 C CNN
-	1    3850 4400
-	1    0    0    -1  
-$EndComp
 $Comp
 L 74xx:74LS163 U12
 U 1 1 5F3D9AD1
@@ -777,350 +766,22 @@ Wire Wire Line
 Wire Wire Line
 	3550 4000 3550 4400
 Connection ~ 3850 4000
-Text Label 2225 7575 0    50   ~ 0
+Text Label 1750 6250 0    50   ~ 0
 ~RST
-Text Label 2225 7475 0    50   ~ 0
+Text Label 1750 6150 0    50   ~ 0
 ~IORQ
-Text Label 2225 7275 0    50   ~ 0
+Text Label 1750 5950 0    50   ~ 0
 ~CRT
 Text Label 2600 6300 0    50   ~ 0
 ~WR
 Wire Wire Line
-	2475 7575 2225 7575
+	2000 6250 1750 6250
 Wire Wire Line
-	2475 7475 2225 7475
+	2000 6150 1750 6150
 Wire Wire Line
-	2475 7275 2225 7275
+	2000 5950 1750 5950
 Wire Wire Line
 	2850 6300 2600 6300
-Wire Wire Line
-	2325 2000 1900 2000
-Text Label 2025 2000 0    50   ~ 0
-~MEM_WR
-Wire Wire Line
-	2325 1900 1900 1900
-Text Label 2025 1900 0    50   ~ 0
-~MEM_RD
-Wire Wire Line
-	2325 2100 1900 2100
-Text Label 2025 2100 0    50   ~ 0
-DIR
-$Comp
-L 74xx:74LS374 U2
-U 1 1 5F6864D8
-P 1375 4375
-F 0 "U2" H 1500 5175 50  0000 C CNN
-F 1 "74LS374" H 1625 5075 50  0000 C CNN
-F 2 "Package_DIP:DIP-20_W7.62mm_Socket_LongPads" H 1375 4375 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS374" H 1375 4375 50  0001 C CNN
-	1    1375 4375
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR04
-U 1 1 5F6888F3
-P 1375 5175
-F 0 "#PWR04" H 1375 4925 50  0001 C CNN
-F 1 "GND" H 1225 5150 50  0000 C CNN
-F 2 "" H 1375 5175 50  0001 C CNN
-F 3 "" H 1375 5175 50  0001 C CNN
-	1    1375 5175
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR03
-U 1 1 5F688CDB
-P 1375 3575
-F 0 "#PWR03" H 1375 3425 50  0001 C CNN
-F 1 "+5V" H 1250 3600 50  0000 C CNN
-F 2 "" H 1375 3575 50  0001 C CNN
-F 3 "" H 1375 3575 50  0001 C CNN
-	1    1375 3575
-	1    0    0    -1  
-$EndComp
-$Comp
-L 74xx:74LS374 U7
-U 1 1 5F6892A1
-P 1375 6350
-F 0 "U7" H 1500 7150 50  0000 C CNN
-F 1 "74LS374" H 1625 7050 50  0000 C CNN
-F 2 "Package_DIP:DIP-20_W7.62mm_Socket_LongPads" H 1375 6350 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS374" H 1375 6350 50  0001 C CNN
-	1    1375 6350
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR06
-U 1 1 5F6892AB
-P 1375 7150
-F 0 "#PWR06" H 1375 6900 50  0001 C CNN
-F 1 "GND" H 1225 7125 50  0000 C CNN
-F 2 "" H 1375 7150 50  0001 C CNN
-F 3 "" H 1375 7150 50  0001 C CNN
-	1    1375 7150
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR05
-U 1 1 5F6892B5
-P 1375 5550
-F 0 "#PWR05" H 1375 5400 50  0001 C CNN
-F 1 "+5V" H 1250 5575 50  0000 C CNN
-F 2 "" H 1375 5550 50  0001 C CNN
-F 3 "" H 1375 5550 50  0001 C CNN
-	1    1375 5550
-	1    0    0    -1  
-$EndComp
-Text Label 625  4575 0    50   ~ 0
-D7
-Text Label 625  4475 0    50   ~ 0
-D6
-Wire Wire Line
-	875  4575 625  4575
-Wire Wire Line
-	875  4475 625  4475
-Text Label 625  4375 0    50   ~ 0
-D5
-Text Label 625  4275 0    50   ~ 0
-D4
-Wire Wire Line
-	875  4375 625  4375
-Wire Wire Line
-	875  4275 625  4275
-Text Label 625  4175 0    50   ~ 0
-D3
-Text Label 625  4075 0    50   ~ 0
-D2
-Wire Wire Line
-	875  4175 625  4175
-Wire Wire Line
-	875  4075 625  4075
-Text Label 625  3975 0    50   ~ 0
-D1
-Text Label 625  3875 0    50   ~ 0
-D0
-Wire Wire Line
-	875  3975 625  3975
-Wire Wire Line
-	875  3875 625  3875
-Text Label 625  6550 0    50   ~ 0
-D7
-Text Label 625  6450 0    50   ~ 0
-D6
-Wire Wire Line
-	875  6550 625  6550
-Wire Wire Line
-	875  6450 625  6450
-Text Label 625  6350 0    50   ~ 0
-D5
-Text Label 625  6250 0    50   ~ 0
-D4
-Wire Wire Line
-	875  6350 625  6350
-Wire Wire Line
-	875  6250 625  6250
-Text Label 625  6150 0    50   ~ 0
-D3
-Text Label 625  6050 0    50   ~ 0
-D2
-Wire Wire Line
-	875  6150 625  6150
-Wire Wire Line
-	875  6050 625  6050
-Text Label 625  5950 0    50   ~ 0
-D1
-Text Label 625  5850 0    50   ~ 0
-D0
-Wire Wire Line
-	875  5950 625  5950
-Wire Wire Line
-	875  5850 625  5850
-Wire Wire Line
-	875  4775 625  4775
-Wire Wire Line
-	875  6750 625  6750
-Text Label 625  4775 0    50   ~ 0
-~AS
-Text Label 625  6750 0    50   ~ 0
-~AS
-Wire Wire Line
-	875  4875 875  5000
-$Comp
-L power:GND #PWR01
-U 1 1 5F6D6B5B
-P 875 5000
-F 0 "#PWR01" H 875 4750 50  0001 C CNN
-F 1 "GND" H 725 4975 50  0000 C CNN
-F 2 "" H 875 5000 50  0001 C CNN
-F 3 "" H 875 5000 50  0001 C CNN
-	1    875  5000
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	875  6850 875  6975
-$Comp
-L power:GND #PWR02
-U 1 1 5F6E1292
-P 875 6975
-F 0 "#PWR02" H 875 6725 50  0001 C CNN
-F 1 "GND" H 725 6950 50  0000 C CNN
-F 2 "" H 875 6975 50  0001 C CNN
-F 3 "" H 875 6975 50  0001 C CNN
-	1    875  6975
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	1875 3875 2200 3875
-Text Label 1975 3875 0    50   ~ 0
-A0
-Wire Wire Line
-	1875 3975 2200 3975
-Text Label 1975 3975 0    50   ~ 0
-A1
-Wire Wire Line
-	1875 4075 2200 4075
-Text Label 1975 4075 0    50   ~ 0
-A2
-Wire Wire Line
-	1875 4175 2200 4175
-Text Label 1975 4175 0    50   ~ 0
-A3
-Wire Wire Line
-	1875 4275 2200 4275
-Text Label 1975 4275 0    50   ~ 0
-A4
-Wire Wire Line
-	1875 4375 2200 4375
-Text Label 1975 4375 0    50   ~ 0
-A5
-Wire Wire Line
-	1875 4475 2200 4475
-Text Label 1975 4475 0    50   ~ 0
-A6
-Wire Wire Line
-	1875 4575 2200 4575
-Text Label 1975 4575 0    50   ~ 0
-A7
-Wire Wire Line
-	1875 5850 2200 5850
-Text Label 1975 5850 0    50   ~ 0
-A8
-Wire Wire Line
-	1875 5950 2200 5950
-Text Label 1975 5950 0    50   ~ 0
-A9
-Wire Wire Line
-	1875 6050 2200 6050
-Text Label 1975 6050 0    50   ~ 0
-A10
-Wire Wire Line
-	1875 6150 2200 6150
-Text Label 1975 6150 0    50   ~ 0
-A11
-Wire Wire Line
-	1875 6250 2200 6250
-Text Label 1975 6250 0    50   ~ 0
-A12
-Wire Wire Line
-	1875 6350 2200 6350
-Text Label 1975 6350 0    50   ~ 0
-A13
-Wire Wire Line
-	1875 6450 2200 6450
-Text Label 1975 6450 0    50   ~ 0
-A14
-Wire Wire Line
-	1875 6550 2200 6550
-Text Label 1975 6550 0    50   ~ 0
-A15
-Text Notes 575  3525 0    75   ~ 0
-ADDRESS LATCH\n(Arduino)
-Text Label 2050 2200 0    50   ~ 0
-~AS
-$Comp
-L MCU_Module:Arduino_UNO_R3 A1
-U 1 1 5F737C28
-P 1400 1800
-F 0 "A1" H 1400 2981 50  0000 C CNN
-F 1 "Arduino_UNO_R3" H 1400 2890 50  0000 C CNN
-F 2 "Module:Arduino_UNO_R3" H 1400 1800 50  0001 C CIN
-F 3 "https://www.arduino.cc/en/Main/arduinoBoardUno" H 1400 1800 50  0001 C CNN
-	1    1400 1800
-	1    0    0    -1  
-$EndComp
-Text Label 650  2100 0    50   ~ 0
-D7
-Text Label 650  2000 0    50   ~ 0
-D6
-Wire Wire Line
-	900  2100 650  2100
-Wire Wire Line
-	900  2000 650  2000
-Text Label 650  1900 0    50   ~ 0
-D5
-Text Label 650  1800 0    50   ~ 0
-D4
-Wire Wire Line
-	900  1900 650  1900
-Wire Wire Line
-	900  1800 650  1800
-Text Label 650  1700 0    50   ~ 0
-D3
-Text Label 650  1600 0    50   ~ 0
-D2
-Wire Wire Line
-	900  1700 650  1700
-Wire Wire Line
-	900  1600 650  1600
-Text Label 650  1500 0    50   ~ 0
-D1
-Text Label 650  1400 0    50   ~ 0
-D0
-Wire Wire Line
-	900  1500 650  1500
-Wire Wire Line
-	900  1400 650  1400
-Text Label 2025 1800 0    50   ~ 0
-~RST
-Text Label 650  2500 0    50   ~ 0
-~IORQ
-Text Label 650  2400 0    50   ~ 0
-A0
-Text Label 650  2300 0    50   ~ 0
-~CRT
-Text Label 650  2200 0    50   ~ 0
-~WR
-Wire Wire Line
-	2325 1800 1900 1800
-Wire Wire Line
-	900  2500 650  2500
-Wire Wire Line
-	900  2400 650  2400
-Wire Wire Line
-	900  2300 650  2300
-Wire Wire Line
-	900  2200 650  2200
-Wire Wire Line
-	1900 2200 2325 2200
-$Comp
-L power:GND #PWR07
-U 1 1 5F7F4B77
-P 1500 3025
-F 0 "#PWR07" H 1500 2775 50  0001 C CNN
-F 1 "GND" H 1505 2852 50  0000 C CNN
-F 2 "" H 1500 3025 50  0001 C CNN
-F 3 "" H 1500 3025 50  0001 C CNN
-	1    1500 3025
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	1500 3025 1500 2900
-Wire Wire Line
-	1500 2900 1400 2900
-Connection ~ 1500 2900
-Wire Wire Line
-	1400 2900 1300 2900
-Connection ~ 1400 2900
 Wire Wire Line
 	4150 5075 4150 4400
 Wire Wire Line
@@ -1244,25 +905,25 @@ F 3 "http://www.ti.com/lit/gpn/sn74LS32" H 4250 6975 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	2075 7375 1650 7375
-Text Label 1775 7375 0    50   ~ 0
+	1600 6050 1175 6050
+Text Label 1300 6050 0    50   ~ 0
 ~MEM_WR
 Wire Wire Line
-	2075 7275 1650 7275
-Text Label 1775 7275 0    50   ~ 0
+	1600 5950 1175 5950
+Text Label 1300 5950 0    50   ~ 0
 ~MEM_RD
 Wire Wire Line
-	2075 7475 1650 7475
-Text Label 1775 7475 0    50   ~ 0
+	1600 6150 1175 6150
+Text Label 1300 6150 0    50   ~ 0
 DIR
-Text Label 1800 7575 0    50   ~ 0
+Text Label 1325 6250 0    50   ~ 0
 ~AS
-Text Label 1775 7175 0    50   ~ 0
+Text Label 1300 5850 0    50   ~ 0
 ~RST
 Wire Wire Line
-	2075 7175 1650 7175
+	1600 5850 1175 5850
 Wire Wire Line
-	1650 7575 2075 7575
+	1175 6250 1600 6250
 Wire Wire Line
 	2850 6400 2600 6400
 Text Label 2600 6400 0    50   ~ 0
@@ -1367,12 +1028,8 @@ Wire Wire Line
 Text Label 5650 1600 0    50   ~ 0
 MEMCPU
 Wire Wire Line
-	2225 7175 2475 7175
-Text Label 2225 7175 0    50   ~ 0
-MEMCPU
-Wire Wire Line
-	1900 2300 2325 2300
-Text Label 2050 2300 0    50   ~ 0
+	1750 5850 2000 5850
+Text Label 1750 5850 0    50   ~ 0
 MEMCPU
 Text Label 10550 4625 0    50   ~ 0
 VIDEO
@@ -1394,4 +1051,15 @@ Text Label 5650 2500 0    50   ~ 0
 PAGE[2..0]
 Text Notes 5425 2975 0    75   ~ 0
 MA[15..12] to mux (RA, latch)
+$Comp
+L Oscillator:SG-8002DC X1
+U 1 1 5FF4882E
+P 3850 4400
+F 0 "X1" H 3225 4375 50  0000 L CNN
+F 1 "25.175MHz" H 3200 4275 50  0000 L CNN
+F 2 "Package_DIP:DIP-8_W7.62mm_LongPads" H 4300 4050 50  0001 C CNN
+F 3 "https://support.epson.biz/td/api/doc_check.php?mode=dl&lang=en&Parts=SG-8002DC" H 3750 4400 50  0001 C CNN
+	1    3850 4400
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
