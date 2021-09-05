@@ -14,32 +14,32 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Sheet
-S 6075 1100 1000 1575
+S 6100 1100 1000 1575
 U 5F3BFE79
 F0 "memory" 50
 F1 "memory.sch" 50
-F2 "MA[15..0]" I L 6075 1300 50 
-F3 "A[15..0]" I L 6075 1450 50 
-F4 "D[7..0]" B R 7075 1300 50 
-F5 "LD[7..0]" O R 7075 1450 50 
-F6 "MMUX" I L 6075 1600 50 
-F7 "nOE" I L 6075 1850 50 
-F8 "nWE" I L 6075 1975 50 
-F9 "DIR" I L 6075 2100 50 
-F10 "nBE" I L 6075 2250 50 
-F11 "CCLK" I L 6075 2400 50 
-F12 "MA[15..0]" I L 6075 2550 50 
+F2 "MA[15..0]" I L 6100 1300 50 
+F3 "A[15..0]" I L 6100 1450 50 
+F4 "D[7..0]" B R 7100 1300 50 
+F5 "LD[7..0]" O R 7100 1450 50 
+F6 "MMUX" I L 6100 1600 50 
+F7 "nOE" I L 6100 1850 50 
+F8 "nWE" I L 6100 1975 50 
+F9 "DIR" I L 6100 2100 50 
+F10 "nBE" I L 6100 2250 50 
+F11 "CCLK" I L 6100 2400 50 
+F12 "PAGE[0..2]" I L 6100 2550 50 
 $EndSheet
 Wire Bus Line
-	6075 1300 5650 1300
+	6100 1300 5675 1300
 Wire Bus Line
-	6075 1450 5650 1450
+	6100 1450 5675 1450
 Wire Bus Line
-	7075 1300 7450 1300
-Text Label 5975 1300 2    50   ~ 0
+	7100 1300 7475 1300
+Text Label 6000 1300 2    50   ~ 0
 MA[15..0]
 Wire Bus Line
-	7075 1450 7450 1450
+	7100 1450 7475 1450
 $Comp
 L 28c256:AT28C16 U10
 U 1 1 5F45BF7E
@@ -83,11 +83,11 @@ Text Label 7725 1900 0    50   ~ 0
 LD6
 Text Label 7725 2000 0    50   ~ 0
 RA0
-Text Label 7175 1450 0    50   ~ 0
+Text Label 7200 1450 0    50   ~ 0
 LD[7..0]
-Text Label 7175 1300 0    50   ~ 0
+Text Label 7200 1300 0    50   ~ 0
 D[7..0]
-Text Label 5675 1450 0    50   ~ 0
+Text Label 5700 1450 0    50   ~ 0
 A[15..0]
 Wire Wire Line
 	8000 2100 7650 2100
@@ -554,191 +554,191 @@ Wire Wire Line
 	10275 6125 10575 6125
 Wire Wire Line
 	10275 5475 10575 5475
-Text Label 3325 2450 0    50   ~ 0
+Text Label 3300 2450 0    50   ~ 0
 MCLK
 Wire Wire Line
-	3325 2450 3575 2450
-Text Label 3325 2250 0    50   ~ 0
+	3300 2450 3550 2450
+Text Label 3300 2250 0    50   ~ 0
 ~RST
-Text Label 3325 2150 0    50   ~ 0
+Text Label 3300 2150 0    50   ~ 0
 ~IORQ
-Text Label 3325 2050 0    50   ~ 0
+Text Label 3300 2050 0    50   ~ 0
 A0
-Text Label 3325 1950 0    50   ~ 0
+Text Label 3300 1950 0    50   ~ 0
 ~CRT
-Text Label 3325 1850 0    50   ~ 0
+Text Label 3300 1850 0    50   ~ 0
 ~WR
 Wire Wire Line
-	3575 2250 3325 2250
+	3550 2250 3300 2250
 Wire Wire Line
-	3575 2150 3325 2150
+	3550 2150 3300 2150
 Wire Wire Line
-	3575 2050 3325 2050
+	3550 2050 3300 2050
 Wire Wire Line
-	3575 1950 3325 1950
+	3550 1950 3300 1950
 Wire Wire Line
-	3575 1850 3325 1850
-Text Label 3325 1650 0    50   ~ 0
+	3550 1850 3300 1850
+Text Label 3300 1650 0    50   ~ 0
 D7
-Text Label 3325 1550 0    50   ~ 0
+Text Label 3300 1550 0    50   ~ 0
 D6
 Wire Wire Line
-	3575 1650 3325 1650
+	3550 1650 3300 1650
 Wire Wire Line
-	3575 1550 3325 1550
-Text Label 3325 1450 0    50   ~ 0
+	3550 1550 3300 1550
+Text Label 3300 1450 0    50   ~ 0
 D5
-Text Label 3325 1350 0    50   ~ 0
+Text Label 3300 1350 0    50   ~ 0
 D4
 Wire Wire Line
-	3575 1450 3325 1450
+	3550 1450 3300 1450
 Wire Wire Line
-	3575 1350 3325 1350
-Text Label 3325 1250 0    50   ~ 0
+	3550 1350 3300 1350
+Text Label 3300 1250 0    50   ~ 0
 D3
-Text Label 3325 1150 0    50   ~ 0
+Text Label 3300 1150 0    50   ~ 0
 D2
 Wire Wire Line
-	3575 1250 3325 1250
+	3550 1250 3300 1250
 Wire Wire Line
-	3575 1150 3325 1150
-Text Label 3325 1050 0    50   ~ 0
+	3550 1150 3300 1150
+Text Label 3300 1050 0    50   ~ 0
 D1
-Text Label 3325 950  0    50   ~ 0
+Text Label 3300 950  0    50   ~ 0
 D0
 Wire Wire Line
-	3575 1050 3325 1050
+	3550 1050 3300 1050
 Wire Wire Line
-	3575 950  3325 950 
-Text Label 4875 3350 0    50   ~ 0
+	3550 950  3300 950 
+Text Label 4850 3350 0    50   ~ 0
 CURSOR
-Text Label 4875 3250 0    50   ~ 0
+Text Label 4850 3250 0    50   ~ 0
 VS
-Text Label 4875 3150 0    50   ~ 0
+Text Label 4850 3150 0    50   ~ 0
 HS
-Text Label 4875 3050 0    50   ~ 0
+Text Label 4850 3050 0    50   ~ 0
 DE
 Wire Wire Line
-	4775 3350 5200 3350
+	4750 3350 5175 3350
 Wire Wire Line
-	4775 3250 5200 3250
+	4750 3250 5175 3250
 Wire Wire Line
-	4775 3150 5200 3150
+	4750 3150 5175 3150
 Wire Wire Line
-	4775 3050 5200 3050
-Text Label 4900 2750 0    50   ~ 0
+	4750 3050 5175 3050
+Text Label 4875 2750 0    50   ~ 0
 RA3
-Text Label 4900 2650 0    50   ~ 0
+Text Label 4875 2650 0    50   ~ 0
 RA2
-Text Label 4900 2550 0    50   ~ 0
+Text Label 4875 2550 0    50   ~ 0
 RA1
-Text Label 4900 2450 0    50   ~ 0
+Text Label 4875 2450 0    50   ~ 0
 RA0
 Wire Wire Line
-	4775 2750 5200 2750
+	4750 2750 5175 2750
 Wire Wire Line
-	4775 2650 5200 2650
+	4750 2650 5175 2650
 Wire Wire Line
-	4775 2550 5200 2550
+	4750 2550 5175 2550
 Wire Wire Line
-	4775 2450 5200 2450
-Text Label 5100 2050 2    50   ~ 0
+	4750 2450 5175 2450
+Text Label 5075 2050 2    50   ~ 0
 MA11
 Wire Wire Line
-	4775 2050 5200 2050
-Text Label 5100 1950 2    50   ~ 0
+	4750 2050 5175 2050
+Text Label 5075 1950 2    50   ~ 0
 MA10
 Wire Wire Line
-	4775 1950 5200 1950
-Text Label 5100 1850 2    50   ~ 0
+	4750 1950 5175 1950
+Text Label 5075 1850 2    50   ~ 0
 MA9
 Wire Wire Line
-	4775 1850 5200 1850
-Text Label 5100 1750 2    50   ~ 0
+	4750 1850 5175 1850
+Text Label 5075 1750 2    50   ~ 0
 MA8
 Wire Wire Line
-	4775 1750 5200 1750
-Text Label 5100 1650 2    50   ~ 0
+	4750 1750 5175 1750
+Text Label 5075 1650 2    50   ~ 0
 MA7
 Wire Wire Line
-	4775 1650 5200 1650
-Text Label 5100 1550 2    50   ~ 0
+	4750 1650 5175 1650
+Text Label 5075 1550 2    50   ~ 0
 MA6
 Wire Wire Line
-	4775 1550 5200 1550
-Text Label 5100 1450 2    50   ~ 0
+	4750 1550 5175 1550
+Text Label 5075 1450 2    50   ~ 0
 MA5
 Wire Wire Line
-	4775 1450 5200 1450
-Text Label 5100 1350 2    50   ~ 0
+	4750 1450 5175 1450
+Text Label 5075 1350 2    50   ~ 0
 MA4
 Wire Wire Line
-	4775 1350 5200 1350
-Text Label 5100 1250 2    50   ~ 0
+	4750 1350 5175 1350
+Text Label 5075 1250 2    50   ~ 0
 MA3
 Wire Wire Line
-	4775 1250 5200 1250
-Text Label 5100 1150 2    50   ~ 0
+	4750 1250 5175 1250
+Text Label 5075 1150 2    50   ~ 0
 MA2
 Wire Wire Line
-	4775 1150 5200 1150
-Text Label 5100 1050 2    50   ~ 0
+	4750 1150 5175 1150
+Text Label 5075 1050 2    50   ~ 0
 MA1
 Wire Wire Line
-	4775 1050 5200 1050
-Text Label 5100 950  2    50   ~ 0
+	4750 1050 5175 1050
+Text Label 5075 950  2    50   ~ 0
 MA0
 Wire Wire Line
-	4775 950  5200 950 
+	4750 950  5175 950 
 $Comp
 L GPU:MC6845 U1
 U 1 1 5F3BC58A
-P 4175 2150
-F 0 "U1" H 4175 3728 50  0000 C CNN
-F 1 "MC6845" H 4175 3637 50  0000 C CNN
-F 2 "Package_DIP:DIP-40_W15.24mm" H 4225 800 50  0001 L CNN
-F 3 "http://pdf.datasheetcatalog.com/datasheet_pdf/motorola/MC6845L_and_MC6845P.pdf" H 4175 2150 50  0001 C CNN
-	1    4175 2150
+P 4150 2150
+F 0 "U1" H 4150 3728 50  0000 C CNN
+F 1 "MC6845" H 4150 3637 50  0000 C CNN
+F 2 "Package_DIP:DIP-40_W15.24mm" H 4200 800 50  0001 L CNN
+F 3 "http://pdf.datasheetcatalog.com/datasheet_pdf/motorola/MC6845L_and_MC6845P.pdf" H 4150 2150 50  0001 C CNN
+	1    4150 2150
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR010
 U 1 1 5F520E31
-P 4175 3550
-F 0 "#PWR010" H 4175 3300 50  0001 C CNN
-F 1 "GND" H 4180 3377 50  0000 C CNN
-F 2 "" H 4175 3550 50  0001 C CNN
-F 3 "" H 4175 3550 50  0001 C CNN
-	1    4175 3550
+P 4150 3550
+F 0 "#PWR010" H 4150 3300 50  0001 C CNN
+F 1 "GND" H 4155 3377 50  0000 C CNN
+F 2 "" H 4150 3550 50  0001 C CNN
+F 3 "" H 4150 3550 50  0001 C CNN
+	1    4150 3550
 	1    0    0    -1  
 $EndComp
 Text Notes 8075 750  0    75   ~ 0
 CHAR GEN
-Text Notes 6250 800  0    75   ~ 0
+Text Notes 6275 800  0    75   ~ 0
 MEMORY
-Text Notes 4475 650  0    75   ~ 0
+Text Notes 4450 650  0    75   ~ 0
 CRTC
 Text Notes 6850 3725 0    75   ~ 0
 VIDEO
 Text Notes 5400 3825 0    75   ~ 0
 CLOCK
-Text Notes 1100 900  0    75   ~ 0
+Text Notes 1100 700  0    75   ~ 0
 CPU INTERFACE
 Wire Wire Line
-	6075 2400 5650 2400
-Text Label 5650 2400 0    50   ~ 0
+	6100 2400 5675 2400
+Text Label 5675 2400 0    50   ~ 0
 CCLK
 Wire Wire Line
-	6075 1975 5650 1975
-Text Label 5650 1975 0    50   ~ 0
+	6100 1975 5675 1975
+Text Label 5675 1975 0    50   ~ 0
 ~MEM_WR
 Wire Wire Line
-	6075 1850 5650 1850
-Text Label 5650 1850 0    50   ~ 0
+	6100 1850 5675 1850
+Text Label 5675 1850 0    50   ~ 0
 ~MEM_RD
 Wire Wire Line
-	6075 2100 5650 2100
-Text Label 5650 2100 0    50   ~ 0
+	6100 2100 5675 2100
+Text Label 5675 2100 0    50   ~ 0
 DIR
 $Comp
 L power:+5V #PWR021
@@ -762,22 +762,22 @@ Wire Wire Line
 Wire Wire Line
 	3550 4000 3550 4400
 Connection ~ 3850 4000
-Text Label 1700 4050 0    50   ~ 0
+Text Label 1650 3650 0    50   ~ 0
 ~RST
-Text Label 1700 3950 0    50   ~ 0
+Text Label 1650 3550 0    50   ~ 0
 ~IORQ
-Text Label 1700 3750 0    50   ~ 0
+Text Label 1650 3350 0    50   ~ 0
 ~CRT
-Text Label 1050 2200 0    50   ~ 0
+Text Label 1050 2000 0    50   ~ 0
 ~WR
 Wire Wire Line
-	1950 4050 1700 4050
+	1900 3650 1650 3650
 Wire Wire Line
-	1950 3950 1700 3950
+	1900 3550 1650 3550
 Wire Wire Line
-	1950 3750 1700 3750
+	1900 3350 1650 3350
 Wire Wire Line
-	1300 2200 1050 2200
+	1300 2000 1050 2000
 Wire Wire Line
 	4150 5075 4150 4400
 Wire Wire Line
@@ -785,109 +785,109 @@ Wire Wire Line
 $Comp
 L Connector_Generic:Conn_02x20_Odd_Even J1
 U 1 1 5F8F7D5D
-P 1500 2100
-F 0 "J1" H 1550 3217 50  0000 C CNN
-F 1 "Conn_02x20_Odd_Even" H 1550 3126 50  0000 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_2x20_P2.54mm_Vertical" H 1500 2100 50  0001 C CNN
-F 3 "~" H 1500 2100 50  0001 C CNN
-	1    1500 2100
+P 1500 1900
+F 0 "J1" H 1550 3017 50  0000 C CNN
+F 1 "Conn_02x20_Odd_Even" H 1550 2926 50  0000 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x20_P2.54mm_Vertical" H 1500 1900 50  0001 C CNN
+F 3 "~" H 1500 1900 50  0001 C CNN
+	1    1500 1900
 	1    0    0    -1  
 $EndComp
-Text Label 1900 2900 0    50   ~ 0
-A15
-Wire Wire Line
-	1800 2900 2125 2900
-Text Label 1900 2800 0    50   ~ 0
-A14
-Wire Wire Line
-	1800 2800 2125 2800
 Text Label 1900 2700 0    50   ~ 0
-A13
+A15
 Wire Wire Line
 	1800 2700 2125 2700
 Text Label 1900 2600 0    50   ~ 0
-A12
+A14
 Wire Wire Line
 	1800 2600 2125 2600
 Text Label 1900 2500 0    50   ~ 0
-A11
+A13
 Wire Wire Line
 	1800 2500 2125 2500
 Text Label 1900 2400 0    50   ~ 0
-A10
+A12
 Wire Wire Line
 	1800 2400 2125 2400
 Text Label 1900 2300 0    50   ~ 0
-A9
+A11
 Wire Wire Line
 	1800 2300 2125 2300
 Text Label 1900 2200 0    50   ~ 0
-A8
+A10
 Wire Wire Line
 	1800 2200 2125 2200
+Text Label 1900 2100 0    50   ~ 0
+A9
+Wire Wire Line
+	1800 2100 2125 2100
 Text Label 1900 2000 0    50   ~ 0
-A7
+A8
 Wire Wire Line
 	1800 2000 2125 2000
-Text Label 1900 1900 0    50   ~ 0
-A6
-Wire Wire Line
-	1800 1900 2125 1900
 Text Label 1900 1800 0    50   ~ 0
-A5
+A7
 Wire Wire Line
 	1800 1800 2125 1800
 Text Label 1900 1700 0    50   ~ 0
-A4
+A6
 Wire Wire Line
 	1800 1700 2125 1700
 Text Label 1900 1600 0    50   ~ 0
-A3
+A5
 Wire Wire Line
 	1800 1600 2125 1600
 Text Label 1900 1500 0    50   ~ 0
-A2
+A4
 Wire Wire Line
 	1800 1500 2125 1500
 Text Label 1900 1400 0    50   ~ 0
-A1
+A3
 Wire Wire Line
 	1800 1400 2125 1400
 Text Label 1900 1300 0    50   ~ 0
-A0
+A2
 Wire Wire Line
 	1800 1300 2125 1300
+Text Label 1900 1200 0    50   ~ 0
+A1
+Wire Wire Line
+	1800 1200 2125 1200
+Text Label 1900 1100 0    50   ~ 0
+A0
+Wire Wire Line
+	1800 1100 2125 1100
+Wire Wire Line
+	1300 1100 1050 1100
+Wire Wire Line
+	1300 1200 1050 1200
+Text Label 1050 1100 0    50   ~ 0
+D0
+Text Label 1050 1200 0    50   ~ 0
+D1
 Wire Wire Line
 	1300 1300 1050 1300
 Wire Wire Line
 	1300 1400 1050 1400
 Text Label 1050 1300 0    50   ~ 0
-D0
+D2
 Text Label 1050 1400 0    50   ~ 0
-D1
+D3
 Wire Wire Line
 	1300 1500 1050 1500
 Wire Wire Line
 	1300 1600 1050 1600
 Text Label 1050 1500 0    50   ~ 0
-D2
+D4
 Text Label 1050 1600 0    50   ~ 0
-D3
+D5
 Wire Wire Line
 	1300 1700 1050 1700
 Wire Wire Line
 	1300 1800 1050 1800
 Text Label 1050 1700 0    50   ~ 0
-D4
-Text Label 1050 1800 0    50   ~ 0
-D5
-Wire Wire Line
-	1300 1900 1050 1900
-Wire Wire Line
-	1300 2000 1050 2000
-Text Label 1050 1900 0    50   ~ 0
 D6
-Text Label 1050 2000 0    50   ~ 0
+Text Label 1050 1800 0    50   ~ 0
 D7
 $Comp
 L 74xx:74LS32 U11
@@ -901,59 +901,59 @@ F 3 "http://www.ti.com/lit/gpn/sn74LS32" H 4250 6975 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	1550 3850 1125 3850
-Text Label 1250 3850 0    50   ~ 0
+	1500 3450 1075 3450
+Text Label 1200 3450 0    50   ~ 0
 ~MEM_WR
 Wire Wire Line
-	1550 3750 1125 3750
-Text Label 1250 3750 0    50   ~ 0
+	1500 3350 1075 3350
+Text Label 1200 3350 0    50   ~ 0
 ~MEM_RD
 Wire Wire Line
-	1550 3950 1125 3950
-Text Label 1250 3950 0    50   ~ 0
+	1500 3550 1075 3550
+Text Label 1200 3550 0    50   ~ 0
 DIR
-Text Label 1275 4050 0    50   ~ 0
+Text Label 1225 3650 0    50   ~ 0
 ~AS
-Text Label 1250 3650 0    50   ~ 0
+Text Label 1200 3250 0    50   ~ 0
 ~RST
 Wire Wire Line
-	1550 3650 1125 3650
+	1500 3250 1075 3250
 Wire Wire Line
-	1125 4050 1550 4050
+	1075 3650 1500 3650
+Wire Wire Line
+	1300 2100 1050 2100
+Text Label 1050 2100 0    50   ~ 0
+~RD
+Wire Wire Line
+	1050 2200 1300 2200
+Text Label 1050 2200 0    50   ~ 0
+~IORQ
 Wire Wire Line
 	1300 2300 1050 2300
 Text Label 1050 2300 0    50   ~ 0
-~RD
-Wire Wire Line
-	1050 2400 1300 2400
-Text Label 1050 2400 0    50   ~ 0
-~IORQ
-Wire Wire Line
-	1300 2500 1050 2500
-Text Label 1050 2500 0    50   ~ 0
 ~MREQ
 Wire Wire Line
-	1300 2600 1050 2600
-Text Label 1050 2600 0    50   ~ 0
+	1300 2400 1050 2400
+Text Label 1050 2400 0    50   ~ 0
 ~DS0
 Wire Wire Line
-	1050 2700 1300 2700
-Text Label 1050 2700 0    50   ~ 0
+	1050 2500 1300 2500
+Text Label 1050 2500 0    50   ~ 0
 ~DS1
-Text Label 1050 2800 0    50   ~ 0
+Text Label 1050 2600 0    50   ~ 0
 ~DS2
 Wire Wire Line
-	1050 2800 1300 2800
-Text Label 1050 2900 0    50   ~ 0
+	1050 2600 1300 2600
+Text Label 1050 2700 0    50   ~ 0
 ~DS3
 Wire Wire Line
-	1050 2900 1300 2900
+	1050 2700 1300 2700
 Wire Wire Line
-	1050 3000 1300 3000
-Text Label 1050 3000 0    50   ~ 0
+	1050 2800 1300 2800
+Text Label 1050 2800 0    50   ~ 0
 ~RST
 Wire Wire Line
-	6075 1600 5650 1600
+	6100 1600 5675 1600
 Wire Wire Line
 	8000 3100 7850 3100
 Wire Wire Line
@@ -1019,11 +1019,11 @@ Wire Wire Line
 Connection ~ 5700 5125
 Wire Wire Line
 	5700 5125 5700 5925
-Text Label 5650 1600 0    50   ~ 0
+Text Label 5675 1600 0    50   ~ 0
 MEMCPU
 Wire Wire Line
-	1700 3650 1950 3650
-Text Label 1700 3650 0    50   ~ 0
+	1650 3250 1900 3250
+Text Label 1650 3250 0    50   ~ 0
 MEMCPU
 Text Label 10550 4625 0    50   ~ 0
 VIDEO
@@ -1039,11 +1039,7 @@ Wire Wire Line
 	10125 1200 10450 1200
 Wire Wire Line
 	8100 3875 8100 4325
-Wire Bus Line
-	6075 2550 5650 2550
-Text Label 5650 2550 0    50   ~ 0
-PAGE[2..0]
-Text Notes 5425 2975 0    75   ~ 0
+Text Notes 5450 2975 0    75   ~ 0
 MA[15..12] to mux (RA, latch)
 $Comp
 L Oscillator:SG-8002DC X1
@@ -1056,8 +1052,130 @@ F 3 "https://support.epson.biz/td/api/doc_check.php?mode=dl&lang=en&Parts=SG-800
 	1    3850 4400
 	1    0    0    -1  
 $EndComp
-Text Label 5650 2250 0    50   ~ 0
+Text Label 5675 2250 0    50   ~ 0
 ~MEM_RD
 Wire Wire Line
-	6075 2250 5650 2250
+	6100 2250 5675 2250
+$Comp
+L 74xx:74LS157 U?
+U 1 1 61360719
+P 3000 6100
+F 0 "U?" H 3000 7181 50  0000 C CNN
+F 1 "74LS157" H 3000 7090 50  0000 C CNN
+F 2 "" H 3000 6100 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS157" H 3000 6100 50  0001 C CNN
+	1    3000 6100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3500 5500 3850 5500
+Wire Wire Line
+	3500 5800 3850 5800
+Wire Wire Line
+	3500 6100 3850 6100
+Wire Wire Line
+	3500 6400 3850 6400
+Text Label 3550 5500 0    50   ~ 0
+MA12
+Text Label 3550 5800 0    50   ~ 0
+MA13
+Text Label 3550 6100 0    50   ~ 0
+MA14
+Text Label 3550 6400 0    50   ~ 0
+MA15
+Wire Wire Line
+	2500 5500 2250 5500
+Wire Wire Line
+	2500 5800 2250 5800
+Wire Wire Line
+	2500 6100 2250 6100
+Wire Wire Line
+	2500 6400 2250 6400
+Text Label 2250 5500 0    50   ~ 0
+RA0
+Text Label 2250 5800 0    50   ~ 0
+RA1
+Text Label 2250 6100 0    50   ~ 0
+RA2
+Text Label 2250 6400 0    50   ~ 0
+RA3
+$Comp
+L 74xx:74LS374 U?
+U 1 1 61469559
+P 1250 6100
+F 0 "U?" H 1250 7081 50  0000 C CNN
+F 1 "74LS374" H 1250 6990 50  0000 C CNN
+F 2 "" H 1250 6100 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS374" H 1250 6100 50  0001 C CNN
+	1    1250 6100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1750 5600 2500 5600
+Wire Wire Line
+	1750 5700 2200 5700
+Wire Wire Line
+	2200 5700 2200 5900
+Wire Wire Line
+	2200 5900 2500 5900
+Wire Wire Line
+	1750 5800 2150 5800
+Wire Wire Line
+	2150 5800 2150 6200
+Wire Wire Line
+	2150 6200 2500 6200
+Wire Wire Line
+	750  5600 550  5600
+Wire Wire Line
+	750  5700 550  5700
+Wire Wire Line
+	750  5800 550  5800
+Wire Wire Line
+	750  5900 550  5900
+Wire Wire Line
+	750  6000 550  6000
+Wire Wire Line
+	750  6100 550  6100
+Wire Wire Line
+	750  6200 550  6200
+Wire Wire Line
+	750  6300 550  6300
+Text Label 550  5600 0    50   ~ 0
+D0
+Text Label 550  5700 0    50   ~ 0
+D1
+Text Label 550  5800 0    50   ~ 0
+D2
+Text Label 550  5900 0    50   ~ 0
+D3
+Text Label 550  6000 0    50   ~ 0
+D4
+Text Label 550  6100 0    50   ~ 0
+D5
+Text Label 550  6200 0    50   ~ 0
+D6
+Text Label 550  6300 0    50   ~ 0
+D7
+Wire Wire Line
+	1750 5900 2100 5900
+Wire Wire Line
+	2100 5900 2100 6500
+Wire Wire Line
+	2100 6500 2500 6500
+Text Label 5600 2550 0    50   ~ 0
+PAGE[0..2]
+Wire Bus Line
+	5550 2550 6100 2550
+Wire Wire Line
+	1750 6000 2050 6000
+Wire Wire Line
+	1750 6100 2050 6100
+Wire Wire Line
+	1750 6200 2050 6200
+Text Label 1800 6000 0    50   ~ 0
+PAGE0
+Text Label 1800 6100 0    50   ~ 0
+PAGE1
+Text Label 1800 6200 0    50   ~ 0
+PAGE2
 $EndSCHEMATC

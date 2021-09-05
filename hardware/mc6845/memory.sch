@@ -316,10 +316,10 @@ F 3 "http://www.ti.com/lit/gpn/sn74LS374" H 9400 4550 50  0001 C CNN
 	1    9400 4550
 	1    0    0    -1  
 $EndComp
-Text HLabel 1350 1525 0    50   Input ~ 0
-MA[18..0]
+Text HLabel 1350 1550 0    50   Input ~ 0
+MA[15..0]
 Text HLabel 1350 1750 0    50   Input ~ 0
-A[18..0]
+A[15..0]
 Wire Wire Line
 	7850 1950 8275 1950
 Wire Wire Line
@@ -431,13 +431,13 @@ Wire Bus Line
 Text Label 10750 1950 2    50   ~ 0
 D[7..0]
 Wire Bus Line
-	1350 1525 1850 1525
+	1350 1550 1850 1550
 Wire Bus Line
 	1350 1750 1850 1750
-Text Label 1800 1525 2    50   ~ 0
-MA[18..0]
+Text Label 1800 1550 2    50   ~ 0
+MA[15..0]
 Text Label 1800 1750 2    50   ~ 0
-A[18..0]
+A[15..0]
 Text HLabel 10800 4050 2    50   Output ~ 0
 LD[7..0]
 Wire Bus Line
@@ -666,11 +666,11 @@ Wire Wire Line
 	2800 4700 2525 4700
 Text Label 2525 4700 0    50   ~ 0
 MMUX
-Text HLabel 1350 1975 0    50   Input ~ 0
+Text HLabel 1350 1950 0    50   Input ~ 0
 MMUX
 Wire Wire Line
-	1350 1975 1850 1975
-Text Label 1500 1975 0    50   ~ 0
+	1350 1950 1850 1950
+Text Label 1500 1950 0    50   ~ 0
 MMUX
 Wire Wire Line
 	7350 4075 7350 3950
@@ -716,35 +716,35 @@ Wire Wire Line
 	8900 4950 8400 4950
 Text Label 8400 4950 0    50   ~ 0
 CCLK
-Text HLabel 1350 2375 0    50   Input ~ 0
+Text HLabel 1350 2350 0    50   Input ~ 0
 nOE
 Wire Wire Line
-	1350 2375 1850 2375
-Text Label 1500 2375 0    50   ~ 0
+	1350 2350 1850 2350
+Text Label 1500 2350 0    50   ~ 0
 nOE
-Text HLabel 1350 2575 0    50   Input ~ 0
+Text HLabel 1350 2550 0    50   Input ~ 0
 nWE
 Wire Wire Line
-	1350 2575 1850 2575
-Text Label 1500 2575 0    50   ~ 0
+	1350 2550 1850 2550
+Text Label 1500 2550 0    50   ~ 0
 nWE
-Text HLabel 1350 2775 0    50   Input ~ 0
+Text HLabel 1350 2750 0    50   Input ~ 0
 DIR
 Wire Wire Line
-	1350 2775 1850 2775
-Text Label 1500 2775 0    50   ~ 0
+	1350 2750 1850 2750
+Text Label 1500 2750 0    50   ~ 0
 DIR
-Text HLabel 1350 2975 0    50   Input ~ 0
+Text HLabel 1350 2950 0    50   Input ~ 0
 nBE
 Wire Wire Line
-	1350 2975 1850 2975
-Text Label 1500 2975 0    50   ~ 0
+	1350 2950 1850 2950
+Text Label 1500 2950 0    50   ~ 0
 nBE
-Text HLabel 1350 3175 0    50   Input ~ 0
+Text HLabel 1350 3150 0    50   Input ~ 0
 CCLK
 Wire Wire Line
-	1350 3175 1850 3175
-Text Label 1500 3175 0    50   ~ 0
+	1350 3150 1850 3150
+Text Label 1500 3150 0    50   ~ 0
 CCLK
 $Comp
 L power:GND #PWR032
@@ -783,11 +783,11 @@ Wire Wire Line
 Text Label 6500 3450 0    50   ~ 0
 RA15
 Text Label 6500 3550 0    50   ~ 0
-RA16
+PAGE0
 Text Label 6500 3650 0    50   ~ 0
-RA17
+PAGE1
 Text Label 6500 3750 0    50   ~ 0
-RA18
+PAGE2
 Wire Wire Line
 	3800 4400 4100 4400
 Wire Wire Line
@@ -800,111 +800,16 @@ Text Label 2575 4400 0    50   ~ 0
 MA15
 Text Label 2575 4500 0    50   ~ 0
 A15
-$Comp
-L 74xx:74LS157 U?
-U 1 1 5FD6FCD7
-P 3300 6400
-AR Path="/5FD6FCD7" Ref="U?"  Part="1" 
-AR Path="/5F3BFE79/5FD6FCD7" Ref="U2"  Part="1" 
-F 0 "U2" H 3425 7300 50  0000 C CNN
-F 1 "74LS157" H 3525 7200 50  0000 C CNN
-F 2 "Package_DIP:DIP-16_W7.62mm_Socket_LongPads" H 3300 6400 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS157" H 3300 6400 50  0001 C CNN
-	1    3300 6400
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	3800 5800 4100 5800
-Wire Wire Line
-	3800 6100 4100 6100
-Wire Wire Line
-	3800 6400 4100 6400
-Text Label 3850 5800 0    50   ~ 0
-RA16
-Text Label 3850 6100 0    50   ~ 0
-RA17
-Text Label 3850 6400 0    50   ~ 0
-RA18
-Wire Wire Line
-	2525 5800 2800 5800
-Wire Wire Line
-	2525 5900 2800 5900
-Wire Wire Line
-	2525 6100 2800 6100
-Wire Wire Line
-	2525 6200 2800 6200
-Wire Wire Line
-	2525 6400 2800 6400
-Wire Wire Line
-	2525 6500 2800 6500
-Text Label 2575 5800 0    50   ~ 0
-MA16
-Text Label 2575 5900 0    50   ~ 0
-A16
-Text Label 2575 6100 0    50   ~ 0
-MA17
-Text Label 2575 6200 0    50   ~ 0
-A17
-Text Label 2575 6400 0    50   ~ 0
-MA18
-Text Label 2575 6500 0    50   ~ 0
-A18
-$Comp
-L power:+5V #PWR0109
-U 1 1 5FD6FF5D
-P 3300 5500
-F 0 "#PWR0109" H 3300 5350 50  0001 C CNN
-F 1 "+5V" H 3150 5550 50  0000 C CNN
-F 2 "" H 3300 5500 50  0001 C CNN
-F 3 "" H 3300 5500 50  0001 C CNN
-	1    3300 5500
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR0110
-U 1 1 5FD6FF67
-P 3300 7400
-F 0 "#PWR0110" H 3300 7150 50  0001 C CNN
-F 1 "GND" H 3305 7227 50  0000 C CNN
-F 2 "" H 3300 7400 50  0001 C CNN
-F 3 "" H 3300 7400 50  0001 C CNN
-	1    3300 7400
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	3300 7400 2800 7400
-Wire Wire Line
-	2800 7400 2800 7100
-Connection ~ 3300 7400
-Wire Wire Line
-	2800 7000 2525 7000
-Text Label 2525 7000 0    50   ~ 0
-MMUX
-NoConn ~ 3800 6700
-Wire Wire Line
-	2800 6800 2600 6800
-Wire Wire Line
-	2600 6800 2600 6700
-Wire Wire Line
-	2600 6700 2800 6700
-$Comp
-L power:GND #PWR0111
-U 1 1 5FDA8AE7
-P 2500 6700
-F 0 "#PWR0111" H 2500 6450 50  0001 C CNN
-F 1 "GND" H 2350 6650 50  0000 C CNN
-F 2 "" H 2500 6700 50  0001 C CNN
-F 3 "" H 2500 6700 50  0001 C CNN
-	1    2500 6700
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	2500 6700 2600 6700
-Connection ~ 2600 6700
 Text Notes 7050 6750 0    100  ~ 0
 UPCO Graphic Systems
 Text Notes 7050 6950 0    100  ~ 0
 Video RAM
 Text Notes 6550 1100 0    75   ~ 0
 512K x 8 multiplexed video RAM\n  MMUX = H for CPU access, L for CRTC\n  nWE, nOE, DIR, nBE for CPU access\n  CCLK latches RAM coutput for display
+Wire Bus Line
+	1850 3350 1350 3350
+Text Label 1450 3350 0    50   ~ 0
+PAGE[0..2]
+Text HLabel 1350 3350 0    50   Input ~ 0
+PAGE[0..2]
 $EndSCHEMATC
