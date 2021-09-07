@@ -1,3 +1,51 @@
 EESchema-DOCLIB  Version 2.0
 #
+$CMP 2764
+D EPROM 64 KiBit, [Obsolete 2000-11]
+K EPROM 64KiBit
+F https://downloads.reactivemicro.com/Electronics/ROM/2764%20EPROM.pdf
+$ENDCMP
+#
+$CMP 28C64
+D OTP EPROM 64 KiBit, [Obsolete 2004-01]
+K OTP EPROM 64KiBit
+F http://ww1.microchip.com/downloads/en/DeviceDoc/11107M.pdf
+$ENDCMP
+#
+$CMP AS6C6264
+D 32Kx8 bit Low Power CMOS Static RAM, 55/70ns, DIP-28
+K RAM SRAM CMOS MEMORY
+F https://www.futurlec.com/Datasheet/Memory/62256.pdf
+$ENDCMP
+#
+$CMP CY62256-70PC
+D 256K (32K x 8) Static RAM, 70ns, DIP-28
+K RAM SRAM CMOS MEMORY
+F https://ecee.colorado.edu/~mcclurel/Cypress_SRAM_CY62256.pdf
+$ENDCMP
+#
+$CMP CY62256-70PC_copy
+D 256K (32K x 8) Static RAM, 70ns, DIP-28
+K RAM SRAM CMOS MEMORY
+F https://ecee.colorado.edu/~mcclurel/Cypress_SRAM_CY62256.pdf
+$ENDCMP
+#
+$CMP HM62256BLP
+D 32,768-word × 8-bit High Speed CMOS Static RAM, 70ns, DIP-28
+K RAM SRAM CMOS MEMORY
+F https://web.mit.edu/6.115/www/document/62256.pdf
+$ENDCMP
+#
+$CMP HM62256BLP_copy
+D 32,768-word × 8-bit High Speed CMOS Static RAM, 70ns, DIP-28
+K RAM SRAM CMOS MEMORY
+F https://web.mit.edu/6.115/www/document/62256.pdf
+$ENDCMP
+#
+$CMP KM62256CLP
+D 32Kx8 bit Low Power CMOS Static RAM, 55/70ns, DIP-28
+K RAM SRAM CMOS MEMORY
+F https://www.futurlec.com/Datasheet/Memory/62256.pdf
+$ENDCMP
+#
 #End Doc Library
