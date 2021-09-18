@@ -19,3 +19,7 @@ has parallel output.
 Another good option is the KR-9600 (aka AY5-3600-PRO as used in the Apple II and others).
 Rochester Electronics seems to still make them as a replacement for the GI/SMC originals.
 
+Finally, period-correct microcontrollers:
+
+* Z80:  Minimum system would be Z80, RAM (6116), EEPROM (28C16), 8255 (I/O).  Serial output would be bit-banged.
+* 80C51 (actually e.g. AT89C51RB2-3CSUM with flash) or even an original 87C51 with UV EPROM.
