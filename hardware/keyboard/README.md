@@ -16,3 +16,6 @@ The ASCII code is a bit funny
 but that could be fixed with a LUT.  Also, it needs a clock in the sub-MHz range and
 has parallel output.  
 
+Another good option is the KR-9600 (aka AY5-3600-PRO as used in the Apple II and others).
+Rochester Electronics seems to still make them as a replacement for the GI/SMC originals.
+
