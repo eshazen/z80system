@@ -7,9 +7,11 @@ include <video.scad>
 include <case.scad>
 
 lcd_at( 0, 1, 0.5);
+my_keys();
 
-for( i = [0 : 5]) {
-     board_at( 6.5+0.7*i, 1, 0.25);
+for( i = [0 : 8]) {
+     board_at( 6.+0.6*i, 1, 0.25);
 }
 
 %case_at( -0.5, -3.5, -0.5);
+
