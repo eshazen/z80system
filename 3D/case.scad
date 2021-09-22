@@ -1,7 +1,11 @@
+//
+// system with 8-slot (parameterized) RC2014 backplane
+//
+
 
 // base geometry
 base_wid = 12;
-base_hgt = 9;
+base_hgt = 9.7;
 case_thick = 0.125;
 
 // side profile
