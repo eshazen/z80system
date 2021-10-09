@@ -22,4 +22,5 @@ MA20, MA21 aren't used.
 
 So one could expand using the same paging scheme up to total 4M.
 
-It seems also that writing to the ROM is perfectly feasible, and that the ROM and RAM sockets are wired identically
+It seems also that writing to the ROM is perfectly feasible.  Personally,
+I would add a hardware "write protect" switch.
