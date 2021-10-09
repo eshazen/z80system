@@ -1,9 +1,13 @@
+;;; simple non-interrupt support for RC2014 SIO/2
+;;; primary port is A for UMON console
+;;; secondary port is B for other use
 
-;;; initialize console I/O
+
+;;; initialize console I/O (both ports)
 io_init: jp RC2014_SerialSIO2_Initialise_T2
 	
 
-;;; send a character from A
+;;; send a character from A (SIO port A)
 ;;; wait if needed
 putc:	push af
 putc1:	call RC2014_SerialSIO2A_OutputChar_T2
@@ -11,11 +15,29 @@ putc1:	call RC2014_SerialSIO2A_OutputChar_T2
 	pop af
 	ret
 
-;;; receive a character to a
+;;; send a character from A (SIO port B)
+;;; wait if needed
+putc_B:	push af
+putc1B:	call RC2014_SerialSIO2B_OutputChar_T2
+	jr z,putc1B
+	pop af
+	ret
+
+
+;;; receive a character to a (SIO port A)
 ;;; wait if needed
 getc:	call RC2014_SerialSIO2A_InputChar_T2
 	ret nz
 	jr getc
+
+
+;;; receive a character to a (SIO port B)
+;;; wait if needed
+getc_B:	call RC2014_SerialSIO2B_InputChar_T2
+	ret nz
+	jr getc_B
+
+	
 
 ;;; return Z if no characters available, NZ if characters available
 input_ready:	

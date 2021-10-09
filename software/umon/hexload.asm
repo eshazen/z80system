@@ -240,7 +240,7 @@ gets2:
 	
 gets1:	ld	(hl),0
 	push	af
-;	call	crlf
+	call	crlf
 	pop	af
 
 	pop	hl
@@ -248,6 +248,12 @@ gets1:	ld	(hl),0
 	pop	bc
 	
 	ret
+	
+;;; output CR/LF
+crlf:	ld	a,13
+	call 	putc
+	ld	a,10
+	jp	putc
 	
 ;	INCLUDE "hex.asm"
 
@@ -309,22 +315,29 @@ ghex4:	call	ghex2
 	call	ghex2
 	ld	e,a
 	ret
-
 	
-
+err:	ld	a,'#'
+	jr	prom
 
 main:	ld	sp,stak
 	call	io_init
 
-line:	ld	hl,buff
+line:	ld	a,'+'
+prom:	call	putc
+
+	ld	hl,buff
 	ld	bc,bend-buff
 	call	gets
 
 	ld	hl,buff
 	ld	a,(hl)
 	cp	a,':'
-	jr	nz,line
-	inc	hl
+	jr	z,lode
+	cp	a,'/'
+	jp	z,0
+	jr	err
+
+lode:	inc	hl
 	call	ghex2		; get record size to A
 	ld	b,a		; size to b
 	call	ghex4		; get load address to DE
@@ -346,6 +359,9 @@ noja:	call	ghex2		; get record type to A
 	jr	nz,line
 	;; type = 01, we're done
 	ld	hl,(sadd)
+
+;	jp	0
+
 	jp	(hl)
 
 	;; parse and store data

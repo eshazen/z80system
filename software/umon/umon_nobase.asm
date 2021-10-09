@@ -86,7 +86,6 @@ banner:	db	"UMON-P v0.7 ORG ",0
 error:	db	"ERROR",0
 	
 usage:  db      "h                     print this help", 13, 10
-        db      "d <addr> <count", 13, 10
         db      "d <addr> <count>      dump memory", 13, 10
         db      "e <addr> <dd> <dd>... edit up to 16 bytes in memory", 13, 10
         db      "o <addr> <val>        output <val> to port <addr>", 13, 10
