@@ -13,7 +13,7 @@ toupper: cp	'a'
 	
 ;;; output space
 space:	ld	a,' '
-	jr	putc
+	jp	putc
 
 ;;; output CR/LF
 crlf:	ld	a,13
@@ -29,6 +29,28 @@ puts:	ld	a,(hl)
 	ret	z
 	call	putc
 	jr	puts
+
+puts_B:	ld	a,(hl)
+	inc	hl
+	or	a
+	ret	z
+	call	putc_B
+	jr	puts_B
+
+;;; read string from port B to HL
+;;; no editing, etc.  No echo.  Stop on first control char
+gets_B:	push	hl
+getsB0:	call	getc_B
+	cp	20h
+	jr	c,getsB1
+	ld	(hl),a
+	inc	hl
+	jr	getsB0
+
+getsB1:	;control char
+	ld	(hl),0		;null-terminate
+	pop	hl
+	ret
 
 ;;; read string from console to HL
 ;;; stop on CR/LF/ESC

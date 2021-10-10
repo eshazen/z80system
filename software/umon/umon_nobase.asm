@@ -15,6 +15,10 @@
 ;;; p <start> <end> <size>     memory region copy
 ;;; l			       binary load
 ;;; r			       repeat last command
+;;; s <string>                 send string to SIO port B
+;;;                            read and display return string
+;;; w <track> <sector> <addr>  write remote disk
+;;; 
 
 ; 	org	08100H
  	org	UMON_ORIGIN	
@@ -54,16 +58,9 @@ savaf:	dw	0
 	
 savetop: equ	$
 	
-regnam:	db	'HL', 0, 'DE', 0, 'BC', 0, 'AF', 0
-
-pzero:	db	0		;port 0 value bits 0-6
+;regnam:	db	'HL', 0, 'DE', 0, 'BC', 0, 'AF', 0
 lastc:	db	0		;last command byte
 
-buff:	rept	60
-	db	0
-	endm
-
-bend:	equ	$		;mark the end
 
 maxarg:	equ	18		;maximum number of arguments
 argc:	db	0
@@ -97,7 +94,8 @@ usage:  db      "h                     print this help", 13, 10
 	db	"p <ad1> <ad2> <n>     memory copy", 13, 10
         db      "c                     continue from breakpoint", 13, 10
         db      "l                     binary load", 13, 10
-        db      "r                     repeat last command", 13, 10
+        db      "r <tk> <sec> <addr>   read remote disk", 13, 10
+        db      "w <tk> <sec> <addr>   write remote disk", 13, 10	
 	db	0
 
 main:	ld	sp,stak
@@ -118,17 +116,14 @@ loop:	ld	a,'>'		;prompt
 	ld	bc,bend-buff	; maximum size
 	call	gets
 
-	;; check for 'R'
+;;; commands here which don't want tokenizer to be run
+
 	ld	a,(buff)
-	cp	a,'R'
-	jr	nz,not_r
+	cp	a,'S'
+	jz	sendser
 
-	;; restore last command byte
-	ld	a,(lastc)
-	ld	(buff),a
-
-	;; parse string into tokens at argc / argv
-not_r:	ld	hl,buff
+;;; parse string into tokens at argc / argv
+	ld	hl,buff
 	ld	de,argv
 	ld	b,maxarg
 	call	strtok	
@@ -180,7 +175,13 @@ not_r:	ld	hl,buff
 
 	cp	a,'P'
 	jz	memcpy
-	
+
+	cp	a,'R'
+	jz	dskrd
+
+	cp	a,'W'
+	jz	dskwr
+
 errz:	ld	hl,error
 	call	puts
 	call	crlf
@@ -192,6 +193,41 @@ quit:	jp	0
 help:	ld	hl,usage
 	call	puts
 	jp	loop
+
+
+;;; read disk
+dskrd:	ld	a,'R'
+	call	dskpar
+	;; <FIXME> not done
+	jp	loop
+
+dskwr:	ld	a,'W'
+	call	dskpar
+	;; <FIXME> not done
+	jp	loop
+
+;;; set up for disk read or write
+dskpar:
+	;; <FIXME> not done
+	ret
+
+
+;;; send serial
+sendser: 
+	call	flush_B		; dump any pending input
+	ld	hl,buff+2
+	call	puts_B
+	ld	a,0ah
+	call	putc_B
+
+;;; wait for reply
+	ld	hl,buff
+	call	gets_B
+	call	crlf
+	call	puts
+	call	crlf
+	jp	loop
+
 
 ;;; output to port
 output:	ld	a,(iargv+2)
@@ -624,6 +660,9 @@ pregn:
 	call	space
 	ret
 
+;;; input buffer (tokens zero-terminated after parsing)
+buff:	ds	200h
+bend:	equ	$		;mark the end
 	
 umontop:	equ	$
 	

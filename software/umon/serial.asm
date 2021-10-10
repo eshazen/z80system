@@ -2,6 +2,14 @@
 ;;; primary port is A for UMON console
 ;;; secondary port is B for other use
 
+;;; io_init - initialize both ports
+;;; putc    - send char in A to port A, wait if needed
+;;; putc_B  - send char in A to port B, wait if needed
+;;; getc    - receive char from port A to A, wait if needed
+;;; getc_B  - receive char from port A to A, wait if needed
+;;; rxrdy   - return NZ if characters available (uses A)
+;;; txrdy   - return NZ if ready to send
+	
 
 ;;; initialize console I/O (both ports)
 io_init: jp RC2014_SerialSIO2_Initialise_T2
@@ -40,19 +48,43 @@ getc_B:	call RC2014_SerialSIO2B_InputChar_T2
 	
 
 ;;; return Z if no characters available, NZ if characters available
-input_ready:	
-        IN   A,(kSIOAConT2) ;Address of status register
-        BIT  kSIORxRdy,A    ;Receive byte available
-        RET                 ;Return Z if no character
+rxrdy:	PUSH BC
+	LD C, kSIOAConT2	;Address of status register
+	IN B,(C)
+        BIT  kSIORxRdy,B	;Receive byte available
+	POP BC
+        RET			;Return Z if no character
+
+;;; return Z if no characters available, NZ if characters available
+rxrdy_B: PUSH BC
+	LD C, kSIOBConT2	;Address of status register
+	IN B,(C)
+        BIT  kSIORxRdy,B	;Receive byte available
+	POP BC
+        RET			;Return Z if no character
+
+flush_B:
+	call rxrdy_B
+	ret z
+	jr flush_B
 
 ;;; return z if output is busy/full, NZ if ready to send
-output_ready:
-            PUSH BC
-            LD   C,kSIOAConT2   ;SIO control register
-            IN   B,(C)          ;Read SIO control register
-            BIT  kSIOTxRdy,B    ;Transmit register full?
-            POP  BC
-            RET                ;Return Z as character not output
+txrdy:	
+        PUSH BC
+        LD   C,kSIOAConT2   ;SIO control register
+        IN   B,(C)          ;Read SIO control register
+        BIT  kSIOTxRdy,B    ;Transmit register full?
+        POP  BC
+        RET                ;Return Z as character not output
+	
+;;; return z if output is busy/full, NZ if ready to send
+txrdy_B:	
+        PUSH BC
+        LD   C,kSIOBConT2   ;SIO control register
+        IN   B,(C)          ;Read SIO control register
+        BIT  kSIOTxRdy,B    ;Transmit register full?
+        POP  BC
+        RET                ;Return Z as character not output
 	
 
 ; Base address for SIO
