@@ -31,4 +31,5 @@ end
 # initialize the port
 sp = SerialPort( "/dev/ttyUSB1", 115200)
 
+# setup memory
 do_cmd( sp, "G C000\r")

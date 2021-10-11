@@ -39,16 +39,31 @@ puts_B:	ld	a,(hl)
 
 ;;; read string from port B to HL
 ;;; no editing, etc.  No echo.  Stop on first control char
+;;; timeout
 gets_B:	push	hl
-getsB0:	call	getc_B
-	cp	20h
-	jr	c,getsB1
-	ld	(hl),a
-	inc	hl
+	push	bc
+	
+getsB0:	ld	bc,0		;timeout counter
+
+getsBW:	call	rxrdy_B		;check for char ready, NZ if so
+	jr	nz,getsBC	;go read the character
+	dec	bc		;no char, dec timeout
+	ld	a,b		;check for zero
+	or	c
+	jr	nz,getsBW	;still waiting
+	jr	getsB1		;timeout, just return what we've got
+
+getsBC:	call	getc_B		;read the character
+	cp	20h		;is control?
+	jr	c,getsB1	;yes, ignore it and end
+	ld	(hl),a		;no, store non-control
+	inc	hl		;increment pointer
+	;; FIXME:  check for buffer overrun here
 	jr	getsB0
 
 getsB1:	;control char
 	ld	(hl),0		;null-terminate
+	pop	bc
 	pop	hl
 	ret
 

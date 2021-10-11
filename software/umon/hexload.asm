@@ -362,7 +362,7 @@ noja:	call	ghex2		; get record type to A
 
 ;	jp	0
 
-	jp	(hl)
+	jp	8100h
 
 	;; parse and store data
 datt:	call	ghex2

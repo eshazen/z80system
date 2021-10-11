@@ -99,6 +99,9 @@ usage:  db      "h                     print this help", 13, 10
 	db	0
 
 main:	ld	sp,stak
+	;; set RC2014 memory map to all RAM
+	out	(30h),a		;reset memory page thing (back to ROM)
+	out	(38h),a		;increment memory page thing (all RAM)
 	call	io_init
 	ld	hl,banner
 	call	puts
@@ -221,7 +224,7 @@ sendser:
 	call	putc_B
 
 ;;; wait for reply
-	ld	hl,buff
+	ld	hl,dskbuf
 	call	gets_B
 	call	crlf
 	call	puts
@@ -661,9 +664,11 @@ pregn:
 	ret
 
 ;;; input buffer (tokens zero-terminated after parsing)
-buff:	ds	200h
+buff:	ds	80
 bend:	equ	$		;mark the end
-	
+
+dskbuf:	ds	200H
+
 umontop:	equ	$
 	
 	.end

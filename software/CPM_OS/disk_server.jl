@@ -1,10 +1,13 @@
 #
 # simple serial disk server for CP/M
+#
 # expect commands like:
+#
+# S1                     Select disk 1 (zero-based numbering)
 # R 0A 11                Read track 10, sector 17
-# reply: aa bb cc ... (128 bytes data) then " OK"
-# W 0B 12 de ad be ...   Write track 11, sector 18 data de, ad, be... (128 bytes)
-# reply:  OK or ERR
+#     reply: Kaabbcc ... (128 bytes data) or E
+# W 0B 12 aabbcc ...   Write track 11, sector 18 data aa, bb, cc... (128 bytes)
+#     reply:  K or E
 #
 using LibSerialPort
 using Printf
@@ -17,92 +20,143 @@ track_size = sectors * bytes
 
 secbuf = Array{UInt8}(undef, bytes)
 
+disk = 1
 
-if length(ARGS) < 2
-    println("usage: ./disk_server file device [baud]")
+quiet = true
+
+if length(ARGS) < 3
+    println("usage: ./disk_server device baud disk1 [disk2...]")
+    println("       device CON for terminal")
     exit(1)
 end
 
-device = ARGS[2]
-fname = ARGS[1]
+device = ARGS[1]
+baud = ARGS[2]
 
-baud = "9600"
-if length(ARGS) > 2
-    baud = ARGS[3]
-end
+diskf = Array{String}(undef,4)
 
-println( "Using file ", fname, " port ", device, " speed ", baud)
-
-if( isfile(fname) == false)
-    println("No such file")
-    exit(1)
-end
-
-# function to replace \r with \n in a string
-function clean_str(t)
-    r = "";
-    for i = firstindex(t):lastindex(t)
-        try
-            c = t[i]
-            if c == '\r'
-                r *= "\n"
-            else
-                r *= c
-            end
-        catch
-            # ignore the index error
-        end
+for i=3:length(ARGS)
+    global diskf[i-2] = ARGS[i]
+    println("Disk ", i-2, "=", diskf[i-2])
+    if isfile(diskf[i-2]) == false
+        println("No such file: ",diskf[i-2])
+        exit(1)
     end
-    return r
 end
 
-# send a command to serial port and return echoed string
-function do_cmd(s,c)
-    write(s, c)
-    sleep( 0.01)
-    return( clean_str(readavailable(s)));
+console = false
+ndisk = length(ARGS)-2
+
+if device == "CON" || device == "con"
+    console = true
 end
 
+fp = Array{IOStream}(undef,4)
+    
+for i=1:ndisk
+    println("Opening ", diskf[i])
+    global fp[i] = open( diskf[i], "r+")
+end
+
+println( "Open with device=", device, " speed=", baud, " disks=", ndisk)
 
 # initialize the port
-sp = LibSerialPort.open( device, parse( Int, baud))
-f = open( fname, "r+")
 
-println("Server listening on ", device)
-
-
+if console == false
+    global sp = LibSerialPort.open( device, parse( Int, baud))
+else
+    global sp = stdin
+end
 
 while( true)
     s = readline(sp)
-    print("Got command: ", s, "\n")
-    if length(s) > 2
+#    print("Got command: ", s, "\n")
+    if length(s) > 6
         t = split(s)
-        track = parse(Int, s[3:4], base=16)
-        sector = parse(Int, s[6:7], base=16)
-        seek( f, track*track_size + (sector-1)*bytes)
+        track = parse(Int, s[3:4], base=16) # zero-based
+        sector = parse(Int, s[6:7], base=16) # one-based
+        seek( fp[disk], track*track_size + (sector-1)*bytes)
     end
     
     if( s[1] == 'Q')
         println( "Shutting down")
-        write( sp, "OK\n")
-        close( f)
+        write( sp, "K\n")
         exit(1)
-    elseif ( s[1] == 'R')
-        println( "Read: track=", track, " sector=", sector)
-        if track < 0 || track > tracks || sector < 1 || sector > sectors
-            write( sp, "ERR\n")
+    elseif ( s[1] == 'S')
+        if length(s) != 2
+            write( sp, "E\n")
         else
-            read!( f, secbuf)
-            for i=1:bytes
-                @printf sp "%02x" secbuf[i]
+            n = parse(Int, s[2])+1
+            println("Select disk ", n)
+            if n < 1 || n > ndisk
+                write( sp, "E\n")
+            else
+                global disk = n
+                write( sp, "K\n")
             end
-            write( sp, " OK\n")
+        end
+
+    elseif ( s[1] == 'R')        
+        if length(s) != 7
+            write( sp, "E\n")
+        else
+            if quiet == false
+                println( "Read: track=", track, " sector=", sector)
+            end
+            if  track < 0 || track > tracks || sector < 1 || sector > sectors
+                write( sp, "E\n")
+                println("Error")
+            else
+                write( sp, "K")
+                read!( fp[disk], secbuf)
+                for i=1:bytes
+                    @printf sp "%02X" secbuf[i]
+                end
+                write( sp, "\n")
+                if console == true
+                    # dump in "canonical" hex/ascii format
+                    for i=1:16:bytes
+                        print( string(i,base=16), ": ")
+                        for j=0:15
+                            @printf " %02X" secbuf[i+j]
+                        end
+                        print(" \"")
+                        for j=0:15
+                            c = secbuf[i+j]
+                            if c > 0x20 && c <= 0x7e
+                                print( Char(c))
+                            else
+                                print(".")
+                            end
+                        end
+                        print("\"\n")
+                    end
+                end
+                if quiet == false
+                    println("OK")
+                end
+            end
         end
     elseif( s[1] == 'W')
-        println( "Write: track=", track, " sector=", sector)
-        write( sp, "OK\n")
+        if quiet == false
+            println( "Write: track=", track, " sector=", sector)
+        end
+        if length(s) != 264
+            write( sp, "E\n")
+            println("Error")
+        else
+            for i=1:bytes
+                j = 7+2*i
+                secbuf[i] = parse(Int, s[j:j+1], base=16)
+            end
+            write( fp[disk], secbuf)
+            write( sp, "K\n")
+            if quiet == false
+                println("OK")
+            end
+        end
     else
         println( "Error")
-        write( sp, "ERR\n")
+        write( sp, "E\n")
     end
 end
