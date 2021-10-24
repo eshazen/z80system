@@ -1,5 +1,5 @@
 #
-# load hex data to RC2014 
+# load any data to RC2014 
 # 
     
 using SerialPorts
@@ -38,8 +38,6 @@ f = open( ARGS[1], "r")
 
 while ! eof(f)
     s = readline( f)
-    if s[1] == ':'
-        println( do_cmd( sp, s * '\r'))
-    end
+    println( do_cmd( sp, s * '\r'))
 end
 

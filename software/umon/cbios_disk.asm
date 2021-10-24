@@ -7,9 +7,16 @@
 ;	skeletal cbios for first level of CP/M 2.0 alteration
 ;
 ;;; below set for initial 20K system
-ccp:	equ	03400h		;base of ccp
-bdos:	equ	03C06h		;bdos entry
-bios:	equ	04A00h		;base of bios
+	
+
+;ccp:	equ	03400h		;base of ccp
+;bdos:	equ	03C06h		;bdos entry
+;bios:	equ	04A00h		;base of bios
+
+ccp:	equ	0E400h		;base of ccp
+bdos:	equ	0EC06h		;bdos entry
+bios:	equ	0FA00h		;base of bios
+	
 cdisk:	equ	0004h		;address of current disk number 0=a,... l5=p
 iobyte:	equ	0003h		;intel i/o byte
 disks:	equ	04h		;number of disks in the system
@@ -44,24 +51,28 @@ wboote:	JP	wboot	;warm start
 ;	ESH:  restored sector translation
 ;
 ;	disk Parameter header for disk 00
+;;; IBM standard, 2 system tracks but skew=1
 dpbase:	defw	xlat0, 0000h
 	defw	0000h, 0000h
-	defw	dirbf, dpblk
+	defw	dirbf, dpb00
 	defw	chk00, all00
 ;	disk parameter header for disk 01
+;;; IBM standard, 2 system tracks skew=6
 	defw	xlat1, 0000h
 	defw	0000h, 0000h
-	defw	dirbf, dpblk
+	defw	dirbf, dpb00
 	defw	chk01, all01
 ;	disk parameter header for disk 02
+;;; IBM standard, 2 system tracks skew=6
 	defw	xlat1, 0000h
 	defw	0000h, 0000h
-	defw	dirbf, dpblk
+	defw	dirbf, dpb00
 	defw	chk02, all02
 ;	disk parameter header for disk 03
+;;; IBM standard, 0 system tracks skew=6
 	defw	xlat1, 0000h
 	defw	0000h, 0000h
-	defw	dirbf, dpblk
+	defw	dirbf, dpb01
 	defw	chk03, all03
 ;
 ;	sector translate vector
@@ -84,7 +95,7 @@ xlat0:  defm   1,  2,  3,  4    ;sectors  1,  2,  3,  4
         defm  25, 26            ;sectors 25, 26         
 	
 ;
-dpblk:	;disk parameter block for all disks.
+dpb00:	;disk parameter block: system disks
 	defw	26		;sectors per track
 	defm	3		;block shift factor
 	defm	7		;block mask
@@ -96,13 +107,29 @@ dpblk:	;disk parameter block for all disks.
 	defw	16		;check size     ESH: was zero
 	defw	2		;track offset
 ;
+dpb01:	;disk parameter block: data disks
+	defw	26		;SPT sectors per track
+	defm	3		;BSH block shift factor
+	defm	7		;BLM block mask
+	defm	0		;EXM null mask
+	defw	249		;DSM disk size-1
+	defw	63		;DRM directory max
+	defm	192		;AL0 alloc 0
+	defm	0		;AL1 alloc 1
+	defw	16		;CKS check size     ESH: was zero
+	defw	0		;OFS track offset
+;
 ;	end of fixed tables
 ;
 ;	individual subroutines to perform each function
 boot:	;simplest case is to just perform parameter initialization
+	LD	sp, 80h		;use space below buffer for stack
 	XOR	a		;zero in the accum
 	LD	(iobyte),A	;clear the iobyte
 	LD	(cdisk),A	;select disk zero
+	;; set RC2014 memory map to all RAM
+	out	(30h),a		;reset memory page thing (back to ROM)
+	out	(38h),a		;increment memory page thing (all RAM)
 	call	io_init		;set up the SIO
 	JP	gocpm		;initialize and go to cp/m
 ;
