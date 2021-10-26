@@ -11,7 +11,10 @@ dump = false
 
 # set to size for CP/M
 # offset down 1 sector
-offset = 0x3400
+
+# 3400 for 20K
+# E400 for 64K
+offset = 0xE400
 
 tracks = 77
 sectors = 26

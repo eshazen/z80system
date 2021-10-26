@@ -123,7 +123,7 @@ dpb01:	;disk parameter block: data disks
 ;
 ;	individual subroutines to perform each function
 boot:	;simplest case is to just perform parameter initialization
-	LD	sp, 80h		;use space below buffer for stack
+	LD	sp, 80h		;use space below buffer for stack <ESH add>
 	XOR	a		;zero in the accum
 	LD	(iobyte),A	;clear the iobyte
 	LD	(cdisk),A	;select disk zero

@@ -9,7 +9,7 @@ julia ./make_disk.jl cpm.dsk
 # add in CBIOS
 julia ./make_cpm.jl ../umon/zout/cbios_disk.hex cpm.dsk
 # add in CCP, BDOS
-julia ./make_cpm.jl zout/cpm_20.hex cpm.dsk
+julia ./make_cpm.jl zout/cpm_64.hex cpm.dsk
 echo "Disk cpm.dsk is ready"
 
 

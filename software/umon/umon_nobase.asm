@@ -5,42 +5,57 @@
 ;;; e <addr> <dd> <dd>...      edit up to 16 bytes in memory
 ;;; o <port> <val>             output <val> to <port>
 ;;; i <port>                   input from <port> and display
-;;; g <addr>                   goto addr
+;;; g <addr>                   goto address (restore regs)
 ;;; b <addr>                   set breakpoint (currently 3-byte call)
 ;;; a <val1> <val2>            hex Arithmetic
-;;; f <addr>                   dump HP registers from <addr> (A)
 ;;; c                          continue from breakpoint
 ;;; c <addr>                   continue, set new breakpoint
 ;;; m <start> <end> <size>     memory region compare
 ;;; p <start> <end> <size>     memory region copy
 ;;; l			       binary load
-;;; r			       repeat last command
-;;; s <string>                 send string to SIO port B
-;;;                            read and display return string
-;;; w <track> <sector> <addr>  write remote disk
+;;; f <n>                      restore regs, call function <n> from jump table       
+;;; r                          display stored regs
+;;; r <reg> <val>              edit stored regs
+;;; x <lba_h> <lba_l> <addr>   read sector
+;;; y <lba_h> <lba_l> <addr>   write sector
 ;;; 
-
 ; 	org	08100H
  	org	UMON_ORIGIN	
 
 stak:	equ	$		;stack grows down from start
 
 ;;; jump table for useful entry points
-	jmp	main		;0000  cold start
-	jmp	savestate	;0003  save state (breakpoint)
-	jmp	getc		;0006  read serial input to A
-	jmp	putc		;0009  output serial from A
-	jmp	crlf		;000c  output CR/LF
-	jmp	puts		;000f  output string from HL
-	jmp	phex2		;0012  output hex byte from A
-	jmp	phex4		;0015  output hex word from HL
+jump_table:	
+	;;                    fn_no   offset    description
+	jmp	main		;00   0000	cold start
+	jmp	save_state	;01   0003	save state (breakpoint)
+	jmp	getc		;02   0006	read serial input to A
+	jmp	putc		;03   0009	output serial from A
+	jmp	crlf		;04   000c	output CR/LF
+	jmp	puts		;05   000f	output string from HL
+	jmp	phex2		;06   0012	output hex byte from A
+	jmp	phex4		;07   0015	output hex word from HL
+
+	jmp IDE_Initialize      ;08   0018	setup PPI, reset drive
+	jmp IDE_Byte_Read       ;09   001b	read byte from reg C to A
+	jmp IDE_Word_Read       ;0a   001e	read word from reg C to DE
+	jmp IDE_Byte_Write      ;0b   0021	write data in A to reg C (uses B)
+	jmp IDE_Word_Write      ;0c   0024	write data in HL to reg C (uses B)
+	jmp IDE_Get_Status      ;0d   0027	read status register to A
+	jmp IDE_Wait_Ready      ;0e   002a	wait for busy=0, ready=1
+	jmp IDE_Wait_DRQ        ;0f   002d	wait for DRQ=1
+	jmp IDE_Do_Cmd	        ;10   0030	issue a command from A (use b, c)
+	jmp IDE_Setup_LBA       ;11   0033	set LBA from DEHL
+	jmp IDE_Read_ID	        ;12   0036	Read 512 byte ID to (DE)
+	jmp IDE_Read_Sector	;13   0039	Read sector from LBA=DEHL to IX
+	jmp IDE_Write_Sector    ;14   003c      Write sector from IX to LBA=DEHL
 
 ;;; ---- data area ----
 
 ;;; save CPU state coming from extrnal prog
 savein:	db	0,0,0		;instruction overwritten by breakpoint
 savead:	dw	0		;address of breakpoint
-savsp:	dw	0		;caller's stack pointer
+savesp:	dw	0		;caller's stack pointer
 
 ;;; saved registers
 saviy:	dw	0
@@ -58,9 +73,7 @@ savaf:	dw	0
 	
 savetop: equ	$
 	
-;regnam:	db	'HL', 0, 'DE', 0, 'BC', 0, 'AF', 0
 lastc:	db	0		;last command byte
-
 
 maxarg:	equ	18		;maximum number of arguments
 argc:	db	0
@@ -78,8 +91,9 @@ iargv:	rept	maxarg*2
 	INCLUDE "hex.asm"
 	INCLUDE "strings.asm"
 	INCLUDE "c-link.asm"
+	INCLUDE "disk_ide.asm"
 
-banner:	db	"UMON-P v0.7 ORG ",0
+banner:	db	"UMON-P v0.8 ORG ",0
 error:	db	"ERROR",0
 	
 usage:  db      "h                     print this help", 13, 10
@@ -94,8 +108,10 @@ usage:  db      "h                     print this help", 13, 10
 	db	"p <ad1> <ad2> <n>     memory copy", 13, 10
         db      "c                     continue from breakpoint", 13, 10
         db      "l                     binary load", 13, 10
-        db      "r <tk> <sec> <addr>   read remote disk", 13, 10
-        db      "w <tk> <sec> <addr>   write remote disk", 13, 10	
+	db	"f <n>                 call function", 13, 10
+        db      "r [<reg> <val>]       display/edit regs",13,10
+	db	"x <LH> <LL> <adr> [n] read disk sector(s)",13,10
+	db	"y <LH> <LL> <adr> [n] write disk sector",13,10
 	db	0
 
 main:	ld	sp,stak
@@ -120,10 +136,6 @@ loop:	ld	a,'>'		;prompt
 	call	gets
 
 ;;; commands here which don't want tokenizer to be run
-
-	ld	a,(buff)
-	cp	a,'S'
-	jz	sendser
 
 ;;; parse string into tokens at argc / argv
 	ld	hl,buff
@@ -180,10 +192,16 @@ loop:	ld	a,'>'		;prompt
 	jz	memcpy
 
 	cp	a,'R'
-	jz	dskrd
+	jz	edit_regs
 
-	cp	a,'W'
-	jz	dskwr
+	cp	a,'F'
+	jz	call_func
+
+	cp	a,'X'
+	jz	read_sect
+
+	cp	a,'Y'
+	jz	writ_sect
 
 errz:	ld	hl,error
 	call	puts
@@ -197,40 +215,184 @@ help:	ld	hl,usage
 	call	puts
 	jp	loop
 
+;;; write sector(s)
+writ_sect:
+	ld	a,(argc)
+	ld	b,1		;default count
+	cp	4		;count = 1
+	jr	z,wsrun
+	cp	5		;count specified
+	jp	nz,errz
+	ld	a,(iargv+8)	;count
+	ld	b,a
 
-;;; read disk
-dskrd:	ld	a,'R'
-	call	dskpar
-	;; <FIXME> not done
+	;; write B sectors, incrementing LBA in DEHL
+wsrun:
+	ld	de,(iargv+2)
+	ld	hl,(iargv+4)
+	ld	ix,(iargv+6)
+	
+wsloup:	
+	push	hl
+	push	bc
+	push	de
+	
+	call	IDE_Write_Sector
+	push	de		;after call next locn is in DE
+	pop	ix		;copy to IX
+	
+	pop	de
+	pop	bc
+	pop	hl
+
+	;; increment lba
+	ld	a,h		;check for HL=FFFF
+	and	l
+	cp	0ffh
+	inc	hl
+	jr	nz,nolbcw
+
+	inc	de
+nolbcw:	djnz	wsloup
+
 	jp	loop
 
-dskwr:	ld	a,'W'
-	call	dskpar
-	;; <FIXME> not done
+	
+;;; read sector(s)
+read_sect:
+	ld	a,(argc)
+	ld	b,1		;default count
+	cp	4		;count = 1
+	jr	z,rsrun
+	cp	5		;count specified
+	jp	nz,errz
+	ld	a,(iargv+8)	;count
+	ld	b,a
+
+	;; read B sectors, incrementing LBA in DEHL
+rsrun:
+	ld	de,(iargv+2)
+	ld	hl,(iargv+4)
+	ld	ix,(iargv+6)
+	
+rsloup:	
+	push	hl
+	push	bc
+	push	de
+	
+	call	IDE_Read_Sector
+	push	de		;after call next locn is in DE
+	pop	ix		;copy to IX
+	
+	pop	de
+	pop	bc
+	pop	hl
+
+	;; increment lba
+	ld	a,h		;check for HL=FFFF
+	and	l
+	cp	0ffh
+	inc	hl
+	jr	nz,nolbcy
+
+	inc	de
+nolbcy:	djnz	rsloup
+
 	jp	loop
 
-;;; set up for disk read or write
-dskpar:
-	;; <FIXME> not done
-	ret
+;;; call function from jump table, first restoring regs
+call_func:
+	ld	a,(argc)	;check for value
+	cp	2
+	jp	nz,errz
+	ld	hl,save_state	;user returns to here
+	push	hl
+	ld	a,(iargv+2)	;get function code
+	ld	e,a		;to DE
+	ld	d,0
+	ld	hl,jump_table
+	add	hl,de		;multiply by 3
+	add	hl,de
+	add	hl,de
+	jp	gother		;go restore state, call (hl)
 
+;;; edit/display registers in memory (at 'saveiy')
+;;; no args = display all regs
+;;; first arg is register name:  AF, BC, DE, HL, A', B', D', H', IX, IY
+;;; second arg is 16-bit value
+edit_regs:
+	ld	a,(argc)	;get for two args
+	cp	3
+	jp	nz,view_regs	;nope, just display regs
+	;; search for register name as 2nd argument
+	ld	hl,(argv+2)	;pointer to register name from command line
+	ld	d,(hl)		;get first char
+	inc	hl
+	ld	e,(hl)	      ;get 2nd char
+	ld	hl,reg_names	;list of names for compare
+	ld	b,10		;number of register name bytes
+	
+	;; lookup 16-bit register name from list
+regnam:
+	ld	a,d		;get first char
+	cp	(hl)		;compare it
+	inc	hl		;advance ptr (no flags changed)
+	jr	nz,regnm	;didn't match
 
-;;; send serial
-sendser: 
-	call	flush_B		; dump any pending input
-	ld	hl,buff+2
-	call	puts_B
-	ld	a,0ah
-	call	putc_B
+	ld	a,e		;get 2nd char
+	cp	(hl)		;compare
+	inc	hl
+	jr	z,regfound
+	
+regnxt:	djnz	regnam
+	
+	jp	badreg
 
-;;; wait for reply
-	ld	hl,dskbuf
-	call	gets_B
-	call	crlf
+regnm:	inc	hl		;skip 2nd char
+	jr	regnxt		;go loop
+
+	;; reg name not found
+	;; display it
+badreg:	ld	hl,badreg_msg
 	call	puts
+	ld	hl,(argv+2)
+	ld	a,''''
+	call	putc
+	ld	a,(hl)
+	call	putc
+	inc	hl
+	ld	a,(hl)
+	call	putc
+	ld	a,''''
+	call	putc
 	call	crlf
 	jp	loop
 
+badreg_msg:	db 'BAD REG',13,10,0
+
+view_regs:
+	call	display_regs
+	jp	loop
+
+;;; register name at HL-2 matches
+regfound:	
+	dec	hl
+	dec	hl
+	or	a		;clear CY
+	ld	de,reg_names
+	sbc	hl,de		;now we have offset into registers stored at saviy
+	ld	de,saviy	;offset by two since HL points past match
+	add	hl,de		;point to stored reg value
+	ld	de,(iargv+4)	;get new value
+
+	ld	(hl),e		;change the stored value
+	inc	hl
+	ld	(hl),d
+	
+	jp	loop
+
+reg_names:
+	db	'IY', 'IX', 'H''', 'D''', 'B''', 'A''', 'HL', 'DE', 'BC', 'AF'
 
 ;;; output to port
 output:	ld	a,(iargv+2)
@@ -268,7 +430,7 @@ continu: ld	hl,(savead)
 	;; optionally, set a new breakpoint
 	ld	a,(argc)
 	cp	2
-	jr	nz,nonew
+	jr	nz,restore_state
 
 	;; set new breakpoint
 	ld	hl,(iargv+2)
@@ -279,7 +441,9 @@ continu: ld	hl,(savead)
 	call	puts
 
 	;; restore the machine state
-nonew:	ld	sp,saviy
+	;; restore stack from (savesp) and ret
+restore_state:
+	ld	sp,saviy
 
 	pop	iy
 	pop	ix
@@ -296,7 +460,7 @@ nonew:	ld	sp,saviy
 	pop	bc
 	pop	af
 
-	ld	sp,(savsp)	;get back caller's stack
+	ld	sp,(savesp)	;get back caller's stack
 	ret			;should to back to BP locn
 
 	
@@ -352,7 +516,7 @@ brkat:
 	push	hl
 	ld	(hl),0cdh	;CALL
 	inc	hl
-	ld	de,savestate	;target for call
+	ld	de,save_state	;target for call
 	ld	(hl),e
 	inc	hl
 	ld	(hl),d
@@ -440,7 +604,13 @@ bin2:	call	getc
 goto:	cp	2
 	jp	c,errz
 	ld	hl,(iargv+2)
-	jp	(hl)
+	ld	de,showstate
+	;; set up the stack:  first, a return address in case user executes a RET
+	push	de
+	;; now the user specified address from the command line
+gother:	push	hl
+	ld	(savesp),sp	;save caller's stack pointer
+	jp	restore_state
 
 ;;; edit values into memory
 edit:	ld	a,(argc)
@@ -462,22 +632,37 @@ eloop:	ld	a,(ix)
 	jp	loop
 
 ;;; dump some memory
-dump:	ld	hl,(iargv+2)	;first arg
-	ld	a,(iargv+4)	;second arg
+dump:	ld	a,(argc)
+	ld	b,0		;default count = 0/100
+	cp	a,2		;0 or 1 args?
 	
-	ld	b,a		;count
+	jr	c,dump1
+	;; else > 1 arg, so count specified
+	ld	a,(iargv+4)	;second arg
+	ld	b,a
+
+dump1:	ld	hl,(iargv+2)	;first arg
+	
 	call	hdump
+
+	ld	(iargv+2),hl	;save addr after
+
 	jp	loop
 
 ;;; hex dump B bytes from HL
 	;; see if we need to print the address
 	;; either on 16-byte boundary, or first address
-hdump:	call	haddr		;always print first address
+	;; each time we print the address, copy to IX for ascii
+hdump:	call	hex_addr	;always print first address
+	push	hl
+	pop	ix		;address to IX
 	jr	bite		;skip the 16-byte test
 
 hdump2:	ld	a,l
 	and	0xf
-	call	z,haddr
+	jr	nz,bite
+
+	call	hex_ascii
 
 bite:	ld	a,(hl)
 	inc	hl
@@ -485,11 +670,31 @@ bite:	ld	a,(hl)
 	call	space
 
 noadr:	djnz	hdump2
+
 	call	crlf
 	ret
 
+;;; print 16 bytes ascii from IX
+hex_ascii:
+	call	space
+	push	bc
+	ld	b,10h
+hexal:	ld	a,(ix)
+	inc	ix
+	cp	20h		;control char?
+	jr	c,hexdot	;yes, print a dot
+	cp	80h		;high bit set?
+	jr	c,hexput	;no, print the char
+	
+hexdot:	ld	a,'.'
+
+hexput:	call	putc
+	djnz	hexal
+	pop	bc
+
 ;;; print address in HL
-haddr:	push	hl
+hex_addr:
+	push	hl
 	call	crlf
 	call	phex4
 	ld	a,':'
@@ -519,14 +724,15 @@ altban:	db	"BREAK ",0
 ;;; Save machine state and display it
 ;;; Restore code at breakpoint
 ;;; --------------------------------------
-savestate:	
+save_state:	
 	;; get the return address and save it
 	ex	(sp),hl		;return address to HL
 	dec	hl
 	dec	hl
 	dec	hl		;back up over breakpoint call
 	ex	(sp),hl		;put back on caller's stack
-	ld	(savsp),sp	;save caller's SP
+showstate:	
+	ld	(savesp),sp	;save caller's SP
 	;; reset the stack to the save area
 	ld	sp,savetop
 	;; save primary regs
@@ -553,11 +759,12 @@ savestate:
 	ld	hl,(savead)
 	call	phex4
 	call	crlf
-	call	pstate		;display regs from state
+	
+	call	display_regs		;display regs from state
 	jp	loop
 	
 ;;; display machine state from stored values
-pstate:
+display_regs:
 	ld	hl,(savaf)
 	ld	de,'AF'
 	call	pregn
@@ -602,13 +809,16 @@ pstate:
 	ld	de,'IY'
 	call	pregn
 
-	ld	hl,(savsp)
+	ld	hl,(savesp)
 	ld	de,'SP'
 	call	pregn
 	
 	call	crlf
-	
-	jp	loop
+
+	ex	af,af'		;back to primary regs
+	exx
+
+	ret
 	
 ;;; copy memory
 memcpy:	call	load3w

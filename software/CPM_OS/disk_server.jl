@@ -22,7 +22,7 @@ secbuf = Array{UInt8}(undef, bytes)
 
 disk = 1
 
-quiet = true
+quiet = false
 
 if length(ARGS) < 3
     println("usage: ./disk_server device baud disk1 [disk2...]")
@@ -101,7 +101,7 @@ while( true)
             write( sp, "E\n")
         else
             if quiet == false
-                println( "Read: track=", track, " sector=", sector)
+                println( "R", track, " S", sector)
             end
             if  track < 0 || track > tracks || sector < 1 || sector > sectors
                 write( sp, "E\n")
@@ -132,14 +132,11 @@ while( true)
                         print("\"\n")
                     end
                 end
-                if quiet == false
-                    println("OK")
-                end
             end
         end
     elseif( s[1] == 'W')
         if quiet == false
-            println( "Write: track=", track, " sector=", sector)
+            println( "W", track, " S", sector)
         end
         if length(s) != 264
             write( sp, "E\n")
@@ -151,9 +148,6 @@ while( true)
             end
             write( fp[disk], secbuf)
             write( sp, "K\n")
-            if quiet == false
-                println("OK")
-            end
         end
     else
         println( "Error")
