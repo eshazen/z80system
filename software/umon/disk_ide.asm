@@ -2,7 +2,7 @@
 ;;;
 ;;; IDE_Initialize			setup PPI, reset drive
 ;;; IDE_Byte_Read			read byte from reg C to A
-;;; IDE_Word_Read			read word from reg C to DE
+;;; IDE_Word_Read			read word from reg C to HL
 ;;; IDE_Byte_Write			write data in A to reg C (uses B)
 ;;; IDE_Word_Write			write data in HL to reg C (uses B)
 ;;; IDE_Get_Status     			read status register to A
@@ -87,13 +87,19 @@ IDE_Idle:
 
 ;;; read IDE register C, 8-bit data to A
 IDE_Byte_Read:
-	ld	a,c		;get address
-	or	PPCS0		;set /CS0
-	out	(PPIC),a	;enable both
-	add	a,PPRD		;set RD=1
-	out	(PPIC),a
-	in	A,(PPIA)	;get LSB
-	jr	IDE_Idle	;turn off all controls
+	push	hl
+	call	IDE_Word_Read
+	ld	a,h
+	pop	hl
+	ret
+	
+;	ld	a,c		;get address
+;	or	PPCS0		;set /CS0
+;	out	(PPIC),a	;enable both
+;	add	a,PPRD		;set RD=1
+;	out	(PPIC),a
+;	in	A,(PPIA)	;get LSB
+;	jr	IDE_Idle	;turn off all controls
 
 ;;; read IDE register C, 16-data to HL
 IDE_Word_Read:
@@ -102,11 +108,17 @@ IDE_Word_Read:
 	out	(PPIC),a	;enable both
 	add	a,PPRD		;set RD=1
 	out	(PPIC),a
+	push	af
 	in	A,(PPIA)	;get LSB
 	ld	h,a		;bit endian
 	in	a,(PPIB)	;get MSB
 	ld	l,a
-	jr	IDE_Idle	;turn off all controls
+	pop	af
+	sub	a,PPRD
+	out	(PPIC),a
+	ret
+
+;	jr	IDE_Idle	;turn off all controls
 
 ;;; write IDE register C with data in A
 IDE_Byte_Write:
@@ -257,6 +269,7 @@ IDE_RSW:
 	ret
 
 ;;; Write sector (256 words) to DEHL from (IX)
+;;; return status register value in A
 IDE_Write_Sector:
 	call	IDE_Wait_Ready
 	call	IDE_Setup_LBA
@@ -285,7 +298,6 @@ IDE_WSW:
 
 	ld	c,0		;register 0 for data
 	call	IDE_Word_Write
-	
 	djnz	IDE_WSW
 	call	IDE_Wait_Ready
 	call	IDE_Get_Status

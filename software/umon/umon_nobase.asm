@@ -18,6 +18,7 @@
 ;;; r <reg> <val>              edit stored regs
 ;;; x <lba_h> <lba_l> <addr>   read sector
 ;;; y <lba_h> <lba_l> <addr>   write sector
+;;; w <start> <size> <patt>    zero or pattern-fill memory (size in WORDS)
 ;;; 
 ; 	org	08100H
  	org	UMON_ORIGIN	
@@ -38,7 +39,7 @@ jump_table:
 
 	jmp IDE_Initialize      ;08   0018	setup PPI, reset drive
 	jmp IDE_Byte_Read       ;09   001b	read byte from reg C to A
-	jmp IDE_Word_Read       ;0a   001e	read word from reg C to DE
+	jmp IDE_Word_Read       ;0a   001e	read word from reg C to HL
 	jmp IDE_Byte_Write      ;0b   0021	write data in A to reg C (uses B)
 	jmp IDE_Word_Write      ;0c   0024	write data in HL to reg C (uses B)
 	jmp IDE_Get_Status      ;0d   0027	read status register to A
@@ -110,6 +111,7 @@ usage:  db      "h                     print this help", 13, 10
         db      "l                     binary load", 13, 10
 	db	"f <n>                 call function", 13, 10
         db      "r [<reg> <val>]       display/edit regs",13,10
+	db	"w <addr> <count> <p>  fill memory with wordz",13,10
 	db	"x <LH> <LL> <adr> [n] read disk sector(s)",13,10
 	db	"y <LH> <LL> <adr> [n] write disk sector",13,10
 	db	0
@@ -203,6 +205,9 @@ loop:	ld	a,'>'		;prompt
 	cp	a,'Y'
 	jz	writ_sect
 
+	cp	a,'W'
+	jz	memzer
+
 errz:	ld	hl,error
 	call	puts
 	call	crlf
@@ -214,6 +219,43 @@ quit:	jp	0
 help:	ld	hl,usage
 	call	puts
 	jp	loop
+
+;;; memory pattern/zero
+memzer:
+	ld	hl,(iargv+2)	;address
+	ld	bc,(iargv+4)	;count
+	ld	de,(iargv+6)	;pattern
+	;; check for letter 'P' for pattern
+	ld	ix,(argv+6)	;pointer to pattern
+	ld	a,(ix)
+	cp	a,'P'
+	jr	z,mempat
+	;; just fill with value in DE
+memfil:	push	hl		;save start address
+	ld	(hl),e		;store 16-bit value in first word
+	inc	hl
+	ld	(hl),d
+	inc	hl
+	pop	de		;restore start address
+	ex	de,hl		;now hl=start, de=next
+	ldir
+	jp	loop
+	
+	;; fill memory with counter value
+mempat:	ld	de,0
+memp1:	ld	(hl),e
+	inc	hl
+	ld	(hl),d
+	inc	hl
+	inc	de
+	dec	bc
+	ld	a,b
+	or	c
+	jr	nz,memp1
+
+	jp	loop
+	
+	
 
 ;;; write sector(s)
 writ_sect:
@@ -253,6 +295,16 @@ wsloup:
 	jr	nz,nolbcw
 
 	inc	de
+
+	;; delay
+	push	hl
+	ld	hl,0
+dilly:	dec	hl
+	ld	a,h
+	or	l
+	jr	nz,dilly
+	pop	hl
+
 nolbcw:	djnz	wsloup
 
 	jp	loop
@@ -634,16 +686,16 @@ eloop:	ld	a,(ix)
 ;;; dump some memory
 dump:	ld	a,(argc)
 	ld	b,0		;default count = 0/100
-	cp	a,2		;0 or 1 args?
-	
+	cp	a,3		;
 	jr	c,dump1
+
 	;; else > 1 arg, so count specified
 	ld	a,(iargv+4)	;second arg
 	ld	b,a
 
 dump1:	ld	hl,(iargv+2)	;first arg
 	
-	call	hdump
+dump0:	call	hdump
 
 	ld	(iargv+2),hl	;save addr after
 
