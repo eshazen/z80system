@@ -373,6 +373,7 @@ datt:	call	ghex2
 
 sadd:	dw	0		; store start address here
 
-buff:	equ	$
-bend:	equ	$+60
+buff:	ds	100h
+bend:	equ	$
+	
 	.end

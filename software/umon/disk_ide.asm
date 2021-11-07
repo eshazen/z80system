@@ -82,6 +82,7 @@ IDE_Idle:
 	push	af
 	xor	a		;turn off all control signals
 	out	(PPIC),a
+	call	IDE_Wait_Ready
 	pop	af
 	ret
 
@@ -93,6 +94,8 @@ IDE_Byte_Read:
 	pop	hl
 	ret
 	
+;;; this doesn't work for some reason
+
 ;	ld	a,c		;get address
 ;	or	PPCS0		;set /CS0
 ;	out	(PPIC),a	;enable both
@@ -114,8 +117,10 @@ IDE_Word_Read:
 	in	a,(PPIB)	;get MSB
 	ld	l,a
 	pop	af
+;;; turning of /RD before /CS0 seems key
 	sub	a,PPRD
 	out	(PPIC),a
+;;; FIXME any reason not to just leave /CS0 on?
 	ret
 
 ;	jr	IDE_Idle	;turn off all controls
@@ -136,9 +141,13 @@ IDE_Byte_Write:
 	add	a,PPWR		;set WR=1
 	out	(PPIC),a
 	
+	sub	a,PPWR		;set WR=0
+	out	(PPIC),a
+
 	ld	a,c
-	out	(PPIC),a	;set WR=0, /CS0=0
+	out	(PPIC),a	;set /CS0=0
 	
+;;; fixme should turn off write (only) first
 	ld	a,PP_IN
 	out	(PPICTL),a	;back to input mode
 	ret
@@ -160,6 +169,10 @@ IDE_Word_Write:
 
 	or	PPWR		;set WR=1
 	out	(PPIC),a
+
+	sub	a,PPWR		;set WR=0
+	out	(PPIC),a
+
 	ld	a,c
 	out	(PPIC),a	;set WR=0
 	ld	a,PP_IN

@@ -4,6 +4,25 @@
     
 using SerialPorts
 
+dilly = 0.05
+
+slow = false
+
+function send_slow(s)
+    println( "Send: ", s)
+    if( slow == true)
+        for (ci, c) in enumerate(s)
+            write( sp, c)
+            sleep( dilly)
+        end
+    else
+        write(sp,s)
+    end
+    
+    return
+end
+
+
 # function to replace \r with \n in a string
 function clean_str(t)
     r = "";
@@ -24,8 +43,8 @@ end
 
 # send a command to serial port and return echoed string
 function do_cmd(s,c)
-    write(s, c)
-    sleep( 0.01)
+    send_slow( c)
+    sleep( 0.1)
     return( clean_str(readavailable(s)));
 end
 
@@ -35,6 +54,7 @@ sp = SerialPort( "/dev/ttyUSB1", 115200)
 
 # read an intel hex file into an array
 f = open( ARGS[1], "r")
+
 
 while ! eof(f)
     s = readline( f)
