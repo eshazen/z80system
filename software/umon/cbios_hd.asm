@@ -55,30 +55,8 @@ wboote:	JP	wboot	;warm start
 	JP	listst	;return list status
 	JP	sectran	;sector translate
 
-;	each parameter-list-i takes the form
-;		dn,fsc,lsc,[skf],bls,dks,dir,cks,ofs,[0]
-;	where
-;	dn	is the disk number 0,1,...,n-1
-;	fsc	is the first sector number (usually 0 or 1)
-;	lsc	is the last sector number on a track
-;	skf	is optional "skew factor" for sector translate
-;	bls	is the data block size (1024,2048,...,16384)
-;	dks	is the disk size in bls increments (word)
-;	dir	is the number of directory elements (word)
-;	cks	is the number of dir elements to checksum
-;	ofs	is the number of tracks to skip (word)
-;	[0]	is an optional 0 which forces 16K/directory entry
-;
-	;; try defining disks using tables
-	disks	2
-	;; system disk is standard one, with no skew
-	diskdef	0,1,26,1,1024,243,64,64,2
-	;; 8MB hard disk B:
-	;; 256 sectors/track (32kB/track)
-	;; 256 tracks so 256*256*128 = 8 MiB
-	diskdef 1,0,255,0,8192,1024,1024,0,0
-	endef
-	
+	;; disk tables at end
+
 
 ;;- ;
 ;;- ;	fixed data tables for four-drive standard
@@ -300,9 +278,9 @@ seldsk:	;select disk given by register c
 	;; return HL=0 or disk parameter header address
 	LD	HL, 0000h	;error return code
 	LD 	a, c
-	LD	(diskno),A
 	CP	nodsk		;must be between 0 and 3
 	RET	NC		;no carry if 4, 5,...
+	LD	(diskno),A
 ;	disk number is in the proper range
 ;	compute proper disk Parameter header address
 	LD 	l, a		;l=disk number 0, 1, 2, 3
@@ -406,6 +384,8 @@ setuprw:
 
 	INCLUDE "serial.asm"
 	INCLUDE "disk_ide.asm"
+
+codend:	equ	$
 	
 ;
 ;	the remainder of the cbios is reserved uninitialized
@@ -417,6 +397,43 @@ track:	defs	2		;two bytes for expansion
 sector:	defs	2		;two bytes for expansion
 dmaad:	defs	2		;direct memory address
 diskno:	defs	1		;disk number 0-15
+
+
+;	each parameter-list-i takes the form
+;		dn,fsc,lsc,[skf],bls,dks,dir,cks,ofs,[0]
+;	where
+;	dn	is the disk number 0,1,...,n-1
+;	fsc	is the first sector number (usually 0 or 1)
+;	lsc	is the last sector number on a track
+;	skf	is optional "skew factor" for sector translate
+;	bls	is the data block size (1024,2048,...,16384)
+;	dks	is the disk size in bls increments (word)
+;	dir	is the number of directory elements (word)
+;	cks	is the number of dir elements to checksum
+;	ofs	is the number of tracks to skip (word)
+;	[0]	is an optional 0 which forces 16K/directory entry
+;
+
+diskparm:	equ	$
+
+	;; try defining disks using tables
+	disks	4
+diskp0:	equ $
+	;; system disk is standard one, with no skew
+	diskdef	0,1,26,1,1024,243,64,64,2
+diskp1:	equ $
+	;; 8MB hard disk B:
+	;; 256 sectors/track (32kB/track)
+	;; 256 tracks so 256*256*128 = 8 MiB
+	diskdef 1,0,255,0,8192,1024,256,0,0
+diskp2:	equ $
+	diskdef 2,0,255,0,8192,1024,256,0,0
+diskp3:	equ $
+	diskdef 3,0,255,0,8192,1024,256,0,0
+diskp4:	equ $
+	endef
+
+diskend: equ $
 ;
 ;;- ;	scratch ram area for bdos use
 ;;- begdat:	equ	$	 	;beginning of data area

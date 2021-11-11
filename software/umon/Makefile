@@ -1,4 +1,4 @@
-all: umon.hex hexload.hex
+all: umon.hex hexload.hex send_hex
 
 Z80ASM = /home/hazen/bin/zmac
 base=8100H
@@ -22,6 +22,11 @@ hexload.hex: hexload.asm
 
 clean:
 	rm -f *~ *.bin *.hex *.lis *.o
-	rm -r zout
+	rm -r zout send_hex
 
+send_hex.o: send_hex.cc serial_command.hh
 
+serial_command.o: serial_command.cc serial_command.hh
+
+send_hex: send_hex.o serial_command.o
+	g++ -o send_hex send_hex.o serial_command.o -lserial

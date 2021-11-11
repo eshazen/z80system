@@ -1,12 +1,15 @@
 	;;
-	;; format_hd.asm - format 8 MiB hard drive
+	;; getsys.asm - read CP/M from IDE to memory
+	;;
+	;; IDE mapping:	  LBA 0-7 is sector
+	;; 		  LBA 8-15 is track
+	;;                LBA 16-17 is disk
 	;;
 	;; Expects UMON resident at 8100H !!
-	;; write E5 over all sectors on track 0 only
 
-	org	1000h
+	org	100h
 
-MEM	EQU	63		;63K to match cbios_ide
+MEM	EQU	63		;63K to match cbios_hd
 	
 ccp:	equ	(MEM-7)*1024
 bdos:	equ	ccp+0806h
@@ -14,7 +17,7 @@ bios:	equ	ccp+1600h
 
 ;;; Useful UMON entry points
 
-umon		  equ  8100h        ;00   0000	cold start
+main		  equ  8100h        ;00   0000	cold start
 save_state	  equ  8103h        ;01   0003	save state (breakpoint)
 getc		  equ  8106h        ;02   0006	read serial input to A
 putc		  equ  8109h        ;03   0009	output serial from A
@@ -35,13 +38,11 @@ IDE_Do_Cmd	  equ  8130h        ;10   0030	issue a command from A (use b, c)
 IDE_Setup_LBA     equ  8133h        ;11   0033	set LBA from DEHL
 IDE_Read_ID	  equ  8136h        ;12   0036	Read 512 byte ID to (DE)
 IDE_Read_Sector	  equ  8139h        ;13   0039	Read sector from LBA=DEHL to IX
-IDE_Write_Sector  equ  813Ch        ;14   003c  Write sector from IX to LBA=DEHL
+IDE_Write_Sector  equ  813Ch        ;14   003c      Write sector from IX to LBA=DEHL
 
-	jp	main
+nsects:	equ	26*2		;two tracks to read
 
-diskno:	db	1		;disk number
-
-main:	call	IDE_Initialize
+	call	IDE_Initialize
 	call	IDE_Get_Status
 	cp	50h
 	jr	z,stat_ok
@@ -51,62 +52,64 @@ main:	call	IDE_Initialize
 	pop	af
 	call	phex2
 	call	crlf
-	jp	umon
+	jp	main
 
 	;; setup registers to start
 stat_ok:	
-	;; fill bufr with e5
-	ld	hl,bufr
-	ld	b,80
-	ld	a,0e5h
-	
-fbuf:	ld	(hl),a
-	inc	hl
-	djnz	fbuf
-
-	ld	hl,msg_writing
+	ld	hl,msg_reading
 	call	puts
 	
-	ld	a,(diskno)	;get disk no
-	call	phex2
-	call	crlf
-
-	ld	a,(diskno)
-	ld	e,a
-	ld	d,0
+	ld	de,0
+	ld	hl,2		;start with track 0, sector 2
+	ld	b,nsects
+	ld	iy,ccp
 	
-	ld	hl,0		;start with track 0 sector 0
 
-	ld	ix,bufr
-
-rsec:	ld	a,'.'
+rsec:	push	bc
+	ld	a,'.'
 	call	putc
 	
 	push	de
 	push	hl
-	push	ix
+	push	iy
 	
 	call	IDE_Setup_LBA
-	call	IDE_Write_Sector
+	ld	ix,dbuff
+	call	IDE_Read_Sector
 
-	pop	ix
+	;; copy 128 bytes to iy
+	ld	b,80h
+copb:	ld	a,(ix)
+	ld	(iy),a
+	inc	ix
+	inc	iy
+	djnz	copb
+
+	pop	iy
+	ld	de,80h
+	add	iy,de
+
 	pop	hl
 	pop	de
 
 	inc	l		;increment sector
 	ld	a,l
+	cp	27		;overflow?
+	jr	nz,nsec		;no, continue on this track
 
-	or	a		;zero = wrapped, done 256 sectors
+	ld	l,1		;else set sector 1
+	inc	h		;increment track
 
-	jr	nz,rsec		;no, continue on this track
+nsec:
+	pop	bc
+	djnz	rsec
 
-	jp	umon
-
+	jp	main
 
 msg_bad_status:	db 'Bad status: ',0
-msg_writing:	db 'Writing disk ',0
-	
-bufr:	ds	200h
+msg_reading:	db 'Reading: ',0
+
+dbuff:	equ	$		;host sector buffer above code
 
 	end
 	

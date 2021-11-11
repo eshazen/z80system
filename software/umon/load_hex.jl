@@ -45,6 +45,7 @@ end
 function do_cmd(s,c)
     send_slow( c)
     sleep( 0.1)
+    # FIXME wait for prompt
     return( clean_str(readavailable(s)));
 end
 
@@ -55,9 +56,12 @@ sp = SerialPort( "/dev/ttyUSB1", 115200)
 # read an intel hex file into an array
 f = open( ARGS[1], "r")
 
-
 while ! eof(f)
     s = readline( f)
-    println( do_cmd( sp, s * '\r'))
+    r = do_cmd( sp, s * '\r')
+    println(r)
+    if r[lastindex(r)] != '+'
+        println( "Missing prompt!")
+    end
 end
 

@@ -1,25 +1,39 @@
-;;;
+;;
 ;;; CP/M 2.2 BIOS for RC2014:
-;;;   console on SIO port A
-;;;   remote disk on SIO port B
+;;;   Disks:
+;;;   A: (IDE) - 243K standard system disk with no skew
+;;;              2 system tracks with CP/M
+;;;   B: (IDE) - 8MB (64K records) IDE partition, no sys
+;;;   C: (IDE) - 8MB (64K records) IDE partition, no sys
+;;;   D: (IDE) - 8MB (64K records) IDE partition, no sys
+;;;   E: (rem) - 243K remote serial disk with standard skew=6
+;;;   F: (rem) - 243K remote serial disk with standard skew=6
+;;;   G: (rem) - 243K remote serial disk with standard skew=6
+;;;   H: (rem) - 243K remote serial disk with standard skew=6
+;;;
+;;; Starts up OK but crashes after a bit
 ;;; 
-	
 ;	skeletal cbios for first level of CP/M 2.0 alteration
 ;
 ;;; below set for initial 20K system
 	
+	MACLIB DISKDEF
 
 ;ccp:	equ	03400h		;base of ccp
 ;bdos:	equ	03C06h		;bdos entry
 ;bios:	equ	04A00h		;base of bios
 
-ccp:	equ	0E400h		;base of ccp
-bdos:	equ	0EC06h		;bdos entry
-bios:	equ	0FA00h		;base of bios
+;;; probably need 62K CP/M to fit everything
+MEM:	EQU	62		;CP/M system size in K
 	
-cdisk:	equ	0004h		;address of current disk number 0=a,... l5=p
+ccp:	equ	(MEM-7)*1024
+bdos:	equ	ccp+0806h
+bios:	equ	ccp+1600h
+	
+cdisk:	equ	0004h		;address of current disk number 0=a,... 15=p
 iobyte:	equ	0003h		;intel i/o byte
-disks:	equ	04h		;number of disks in the system
+nodsk:	equ	08h		;number of disks in the system (total)
+rdisk:	equ	04h		;start of remote disk
 ;
 secsiz:	equ	128		;sector size for no
 
@@ -45,81 +59,8 @@ wboote:	JP	wboot	;warm start
 	JP	write	;write disk
 	JP	listst	;return list status
 	JP	sectran	;sector translate
-;
-;	fixed data tables for four-drive standard
-;	ibm-compatible 8" disks
-;	ESH:  restored sector translation
-;
-;	disk Parameter header for disk 00
-;;; IBM standard, 2 system tracks but skew=1
-dpbase:	defw	xlat0, 0000h
-	defw	0000h, 0000h
-	defw	dirbf, dpb00
-	defw	chk00, all00
-;	disk parameter header for disk 01
-;;; IBM standard, 2 system tracks skew=6
-	defw	xlat1, 0000h
-	defw	0000h, 0000h
-	defw	dirbf, dpb00
-	defw	chk01, all01
-;	disk parameter header for disk 02
-;;; IBM standard, 2 system tracks skew=6
-	defw	xlat1, 0000h
-	defw	0000h, 0000h
-	defw	dirbf, dpb00
-	defw	chk02, all02
-;	disk parameter header for disk 03
-;;; IBM standard, 0 system tracks skew=6
-	defw	xlat1, 0000h
-	defw	0000h, 0000h
-	defw	dirbf, dpb01
-	defw	chk03, all03
-;
-;	sector translate vector
-;	(standard one
-xlat1:	defm	 1,  7, 13, 19	;sectors  1,  2,  3,  4
-	defm	25,  5, 11, 17	;sectors  5,  6,  7,  8
-	defm	23,  3,  9, 15	;sectors  9, 10, 11, 12
-	defm	21,  2,  8, 14	;sectors 13, 14, 15, 16
-	defm	20, 26,  6, 12	;sectors 17, 18, 19, 20
-	defm	18, 24,  4, 10	;sectors 21, 22, 23, 24
-	defm	16, 22		;sectors 25, 26
 
-;;; sector translate 1:1 for now
-xlat0:  defm   1,  2,  3,  4    ;sectors  1,  2,  3,  4
-        defm   5,  6,  7,  8    ;sectors  5,  6,  7,  8
-        defm   9, 10, 11, 12    ;sectors  9, 10, 11, 12
-        defm  13, 14, 15, 16    ;sectors 13, 14, 15, 16
-        defm  17, 18, 19, 20    ;sectors 17, 18, 19, 20
-        defm  21, 22, 23, 24    ;sectors 21, 22, 23, 24
-        defm  25, 26            ;sectors 25, 26         
-	
-;
-dpb00:	;disk parameter block: system disks
-	defw	26		;sectors per track
-	defm	3		;block shift factor
-	defm	7		;block mask
-	defm	0		;null mask
-	defw	242		;disk size-1
-	defw	63		;directory max
-	defm	192		;alloc 0
-	defm	0		;alloc 1
-	defw	16		;check size     ESH: was zero
-	defw	2		;track offset
-;
-dpb01:	;disk parameter block: data disks
-	defw	26		;SPT sectors per track
-	defm	3		;BSH block shift factor
-	defm	7		;BLM block mask
-	defm	0		;EXM null mask
-	defw	249		;DSM disk size-1
-	defw	63		;DRM directory max
-	defm	192		;AL0 alloc 0
-	defm	0		;AL1 alloc 1
-	defw	16		;CKS check size     ESH: was zero
-	defw	0		;OFS track offset
-;
-;	end of fixed tables
+
 ;
 ;	individual subroutines to perform each function
 boot:	;simplest case is to just perform parameter initialization
@@ -131,6 +72,7 @@ boot:	;simplest case is to just perform parameter initialization
 	out	(30h),a		;reset memory page thing (back to ROM)
 	out	(38h),a		;increment memory page thing (all RAM)
 	call	io_init		;set up the SIO
+	call	IDE_Initialize	;initialize the IDE
 	JP	gocpm		;initialize and go to cp/m
 ;
 wboot:	;simplest case is to read the disk until all sectors loaded
@@ -205,7 +147,7 @@ gocpm:
 ;
 ;	ei			;enable the interrupt system <ESH: nope!>
 	LD	A,(cdisk)	;get current disk number
-	cp	disks		;see if valid disk number
+	cp	nodsk		;see if valid disk number
 	jp	c,diskok	;disk valid, go to ccp
 	ld	a,0		;invalid disk, change to disk 0
 diskok:	LD 	c, a		;send to the ccp
@@ -265,15 +207,18 @@ seldsk:	;select disk given by register c
 	LD	HL, 0000h	;error return code
 	LD 	a, c
 	LD	(diskno),A
-	CP	disks		;must be between 0 and 3
-	RET	NC		;no carry if 4, 5,...
+	CP	nodsk		;must be between 0 and nodsk-1
+	RET	NC		;no carry if >= nodsk
+	
 ;	disk number is in the proper range
-;;; ESH:  send disk change command
+	cp	rdisk		;check for remote disk
+	jr	c,ldisk
 
+	;; send command to change remote disk
 	ld	a,'S'		;select disk command
 	call	putc_B
 	ld	a,c
-	add	a,'0'
+	add	a,'0'-rdisk
 	call	putc_B
 	ld	a,0ah		;send \n
 	call	putc_B
@@ -290,9 +235,8 @@ selfin:	call	getc_B
 	cp	a,'K'
 	ret	nz
 
-;;; /ESHback to original code
 ;	compute proper disk Parameter header address
-	LD	A,(diskno)
+ldisk:	LD	A,(diskno)
 	LD 	l, a		;l=disk number 0, 1, 2, 3
 	LD 	h, 0		;high order zero
 	ADD	HL,HL		;*2
@@ -317,11 +261,19 @@ setsec:	;set sector given by register c
 sectran:
 ;;; translate the sector given by bc using the
 ;;; translate table given by de
+	ld	a,e		;check for table = 0
+	or	d
+	jr	z,notran
+	;; continue translating
 	EX	DE,HL		;hl=.trans   so HL=0 if DE=0
 	ADD	HL,BC		;hl=.trans (sector)
 	LD 	l, (hl)		;l=trans (sector)
 	LD 	h, 0		;hl=trans (sector)
 	ret			;with value in hl
+	;; no translation, just copy HL <= BC
+notran:	ld	l,c
+	ld	h,b
+	ret
 ;
 setdma:	;set	dma address given by registers b and c
 	LD 	l, c		;low order address
@@ -337,7 +289,21 @@ read:
 ;Sector number in 'sector'
 ;Dma address in 'dmaad' (0-65535)
 ;
-	ld	a, 'R'
+	ld	a,(diskno)
+	cp	rdisk		;check for remote disk
+	jr	nc,rrdsk	;go if so
+	;;  else do IDE read
+	call	setuprw
+	ld	ix,hstbuf
+	call	IDE_Read_Sector	;read 512 bytes to hstbuf
+	ld	hl,(dmaad)	;copy 128 bytes to user
+	ex	de,hl
+	ld	hl,hstbuf
+	ld	bc,128
+	ldir
+	jr	rwok
+
+rrdsk:	ld	a, 'R'
 	call	send_rw_cmd
 	ld	a,0ah		;send \n
 	call	putc_B
@@ -400,7 +366,26 @@ write:
 ;Track number in 'track'
 ;Sector number in 'sector'
 ;Dma address in 'dmaad' (0-65535)
-	ld	a,'W'
+	ld	a,(diskno)	;0-3 is local (IDE) disk
+	cp	rdisk		;check for remote disk
+	jr	nc,wrdsk	;go if so
+	;; else do IDE action
+	ld	hl,(dmaad)	;copy 128 bytes to hstbuf
+	ld	de,hstbuf
+	ld	bc,128
+	ldir
+	call 	setuprw
+	ld	ix,hstbuf
+	call	IDE_Write_Sector
+
+rwok:	sub	a,50h
+	ret	z
+	
+badrw:	ld	a,1
+	ret
+
+	;; remote write
+wrdsk:	ld	a,'W'
 	call	send_rw_cmd
 	ld	a,' '
 	call	putc_B
@@ -431,6 +416,21 @@ wrfin:	call	getc_B
 	pop	af
 	ret
 
+;;; setup LBA regs for read/write
+;;;   LBA is in D, E, H, L
+setuprw:
+	call	IDE_Get_Status
+	cp	50h
+	jr	nz,badrw
+	
+	ld	d,0
+	ld	a,(diskno)
+	ld	e,a
+	ld	a,(track)
+	ld	h,a
+	ld	a,(sector)
+	ld	l,a
+	ret
 
 ;;; ------------------------------------------------------------
 ;;; hex utility and console routines
@@ -498,6 +498,7 @@ tohex2:	push	af
 	ret
 
 	INCLUDE "serial.asm"
+	INCLUDE "disk_ide.asm"
 	
 ;
 ;	the remainder of the cbios is reserved uninitialized
@@ -510,19 +511,58 @@ sector:	defs	2		;two bytes for expansion
 dmaad:	defs	2		;direct memory address
 diskno:	defs	1		;disk number 0-15
 ;
-;	scratch ram area for bdos use
-begdat:	equ	$	 	;beginning of data area
-dirbf:	defs	128	 	;scratch directory area
-all00:	defs	31	 	;allocation vector 0
-all01:	defs	31	 	;allocation vector 1
-all02:	defs	31	 	;allocation vector 2
-all03:	defs	31	 	;allocation vector 3
-chk00:	defs	16		;check vector 0
-chk01:	defs	16		;check vector 1
-chk02:	defs	16	 	;check vector 2
-chk03:	defs	16	 	;check vector 3
+;;- ;	scratch ram area for bdos use
+;;- begdat:	equ	$	 	;beginning of data area
+;;- dirbf:	defs	128	 	;scratch directory area
+;;- all00:	defs	31	 	;allocation vector 0
+;;- all01:	defs	31	 	;allocation vector 1
+;;- all02:	defs	31	 	;allocation vector 2
+;;- all03:	defs	31	 	;allocation vector 3
+;;- chk00:	defs	16		;check vector 0
+;;- chk01:	defs	16		;check vector 1
+;;- chk02:	defs	16	 	;check vector 2
+;;- chk03:	defs	16	 	;check vector 3
+;;- ;
+;;- enddat:	equ	$	 	;end of data area
+;;- datsiz:	equ	$-begdat;	;size of data area
+	
+hstbuf: ds	512		;buffer for host disk sector
+	
+;	each parameter-list-i takes the form
+;		dn,fsc,lsc,[skf],bls,dks,dir,cks,ofs,[0]
+;	where
+;	dn	is the disk number 0,1,...,n-1
+;	fsc	is the first sector number (usually 0 or 1)
+;	lsc	is the last sector number on a track
+;	skf	is optional "skew factor" for sector translate
+;	bls	is the data block size (1024,2048,...,16384)
+;	dks	is the disk size in bls increments (word)
+;	dir	is the number of directory elements (word)
+;	cks	is the number of dir elements to checksum
+;	ofs	is the number of tracks to skip (word)
+;	[0]	is an optional 0 which forces 16K/directory entry
 ;
-enddat:	equ	$	 	;end of data area
-datsiz:	equ	$-begdat;	;size of data area
-;hstbuf: ds	256		;buffer for host disk sector (not needed)
+
+
+	;; try defining disks using tables
+	disks	8
+
+	;; IDE disks
+	diskdef	0,1,26,1,1024,243,64,64,2     ;A
+	diskdef 1,0,255,0,8192,1024,1024,0,0  ;B
+	diskdef 2,0,255,0,8192,1024,1024,0,0  ;C
+	diskdef 3,0,255,0,8192,1024,1024,0,0  ;D
+
+	;; remote disks
+	;; system disk is standard one, with no skew
+	diskdef	4,1,26,1,1024,243,64,64,2 ;E
+	;; next disks have skew=6
+	diskdef	5,1,26,6,1024,243,64,64,2 ;F
+	diskdef	6,1,26,6,1024,243,64,64,2 ;G
+	diskdef	7,1,26,6,1024,243,64,64,2 ;H
+
+	endef
+	
+;
+;	end of fixed tables
 	end

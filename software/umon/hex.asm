@@ -63,28 +63,6 @@ ihex1:	sub	'0'		;A-'0'
 	ccf
 	ret
 
-;;;;;; dump argc/argv
-;;;adump:	ld	a,(argc)
-;;;	ld	b,a
-;;;	call	phex2
-;;;	call	crlf
-;;;	ld	hl,iargv
-;;;	ld	a,b
-;;;	or	a
-;;;	ret	z
-;;;	
-;;;adump1:	ld	e,(hl)
-;;;	inc	hl
-;;;	ld	d,(hl)
-;;;	inc	hl
-;;;	ex	de,hl		;swap hl/de
-;;;	call	phex4
-;;;	ex	de,hl
-;;;	call	space
-;;;	djnz	adump1
-;;;	call	crlf
-;;;	ret
-
 ;;; get hex from (hl) and return in A (NC if valid)
 ;;; increment HL past char
 ghex1:	ld	a,(hl)
