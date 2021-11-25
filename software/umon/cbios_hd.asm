@@ -5,9 +5,12 @@
 ;;;     For now:  LBA 0-7 is sector
 ;;; 		  LBA 8-15 is track
 ;;;               LBA 16-17 is disk
-
-;;; try using DISKDEF to define a system "floppy" A and 8MB HD B
-
+;;;
+;;; This version just uses the first 128 bytes of each 512 byte host sector
+;;; 4 disks configured:
+;;;   A       - 241K IBM standard
+;;;   B, C, D - 8M 64K block "hard drives" (256 tracks, 256 sectors)
+;;; 
 	MACLIB DISKDEF
 	
 ;	skeletal cbios for first level of CP/M 2.0 alteration
@@ -54,86 +57,9 @@ wboote:	JP	wboot	;warm start
 	JP	write	;write disk
 	JP	listst	;return list status
 	JP	sectran	;sector translate
-
-	;; disk tables at end
-
-
-;;- ;
-;;- ;	fixed data tables for four-drive standard
-;;- ;	ibm-compatible 8" disks
-;;- ;	ESH:  restored sector translation
-;;- ;
-;;- ;	disk Parameter header for disk 00
-;;- ;;; IBM standard, 2 system tracks but skew=1
-;;- dpbase:	defw	xlat0, 0000h
-;;- 	defw	0000h, 0000h
-;;- 	defw	dirbf, dpb00
-;;- 	defw	chk00, all00
-;;- ;	disk parameter header for disk 01
-;;- ;;; IBM standard, 2 system tracks skew=6
-;;- 	defw	xlat1, 0000h
-;;- 	defw	0000h, 0000h
-;;- 	defw	dirbf, dpb00
-;;- 	defw	chk01, all01
-;;- ;	disk parameter header for disk 02
-;;- ;;; IBM standard, 2 system tracks skew=6
-;;- 	defw	xlat1, 0000h
-;;- 	defw	0000h, 0000h
-;;- 	defw	dirbf, dpb00
-;;- 	defw	chk02, all02
-;;- ;	disk parameter header for disk 03
-;;- ;;; IBM standard, 0 system tracks skew=6
-;;- 	defw	xlat1, 0000h
-;;- 	defw	0000h, 0000h
-;;- 	defw	dirbf, dpb00
-;;- 	defw	chk03, all03
-;;- ;
-;;- ;	sector translate vector
-;;- ;	(standard one
-;;- xlat1:	defm	 1,  7, 13, 19	;sectors  1,  2,  3,  4
-;;- 	defm	25,  5, 11, 17	;sectors  5,  6,  7,  6
-;;- 	defm	23,  3,  9, 15	;sectors  9, 10, 11, 12
-;;- 	defm	21,  2,  8, 14	;sectors 13, 14, 15, 16
-;;- 	defm	20, 26,  6, 12	;sectors 17, 18, 19, 20
-;;- 	defm	18, 24,  4, 10	;sectors 21, 22, 23, 24
-;;- 	defm	16, 22		;sectors 25, 26
-;;- 
-;;- ;;; sector translate 1:1 for now
-;;- xlat0:  defm   1,  2,  3,  4    ;sectors  1,  2,  3,  4
-;;-         defm   5,  6,  7,  8    ;sectors  5,  6,  7,  6
-;;-         defm   9, 10, 11, 12    ;sectors  9, 10, 11, 12
-;;-         defm  13, 14, 15, 16    ;sectors 13, 14, 15, 16
-;;-         defm  17, 18, 19, 20    ;sectors 17, 18, 19, 20
-;;-         defm  21, 22, 23, 24    ;sectors 21, 22, 23, 24
-;;-         defm  25, 26            ;sectors 25, 26         
-;;- 	
-;;- ;
-;;- dpb00:	;disk parameter block: system disks
-;;- 	defw	26		;sectors per track
-;;- 	defm	3		;block shift factor
-;;- 	defm	7		;block mask
-;;- 	defm	0		;null mask
-;;- 	defw	242		;disk size-1
-;;- 	defw	63		;directory max
-;;- 	defm	192		;alloc 0
-;;- 	defm	0		;alloc 1
-;;- 	defw	16		;check size     ESH: was zero
-;;- 	defw	2		;track offset
-;;- ;
-;;- dpb01:	;disk parameter block: data disks
-;;- 	defw	26		;SPT sectors per track
-;;- 	defm	3		;BSH block shift factor
-;;- 	defm	7		;BLM block mask
-;;- 	defm	0		;EXM null mask
-;;- 	defw	249		;DSM disk size-1
-;;- 	defw	63		;DRM directory max
-;;- 	defm	192		;AL0 alloc 0
-;;- 	defm	0		;AL1 alloc 1
-;;- 	defw	16		;CKS check size     ESH: was zero
-;;- 	defw	0		;OFS track offset
-;
-;	end of fixed tables
-;
+	
+	;; (disk tables at end)
+	
 ;	individual subroutines to perform each function
 boot:	;simplest case is to just perform parameter initialization
 	LD	sp, 80h		;use space below buffer for stack <ESH add>
@@ -246,19 +172,24 @@ conout:	;console character output from register c
 
 list:	;list character from register c
 	LD 	a, c	  	;character to register a
+	jp	putc_B		;SIO port B
 	ret		  	;null subroutine
 ;
 listst:	;return list status (0 if not ready, 1 if ready)
-	XOR	a	 	;0 is always ok to return
+	xor	a
+	call	txrdy_B
+	ret	z
+	inc	a
 	ret
 ;
 punch:	;punch	character from	register C
 	LD 	a, c		;character to register a
+	jp	putc_B		;SIO port B
 	ret			;null subroutine
 ;
 ;
 reader:	;reader character into register a from reader device
-	LD     a, 1ah		;enter end of file for now (replace later)
+	call	getc_B
 	AND    7fh		;remember to strip parity bit
 	ret
 
@@ -434,20 +365,6 @@ diskp4:	equ $
 	endef
 
 diskend: equ $
-;
-;;- ;	scratch ram area for bdos use
-;;- begdat:	equ	$	 	;beginning of data area
-;;- dirbf:	defs	128	 	;scratch directory area
-;;- all00:	defs	31	 	;allocation vector 0
-;;- all01:	defs	31	 	;allocation vector 1
-;;- all02:	defs	31	 	;allocation vector 2
-;;- all03:	defs	31	 	;allocation vector 3
-;;- chk00:	defs	16		;check vector 0
-;;- chk01:	defs	16		;check vector 1
-;;- chk02:	defs	16	 	;check vector 2
-;;- chk03:	defs	16	 	;check vector 3
-;;- ;
-;;- enddat:	equ	$	 	;end of data area
-;;- datsiz:	equ	$-begdat;	;size of data area
+	
 hstbuf: ds	512		;buffer for host disk sector
 	end

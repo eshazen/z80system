@@ -27,3 +27,7 @@ down from the origin.  The monitor is small (1k or so).
 This is a "portable" version of the monitor developed to debug my
 retro-25 calculators, with calculator-specific versions removed, and
 the serial I/O code moved to a separate file.
+
+# CP/M CBIOS
+
+@cbios_hd

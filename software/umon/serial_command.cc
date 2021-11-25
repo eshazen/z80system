@@ -49,11 +49,12 @@ void send_string_slow( SerialPort& sp, std::string str) {
 
 
 // receive string with timeout and/or terminating character
-//   termi is character to end reading (terminator) or '\0' for none
+//   termi is list of terminators or NULL for none
 //   toms is timeout in ms
 //
 void recv_string_until( SerialPort& sp, const char* termi, int toms, std::string& str) {
   bool timeout = false;
+  bool saw_term = false;
   char ch;
   str = "";
   
@@ -64,8 +65,9 @@ void recv_string_until( SerialPort& sp, const char* termi, int toms, std::string
       timeout = true;
     };
     str += ch;
+    saw_term = (termi != NULL) && (strchr( termi, ch) != NULL);
     // loop until timeout or timi
-  } while( !timeout && strchr( termi, ch) == NULL);
+  } while( !timeout && !saw_term);
 }
 
 

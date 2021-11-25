@@ -8,9 +8,12 @@
 // Options:
 //   -s        send "G C000" to start in-memory loader
 //   -v        verbose output (echo each hex line)
+//   -c        send rest of command line as-is to CP/M slowly
 //
 // the second option sends "A:HEXLOAD CPM_file" before the file
 //
+
+#define TOUT 5000
 
 #include <stdint.h>
 #include <ctype.h>
@@ -30,7 +33,6 @@ uint16_t get_hex_val( char *str, int len) {
   tmp[len] = '\0';
   return (uint16_t)strtoul( tmp, NULL, 16);
 }
-
   
 
 int main( int argc, char *argv[]) {
@@ -38,14 +40,15 @@ int main( int argc, char *argv[]) {
   FILE *fp;
   char buff[256];
 
-
   int lines = 0;
   int verbose = 0;
+  int send_cmd = 0;
 
   uint16_t addr, count, amin, amax, type;
 
   char *hex_file = NULL;
   char *cpm_file = NULL;
+  char *cpm_cmd = NULL;
   const char *init_cmd = NULL;
   
   string stuff;
@@ -63,6 +66,9 @@ int main( int argc, char *argv[]) {
   for( int i=1; i<argc; i++) {
     if( *argv[i] == '-') {
       switch( toupper( argv[i][1])) {
+      case 'C':
+	send_cmd = 1;
+	break;
       case 'S':
 	init_cmd = "G C000";
 	break;
@@ -81,6 +87,31 @@ int main( int argc, char *argv[]) {
     }
   }
 
+  if( send_cmd) {
+    // special case, build CP/M command line from args
+    if( argc < 3) {
+      printf("Need command after -C\n");
+      exit(1);
+    }
+    buff[0] = '\0';
+    for( int i=2; i<argc; i++) {
+      if( i > 2)
+	strcat( buff, " ");
+      strcat( buff, argv[i]);
+    }
+    // flush input
+    printf("Flush input...\n");
+    recv_string_until( sp, NULL, TOUT, stuff);
+    printf("Got: %s\n", stuff.c_str() );
+    printf("Command: %s\n", buff);
+    cpm_cmd = buff;
+    if( verbose) printf("Send: %s\n", buff);
+    send_string_slow( sp, buff);
+    recv_string_until( sp, ">", 60000, stuff);
+    cout << "Got: " << stuff << endl;
+    exit(0);
+  }
+    
   if( hex_file == NULL) {
     printf("Missing hex file name\n");
     exit(1);
@@ -109,7 +140,7 @@ int main( int argc, char *argv[]) {
     printf("\n");
 
   if( verbose) printf("Wait for +\n");
-  recv_string_until( sp, "+", 500, stuff);
+  recv_string_until( sp, "+", TOUT, stuff);
   if( verbose) cout << "Start: '" << stuff << "'" << endl;
 
   // setup stats
@@ -146,8 +177,10 @@ int main( int argc, char *argv[]) {
     // clean up end of string
     buff[ strlen(buff)] = '\0';
 
+    if( verbose) printf("Send: %s\n", buff);
     send_string_cmd( sp, buff);
-    recv_string_until( sp, "+>", 500, stuff);
+    recv_string_until( sp, "+>", TOUT, stuff);
+    if( verbose) printf("Get: %s\n", stuff.c_str() );
 
     ++lines;
     if( lines % 100 == 0)

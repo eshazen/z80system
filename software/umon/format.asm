@@ -53,14 +53,13 @@ nsects:	equ	26*2		;two tracks to write
 
 	;; setup registers to start
 stat_ok:	
-	;; fill bufr with e5
+	;; fill bufr with e5 (512 bytes)
 	ld	hl,bufr
-	ld	b,80
+	ld	bc,200h
+	ld	de,bufr+1
 	ld	a,0e5h
-	
-fbuf:	ld	(hl),a
-	inc	hl
-	djnz	fbuf
+	ld	(hl),a
+	ldir
 
 	ld	hl,msg_writing
 	call	puts

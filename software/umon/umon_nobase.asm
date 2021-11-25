@@ -91,7 +91,7 @@ iargv:	rept	maxarg*2
 	INCLUDE "console.asm"
 	INCLUDE "hex.asm"
 	INCLUDE "strings.asm"
-	INCLUDE "c-link.asm"
+;	INCLUDE "c-link.asm"
 	INCLUDE "disk_ide.asm"
 
 banner:	db	"UMON-P v0.8 ORG ",0

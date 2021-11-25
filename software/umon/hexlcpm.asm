@@ -5,6 +5,7 @@
 ;;;
 ;;; invoke as A> HEXL FILE.NAM
 ;;;    (old file deleted first)
+;;; 
 ;;; Bugs:
 ;;; only works on drive a
 
@@ -35,12 +36,37 @@ DBUFF	.EQU	080H
 	INCLUDE "console.asm"
 	INCLUDE "hex.asm"
 
-bdos:	equ	5
-	
+;;; debug:  print registers on BDOS call
+hexdos:	push	bc
+	push	hl
+	push	de
+	push	af
+
+	ld	a,'='
+	call	putc
+	ld	a,c
+	call	phex2
+	ld	a,'['
+	call	putc
+	ld	h,d
+	ld	l,e
+	call	phex4
+	ld	a,']'
+	call	putc
+	call	crlf
+
+	pop	af
+	pop	de
+	pop	hl
+	pop	bc
+	ret
+
 err:	ld	a,'#'
 	jr	prom
 
-main:	call	io_init		; initialize SIO
+main:	ld	sp,stak
+
+	call	io_init		; initialize SIO
 
 	;; not sure we need all this
 	LD	A,0
@@ -54,16 +80,19 @@ main:	call	io_init		; initialize SIO
 
 	ex	de,hl		;buffer address to de
 	ld	c,setdma	;set DMA address to be sure
+	call	hexdos
 	call	bdos
 
 	;; delete old file
 	LD	C,DELF
 	LD	DE,FCB
+	call	hexdos
 	CALL	BDOS
 
 	;; create new file
 	LD	C,MAKEF
 	LD	DE,FCB
+	call	hexdos
 	CALL	BDOS
 
 line:	ld	a,'+'		; send prompt for a new line
@@ -120,11 +149,13 @@ doon:
 
 	LD	C,WRITES	; write a record to disk
 	LD	DE,FCB
+	call	hexdos
 	CALL	BDOS
 
 NOWRITE2:
 	LD	C,CLOSEF	; close the file
 	LD	DE,FCB
+	call	hexdos
 	CALL	BDOS
 
 	jp	0		; we're done!
@@ -158,6 +189,7 @@ datt:	call	ghex2		; get data byte
 
 	LD	C,WRITES	; write to disk
 	LD	DE,FCB
+	call	hexdos
 	CALL	BDOS
 
 	ld	hl,DBUFF	; reset disk buffer pointer
@@ -218,4 +250,7 @@ countErrMess .BYTE	"======File Length Error======$",0
 hbuff:	ds	100h		;buffer for hex data
 bend:	equ	$
 
+	ds	100h		;stack
+stak:	equ	$
+	
 	.end
