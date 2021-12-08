@@ -1,0 +1,68 @@
+
+# first row
+01 ESC
+02 1    !
+1a 2	@
+03 3	#
+23 4	$
+04 5	%
+2c 6	^
+05 7	&
+25 8	*
+06 9	(
+2e 0	)
+17 -	_
+08 =	+
+20 BS	DEL
+
+# second row
+09 TAB
+0a q    Q
+22 w	W
+0b e	E
+2b r	R
+0c t	T
+34 y	Y
+0d u	U
+2d i	I
+0e o	O
+36 p	P
+1f [	{
+10 ]	}
+28 \	|
+
+# third row
+11 CTRL
+12 a	A
+2a s	S
+13 d	D
+33 f	F
+14 g	G
+3c h	H
+15 j	J
+35 k	K
+16 l	L
+3e ;	:
+27 '	"
+18 CR
+
+# fourth row
+19 SHFT
+31 z	Z
+32 x	X
+1b c	C
+3b v	V
+1c b	B
+3a n	N
+1d m	M
+3d ,	<
+1e .	>
+07 /	?
+2f SHFT
+
+# fifth row
+29 `	~
+21 CAPS
+39 ALT
+24 SPC
+
