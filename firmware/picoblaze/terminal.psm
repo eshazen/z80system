@@ -1,0 +1,32 @@
+;;; terminal.psm - simple terminal program
+;;;
+;;; for now just some sample code
+
+	;; ports to access video RAM
+	constant row_port, 00
+	constant col_port, 01
+	constant write_port, 02
+	constant read_port, 03
+
+;;; copy 80 characters from one row to another
+;;; s4 - source row
+;;; s5 - target row
+;;;
+;;; timing:  16 clocks * 80 = 12.8us at 100MHz
+;;; so ~0.5ms to scroll 40 rows
+	
+copy_row:
+	load 	s1, 0		;column
+	load 	s2, 80'd	;count
+	
+copy1b:	output 	s4, row_port
+	output 	s1, col_port
+	input 	s0, read_port
+	output	s5, row_port
+	output 	s0, write_port
+	add 	s1, 01
+	sub 	s2, 01
+	jump	nz, copy1b
+
+	ret
+	
