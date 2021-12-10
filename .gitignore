@@ -9,3 +9,7 @@ zout
 .Xil
 vivado.*
 *webtalk*
+gerber
+*.bck
+*.dcm
+OPs

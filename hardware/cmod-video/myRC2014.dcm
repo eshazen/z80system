@@ -1,3 +1,63 @@
 EESchema-DOCLIB  Version 2.0
 #
+$CMP CXO_SOT23
+D Crystal Clock Oscillator, DIP8-style metal package
+K Crystal Clock Oscillator
+F http://cdn-reichelt.de/documents/datenblatt/B400/OSZI.pdf
+$ENDCMP
+#
+$CMP LK112M18TR
+D Low noise and low drop voltage regulator with shutdown function, 150mA, Vout = 1.8V, SOT-23-5
+K LDO regulator voltage
+F https://www.st.com/resource/ja/datasheet/lk112.pdf
+$ENDCMP
+#
+$CMP LK112M25TR
+D Low noise and low drop voltage regulator with shutdown function, 150mA, Vout = 2.5V, SOT-23-5
+K LDO regulator voltage
+F https://www.st.com/resource/ja/datasheet/lk112.pdf
+$ENDCMP
+#
+$CMP LK112M33TR
+D Low noise and low drop voltage regulator with shutdown function, 150mA, Vout = 3.3V, SOT-23-5
+K LDO regulator voltage
+F https://www.st.com/resource/ja/datasheet/lk112.pdf
+$ENDCMP
+#
+$CMP LK112M50TR
+D Low noise and low drop voltage regulator with shutdown function, 150mA, Vout = 5.0V, SOT-23-5
+K LDO regulator voltage
+F https://www.st.com/resource/ja/datasheet/lk112.pdf
+$ENDCMP
+#
+$CMP LK112M55TR
+D Low noise and low drop voltage regulator with shutdown function, 150mA, Vout = 5.5V, SOT-23-5
+K LDO regulator voltage
+F https://www.st.com/resource/ja/datasheet/lk112.pdf
+$ENDCMP
+#
+$CMP LK112M60TR
+D Low noise and low drop voltage regulator with shutdown function, 150mA, Vout = 6.0V, SOT-23-5
+K LDO regulator voltage
+F https://www.st.com/resource/ja/datasheet/lk112.pdf
+$ENDCMP
+#
+$CMP LK112M80TR
+D Low noise and low drop voltage regulator with shutdown function, 150mA, Vout = 8.0V, SOT-23-5
+K LDO regulator voltage
+F https://www.st.com/resource/ja/datasheet/lk112.pdf
+$ENDCMP
+#
+$CMP LTC1844ES5-3.3
+D Low noise and low drop voltage regulator with shutdown function, 150mA, Vout = 1.5V, SOT-23-5
+K LDO regulator voltage
+F https://www.st.com/resource/ja/datasheet/lk112.pdf
+$ENDCMP
+#
+$CMP TFT660
+D Crystal Clock Oscillator, DIP8-style metal package
+K Crystal Clock Oscillator
+F http://cdn-reichelt.de/documents/datenblatt/B400/OSZI.pdf
+$ENDCMP
+#
 #End Doc Library
