@@ -1,0 +1,30 @@
+		Z80ASM 1.30 Release Notes
+
+Bugs Fixed From 1.25:
+
+Nested macro calls using % operator fixed
+IFIDN	<>,<>	now returns true
+JR	NUMBER+$	generates correct code
+INCLUDE and MACLIB filenames can now contain +, -, etc
+Fixed number conversion in non-power-of-two radix
+.$$1 files are cleaned up on abort
+	LD	A,TYPE 0	works
+ex	af,af'		works in U/L mode
+
+
+Additions:
+
+All input and output files are always closed upon termination (unless
+terminated by ^C from BUFIN call).
+
+CONFIG option added to allow TABs in strings.  Normally Z80ASM complains
+about any control characters in quoted strings but generates the correct
+code.  This option suppress the error if the control character is a TAB.
+
+CONFIG option added to disable stripping the high bit of each byte read
+from the input source.  THIS IS DANGEROUS!  Should ONLY be used for using
+non-ASCII characters in comments.  DO NOT USE in macros, since the high
+bit is used as a parameter replacement flag.  Other indexed tables also
+assume the high bit is clear.
+
+

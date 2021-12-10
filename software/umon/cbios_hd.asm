@@ -7,9 +7,9 @@
 ;;;               LBA 16-17 is disk
 ;;;
 ;;; This version just uses the first 128 bytes of each 512 byte host sector
-;;; 4 disks configured:
+;;; 7 disks configured:
 ;;;   A       - 241K IBM standard
-;;;   B, C, D - 8M 64K block "hard drives" (256 tracks, 256 sectors)
+;;;   BCDEFG  - 8M 64K block "hard drives" (256 tracks, 256 sectors)
 ;;; 
 	MACLIB DISKDEF
 	
@@ -31,9 +31,19 @@ bios:	equ	ccp+1600h
 
 cdisk:	equ	0004h		;address of current disk number 0=a,... l5=p
 iobyte:	equ	0003h		;intel i/o byte
-nodsk:	equ	04h		;number of disks in the system
+	
+;;; NOTE: below must match "disks" macro invocation at end
+nodsk:	equ	07h		;number of disks in the system
 ;
-secsiz:	equ	128		;sector size for no
+;;; Configure for Floppy or HD
+;;; ---------- floppy ----------
+;; fstsec:	equ	1		;initial sector to load
+;; botskp:	equ	1		;sectors to skip for boot loader
+;; secptk:	equ	26		;sectors per track
+;;; ---------- HD ----------
+fstsec:	equ	0		;initial sector to load
+botskp:	equ	0		;sectors to skip for boot loader
+secptk:	equ	250		;greater than nsects
 
 	org	bios		;origin of this program
 nsects:	equ	($-ccp)/128	;warm start sector count
@@ -81,7 +91,7 @@ wboot:	;simplest case is to read the disk until all sectors loaded
 ;
 	LD 	b, nsects	;b counts * of sectors to load
 	LD 	c, 0		;c has the current track number
-	LD 	d, 2		;d has the next sector to read
+	LD 	d, fstsec+botskp ;d has the next sector to read
 ;	note that we begin by reading track 0, sector 2 since sector 1
 ;	contains the cold start loader, which is skipped in a warm start
 	LD	HL, ccp		;base of cp/m (initial load point)
@@ -112,11 +122,11 @@ load1:	;load	one more sector
 ;	more	sectors remain to load, check for track change
 	INC	d
 	LD 	a,d		;sector=27?, if so, change tracks
-	CP	27
+	CP	secptk+1
 	JP	C,load1		;carry generated if sector<27
 ;
 ;	end of	current track,	go to next track
-	LD 	d, 1		;begin with first sector of next track
+	LD 	d, fstsec	;begin with first sector of next track
 	INC	c		;track=track+1
 ;
 ;	save	register state, and change tracks
@@ -168,10 +178,12 @@ conin:	;console character into register a
 
 conout:	;console character output from register c
 	ld	a,c
+	and	7fh
 	jp	putc
 
 list:	;list character from register c
 	LD 	a, c	  	;character to register a
+	and	7fh
 	jp	putc_B		;SIO port B
 	ret		  	;null subroutine
 ;
@@ -274,7 +286,7 @@ read:
 	ld	hl,hstbuf
 	ld	bc,128
 	ldir
-	jr	rwok
+	jr	rwchk
 	
 write:
 ;Write one CP/M sector to disk.
@@ -291,8 +303,8 @@ write:
 	ld	ix,hstbuf
 	call	IDE_Write_Sector
 
-rwok:	sub	a,50h
-	ret	z
+rwchk:	and	1		;IDE error bit is bit 0
+	ret
 	
 badrw:	ld	a,1
 	ret
@@ -348,10 +360,13 @@ diskno:	defs	1		;disk number 0-15
 diskparm:	equ	$
 
 	;; try defining disks using tables
-	disks	4
+	disks	7
 diskp0:	equ $
 	;; system disk is standard one, with no skew
-	diskdef	0,1,26,1,1024,243,64,64,2
+;	diskdef	0,1,26,1,1024,243,64,64,2
+	;; system disk is 8 MiB but one reserved track
+	diskdef 0,0,255,0,8192,1024,256,0,1
+
 diskp1:	equ $
 	;; 8MB hard disk B:
 	;; 256 sectors/track (32kB/track)
@@ -362,6 +377,21 @@ diskp2:	equ $
 diskp3:	equ $
 	diskdef 3,0,255,0,8192,1024,256,0,0
 diskp4:	equ $
+	diskdef 4,0,255,0,8192,1024,256,0,0
+	diskdef 5,0,255,0,8192,1024,256,0,0
+	diskdef 6,0,255,0,8192,1024,256,0,0
+;	diskdef 7,0,255,0,8192,1024,256,0,0
+	
+;	diskdef 8,0,255,0,8192,1024,256,0,0
+;	diskdef 9,0,255,0,8192,1024,256,0,0
+;	diskdef 10,0,255,0,8192,1024,256,0,0
+;	diskdef 11,0,255,0,8192,1024,256,0,0
+;	
+;	diskdef 12,0,255,0,8192,1024,256,0,0
+;	diskdef 13,0,255,0,8192,1024,256,0,0
+;	diskdef 14,0,255,0,8192,1024,256,0,0
+;	diskdef 15,0,255,0,8192,1024,256,0,0
+
 	endef
 
 diskend: equ $

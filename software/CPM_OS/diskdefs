@@ -1,0 +1,33 @@
+diskdef ibm-3740
+  seclen 128
+  tracks 77
+  sectrk 26
+  blocksize 1024
+  maxdir 64
+  skew 6
+  boottrk 2
+  os 2.2
+end
+
+diskdef ibm-nosys
+  seclen 128
+  tracks 77
+  sectrk 26
+  blocksize 1024
+  maxdir 64
+  skew 6
+  boottrk 0
+  os 2.2
+end
+
+diskdef noskew
+  seclen 128
+  tracks 77
+  sectrk 26
+  blocksize 1024
+  maxdir 64
+  skew 1
+  boottrk 2
+  os 2.2
+end
+

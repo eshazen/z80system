@@ -4,7 +4,8 @@
 	;; Expects UMON resident at 8100H !!
 	;; write E5 over all sectors from tracks 2-76 sectors 1-26
 
-	org	1000h
+				;org	1000h
+	org	100h
 
 MEM	EQU	63		;63K to match cbios_ide
 	

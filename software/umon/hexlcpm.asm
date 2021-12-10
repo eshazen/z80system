@@ -9,6 +9,8 @@
 ;;; Bugs:
 ;;; only works on drive a
 
+;;; MODIFIED FOR SIO PORT B
+
 TPA	.EQU	100H
 REBOOT	.EQU	0H
 BDOS	.EQU	5H
@@ -32,6 +34,9 @@ DBUFF	.EQU	080H
 
 	jp	main
 
+putc_L:	jp	putc		;or putc_B
+gets_L:	jp	gets		;or gets_B
+
 	INCLUDE "serial.asm"
 	INCLUDE "console.asm"
 	INCLUDE "hex.asm"
@@ -43,16 +48,16 @@ hexdos:	push	bc
 	push	af
 
 	ld	a,'='
-	call	putc
+	call	putc_L
 	ld	a,c
 	call	phex2
 	ld	a,'['
-	call	putc
+	call	putc_L
 	ld	h,d
 	ld	l,e
 	call	phex4
 	ld	a,']'
-	call	putc
+	call	putc_L
 	call	crlf
 
 	pop	af
@@ -96,12 +101,12 @@ main:	ld	sp,stak
 	CALL	BDOS
 
 line:	ld	a,'+'		; send prompt for a new line
-prom:	call	putc
+prom:	call	putc_L
 
 	;; read input line to hbuff
 	ld	hl,hbuff
 	ld	bc,bend-hbuff
-	call	gets		; read and echo a line to HBUFF
+	call	gets_L		; read and echo a line to HBUFF
 
 	ld	hl,hbuff
 	
@@ -227,7 +232,7 @@ checksumOK:
 	;; abort for now
 cserr:	push	af
 	ld	a,'='
-	call	putc
+	call	putc_L
 	pop	af
 	call	phex2
 	ld	hl,chkErrMess

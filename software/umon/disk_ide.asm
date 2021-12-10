@@ -12,6 +12,7 @@
 ;;; IDE_Setup_LBA			set LBA from DEHL
 ;;; IDE_Read_ID				Read 512 byte ID to (DE)
 ;;; IDE_Read_Sector			Read sector with LBA=DEHL to IX
+;;; IDE_Write_Sector			Write 512 byte sector to DEHL from (IX)
 
 ;;; Initial version re-writes C register with new values
 ;;; could use "direct bit" operations on 8255 to save a few instructions
@@ -94,16 +95,6 @@ IDE_Byte_Read:
 	pop	hl
 	ret
 	
-;;; this doesn't work for some reason
-
-;	ld	a,c		;get address
-;	or	PPCS0		;set /CS0
-;	out	(PPIC),a	;enable both
-;	add	a,PPRD		;set RD=1
-;	out	(PPIC),a
-;	in	A,(PPIA)	;get LSB
-;	jr	IDE_Idle	;turn off all controls
-
 ;;; read IDE register C, 16-data to HL
 IDE_Word_Read:
 	ld	a,c		;get address
@@ -227,30 +218,6 @@ IDE_Setup_LBA:
 	call	IDE_Byte_Write
 	ret
 
-;;; Read ID to (DE) - 512 bytes - big-endian
-IDE_Read_ID:
-	push	de
-	call	IDE_Wait_Ready
-	ld	hl,0		;probably not needed
-	ld	de,0
-	call	IDE_Setup_LBA	;mainly for reg 6
-	ld	a,IDE_ID
-
-	call	IDE_Do_Cmd
-	call	IDE_Wait_DRQ
-	ld	b,0		;count
-	pop	de
-	ld	c,0		;data at address 0
-IDE_RIW:
-	call	IDE_Word_Read
-	ld	a,l
-	ld	(de),a
-	inc	de
-	ld	a,h
-	ld	(de),a
-	inc	de
-	djnz	IDE_RIW
-	ret
 
 ;;; Read sector (256 words) from DEHL to (IX)
 IDE_Read_Sector:

@@ -4,7 +4,8 @@
 ;;; expect intel hex records
 ;;; jump to first address seen on EOF
 ;;; 
-
+;;; Uses SIO port A
+;;; 
 	org	0C000H
 
 stak:	equ	$

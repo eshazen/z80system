@@ -40,7 +40,19 @@ IDE_Read_ID	  equ  8136h        ;12   0036	Read 512 byte ID to (DE)
 IDE_Read_Sector	  equ  8139h        ;13   0039	Read sector from LBA=DEHL to IX
 IDE_Write_Sector  equ  813Ch        ;14   003c      Write sector from IX to LBA=DEHL
 
-nsects:	equ	26*2		;two tracks to write
+
+
+;;; Configure for Floppy or HD
+;;; ---------- floppy ----------
+;; fstsec:	equ	1		;initial sector to load
+;; botskp:	equ	1		;sectors to skip for boot loader
+;; secptk:	equ	26		;sectors per track
+;;; ---------- HD ----------
+fstsec:	equ	0		;initial sector to load
+botskp:	equ	0		;sectors to skip for boot loader
+secptk:	equ	250		;greater than nsects
+
+nsects:	equ	26*2		;warm start sector count
 
 	call	IDE_Initialize
 	call	IDE_Get_Status
@@ -60,7 +72,7 @@ stat_ok:
 	call	puts
 	
 	ld	de,0
-	ld	hl,2		;start with track 0, sector 2
+	ld	hl,fstsec+botskp	;start with track 0, sector 2
 	ld	b,nsects
 	ld	ix,ccp
 
@@ -84,10 +96,10 @@ rsec:	push	bc
 
 	inc	l		;increment sector
 	ld	a,l
-	cp	27		;overflow?
+	cp	secptk+1	;overflow?
 	jr	nz,nsec		;no, continue on this track
 
-	ld	l,1		;else set sector 1
+	ld	l,fstsec	;else set sector 1
 	inc	h		;increment track
 
 nsec:
