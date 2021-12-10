@@ -1,8 +1,12 @@
 --
 -- VGA 80x40 text on 640x480 raster
 -- 
--- character RAM added
--- not wired up yet, thinking of switch/button interface
+-- character RAM added -- not wired up yet
+-- Thinking of a temporary external interface using P-Mods
+--
+-- Either a single 8-bit data port with some strobes
+-- or a buffered Z80 bus interface (maybe wait state?)
+--
 
 library IEEE;
 use IEEE.std_logic_1164.all;
@@ -158,6 +162,7 @@ begin  -- architecture arch
   begin  -- process
     if clk'event and clk = '1' then     -- rising clock edge
 
+      
 
     end if;
   end process;
