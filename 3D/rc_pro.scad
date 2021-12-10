@@ -21,6 +21,6 @@ module pro_backplane() {
 
 
 %case_at( -0.5, -3.5, -0.5);
-translate( [6, 1, 0])
+translate( [6, 1, -.3])
 pro_backplane();
 
