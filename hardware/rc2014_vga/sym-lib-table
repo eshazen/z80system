@@ -1,3 +1,4 @@
 (sym_lib_table
   (lib (name adapter_symbols)(type Legacy)(uri ${KIPRJMOD}/adapter_symbols.lib)(options "")(descr ""))
+  (lib (name myRC2014)(type Legacy)(uri /home/hazen/work/z80system/hardware/cmod-video/myRC2014.lib)(options "")(descr ""))
 )
