@@ -1,6 +1,7 @@
 ;;;
 ;;; simple Z80 monitor
 ;;;
+;;; h                          print help
 ;;; d <addr> <count>           dump memory
 ;;; e <addr> <dd> <dd>...      edit up to 16 bytes in memory
 ;;; o <port> <val>             output <val> to <port>
@@ -19,9 +20,23 @@
 ;;; x <lba_h> <lba_l> <addr>   read sector
 ;;; y <lba_h> <lba_l> <addr>   write sector
 ;;; w <start> <size> <patt>    zero or pattern-fill memory (size in WORDS)
-;;; 
+;;;
+;;; gs [<lba_h> <lba_l> <addr> <count>]  GETSYS load CP/M
+;;;                            defaults to 0 0 E000 40
+	
 ; 	org	08100H
  	org	UMON_ORIGIN	
+
+;;; -------------------- CP/M parameters --------------------
+;;; (currently used only for GS command)
+MEM	EQU	63		;63K to match cbios_hd
+	
+ccp:	equ	(MEM-7)*1024
+bdos:	equ	ccp+0806h
+bios:	equ	ccp+1600h
+
+nsect:	equ	40h		;sectors to load
+;;; ---------------------------------------------------------
 
 stak:	equ	$		;stack grows down from start
 
@@ -87,15 +102,20 @@ iargv:	rept	maxarg*2
 	dw	0
 	endm
 
+secct:	db	0		;sector count for getsys/putsys
+sadd:	dw	0		;hex load sector count
+
 	INCLUDE "serial.asm"
 	INCLUDE "console.asm"
 	INCLUDE "hex.asm"
 	INCLUDE "strings.asm"
 ;	INCLUDE "c-link.asm"
 	INCLUDE "disk_ide.asm"
+	INCLUDE "disk_ide_extras.asm"
 
 banner:	db	"UMON-P v0.8 ORG ",0
 error:	db	"ERROR",0
+secmsg:	db	" SECTORS LOADED.  START=",0
 	
 usage:  db      "h                     print this help", 13, 10
         db      "d <addr> <count>      dump memory", 13, 10
@@ -114,6 +134,7 @@ usage:  db      "h                     print this help", 13, 10
 	db	"w <addr> <count> <p>  fill memory with wordz",13,10
 	db	"x <LH> <LL> <adr> [n] read disk sector(s)",13,10
 	db	"y <LH> <LL> <adr> [n] write disk sector",13,10
+	db	"gs [<LH> <LL> <adr> n] get CP/M sectors",13,10
 	db	0
 
 main:	ld	sp,stak
@@ -176,10 +197,10 @@ loop:	ld	a,'>'		;prompt
 	jz	continu
 
 	cp	a,'G'
-	jz	goto
+	jz	cmd_g
 
 	cp	a,'L'
-	jz	binary
+	jz	cmd_l
 	
 	cp	a,'O'
 	jz	output
@@ -589,6 +610,68 @@ msgclr:	db	' CLEARED', 13, 10, 0
 msgovr:	db	'BKPT ALREADY SET CLEAR FIRST', 13, 10, 0
 
 
+	;; check for "LH" for hex
+cmd_l:	inc	hl
+	ld	a,(hl)
+	cp	'H'
+	jr	nz,binary
+
+;;; hex loader on SIO port B
+line:	ld	a,'+'
+prom:	call	putc_B
+
+	ld	hl,buff
+	ld	bc,bend-buff
+	call	gets_B
+
+	ld	hl,buff
+	ld	a,(hl)
+	cp	a,':'
+	jr	z,lode
+	cp	a,'/'
+	jp	z,0
+	jr	err
+
+lode:	inc	hl
+	call	ghex2		; get record size to A
+	ld	b,a		; size to b
+	call	ghex4		; get load address to DE
+	
+	;; if we don't have a load address, store it now at (sadd)
+	ld	a,(sadd)
+	or	a
+	jr	nz,noja
+	ld	a,(sadd+1)
+	or	a
+	jr	nz,noja
+
+	ld	(sadd),de
+
+noja:	call	ghex2		; get record type to A
+	or	a
+	jr	z,datt		; zero, get data
+	dec	a
+	jr	nz,line
+	;; type = 01, we're done
+	ld	hl,(sadd)
+
+	call	phex4
+	call	crlf
+
+	jp	main
+
+err:	ld	a,'#'
+	jr	prom
+
+	;; parse and store data
+datt:	call	ghex2
+	ld	(de),a
+	inc	de
+	djnz	datt
+	jr	line
+
+	
+
 ;;; start binary loader
 ;;; expect binary words (LSB first):
 ;;;    0x5791, <addr>, <count>
@@ -652,8 +735,77 @@ bin2:	call	getc
 	call	crlf
 	jp	loop
 
-;;; jump to 1st arg
-goto:	cp	2
+
+;;; check for "GS"
+cmd_g:	inc	hl
+	ld	a,(hl)
+	cp	'S'
+	jr	nz, goto
+
+;;; GETSYS
+;;; either zero or four arguments
+	ld	a,(argc)
+	cp	5		; all arguments specified?
+	jr	z,gsall
+	;; set defaults
+	ld	de,0
+	ld	hl,0
+	ld	iy,ccp
+	ld	a,nsect		;default sector count
+	ld	(secct),a
+	
+	jr	getsys
+;;; 
+gsall:	
+	;; read B sectors, incrementing LBA in DEHL
+	ld	de,(iargv+2)
+	ld	hl,(iargv+4)
+	ld	iy,(iargv+6)
+	ld	a,(iargv+8)	;count
+	ld	(secct),a
+
+	;; load from lba=dehl (secct) sectors to iy
+getsys:
+	push	hl
+	push	de
+	
+	ld	ix,dskbuf
+	call 	IDE_Read_Sector
+
+	;; copy 80h bytes from buff to IY, increment IY
+	ld	hl,dskbuf	;source for copy
+	push	iy
+	pop	de		;dest for copy
+	ld	bc,80h		;count for copy
+	add	iy,bc		;nudge iy
+	ldir			;do the copy
+
+	pop	de
+	pop	hl
+
+	inc	hl
+	
+	ld	a,(secct)
+	dec	a
+	ld	(secct),a
+
+	jr	nz,getsys
+
+	;; print message
+	ld	a,nsect
+	call	phex2
+	ld	hl,secmsg
+	call	puts
+	ld	hl,bios
+	call	phex4
+	call	crlf
+
+	jp	main
+	
+
+;;; jump to 1st arg	
+goto:	ld	a,(argc)
+	cp	2
 	jp	c,errz
 	ld	hl,(iargv+2)
 	ld	de,showstate
@@ -926,7 +1078,7 @@ pregn:
 	ret
 
 ;;; input buffer (tokens zero-terminated after parsing)
-buff:	ds	80
+buff:	ds	100H
 bend:	equ	$		;mark the end
 
 dskbuf:	ds	200H

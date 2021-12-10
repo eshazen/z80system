@@ -39,19 +39,23 @@ puts_B:	ld	a,(hl)
 
 ;;; read string from port B to HL
 ;;; no editing, etc.  No echo.  Stop on first control char
-;;; timeout
+;;; no timeout
+
 gets_B:	push	hl
 	push	bc
 	
 getsB0:	ld	bc,0		;timeout counter
 
 getsBW:	call	rxrdy_B		;check for char ready, NZ if so
-	jr	nz,getsBC	;go read the character
-	dec	bc		;no char, dec timeout
-	ld	a,b		;check for zero
-	or	c
-	jr	nz,getsBW	;still waiting
-	jr	getsB1		;timeout, just return what we've got
+	
+	jr	z,getsBW	;just wait forever for char
+
+;	jr	nz,getsBC	;go read the character
+;	dec	bc		;no char, dec timeout
+;	ld	a,b		;check for zero
+;	or	c
+;	jr	nz,getsBW	;still waiting
+;	jr	getsB1		;timeout, just return what we've got
 
 getsBC:	call	getc_B		;read the character
 	cp	20h		;is control?
