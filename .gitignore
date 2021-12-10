@@ -6,3 +6,6 @@
 *sym-lib-table
 *fp-lib-table
 zout
+.Xil
+vivado.*
+*webtalk*

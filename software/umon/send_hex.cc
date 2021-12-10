@@ -128,7 +128,7 @@ int main( int argc, char *argv[]) {
   }
 
   if( cpm_file != NULL) {
-    sprintf( buff, "A:HEXLOAD %s", cpm_file);
+    sprintf( buff, "B:HEXLOAD %s", cpm_file);
     if( verbose) printf("Send: %s\n", buff);
     send_string_slow( sp, buff);
   }
