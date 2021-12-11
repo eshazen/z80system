@@ -14,22 +14,19 @@ DUDEPORT  = -c avrispmkII -P usb
 DUDEMCU = m8
 AVRDUDE  = avrdude $(DUDEPORT) -p $(DUDEMCU) -y -u 
 
-objects = main.o new.o
+objects = new.o
 
-all: $(objects)  main.hex list
+all: new.hex
 
 clean:
 	rm -f *.o *~ *.hex *.elf *.map *.lst
 
-new: new.hex
-	sudo $(AVRDUDE) -U flash:w:$^:i
-
-flash: main.hex
+flash: new.hex
 	sudo $(AVRDUDE) -U flash:w:$^:i
 
 list:
-	avr-objdump -h -S main.elf > main.lst
-	avr-size --common -d main.elf
+	avr-objdump -h -S new.elf > new.lst
+	avr-size --common -d new.elf
 
 $(objects): %.o: %.c
 	avr-gcc -c $(CFLAGS) $< -o $@
@@ -39,9 +36,4 @@ new.elf: new.o
 
 new.hex: new.elf
 	avr-objcopy -j .text -j .data -O ihex $< $@
-
-main.elf: main.o 
-	avr-gcc $(LDFLAGS) main.o -o $@
-
-main.hex: main.elf
-	avr-objcopy -j .text -j .data -O ihex $< $@
+	echo "'make flash' to program"
