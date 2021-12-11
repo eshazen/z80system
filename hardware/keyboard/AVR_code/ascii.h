@@ -24,7 +24,7 @@ static unsigned int normal[] = {
    0x6c,  // [16] 16 l	L
    0x2d,  // [17] 17 -	_
    0x0d,  // [18] 18 CR
-   0x80,  // [19] 19 SHFT
+   0x00,  // [19] 19 SHFT
    0x32,  // [1a] 1a 2	@
    0x63,  // [1b] 1b c	C
    0x62,  // [1c] 1c b	B
@@ -46,7 +46,7 @@ static unsigned int normal[] = {
    0x36,  // [2c] 2c 6	^
    0x69,  // [2d] 2d i	I
    0x30,  // [2e] 2e 0	)
-   0x80,  // [2f] 2f SHFT
+   0x00,  // [2f] 2f SHFT
    0x00,  // [30] 
    0x7a,  // [31] 31 z	Z
    0x78,  // [32] 32 x	X

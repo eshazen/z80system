@@ -14,12 +14,15 @@ DUDEPORT  = -c avrispmkII -P usb
 DUDEMCU = m8
 AVRDUDE  = avrdude $(DUDEPORT) -p $(DUDEMCU) -y -u 
 
-objects = main.o
+objects = main.o new.o
 
 all: $(objects)  main.hex list
 
 clean:
 	rm -f *.o *~ *.hex *.elf *.map *.lst
+
+new: new.hex
+	sudo $(AVRDUDE) -U flash:w:$^:i
 
 flash: main.hex
 	sudo $(AVRDUDE) -U flash:w:$^:i
@@ -30,6 +33,12 @@ list:
 
 $(objects): %.o: %.c
 	avr-gcc -c $(CFLAGS) $< -o $@
+
+new.elf: new.o 
+	avr-gcc $(LDFLAGS) new.o -o $@
+
+new.hex: new.elf
+	avr-objcopy -j .text -j .data -O ihex $< $@
 
 main.elf: main.o 
 	avr-gcc $(LDFLAGS) main.o -o $@
