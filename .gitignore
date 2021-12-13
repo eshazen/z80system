@@ -13,3 +13,7 @@ gerber
 *.bck
 *.dcm
 OPs
+**.elf
+**.hex
+**.map
+**.o
