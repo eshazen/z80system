@@ -29,6 +29,11 @@ send_hex.o: send_hex.cc serial_command.hh
 
 serial_command.o: serial_command.cc serial_command.hh
 
+screen_test.o: screen_test.cc serial_command.hh
+
+screen_test: screen_test.o serial_command.o
+	g++ -o screen_test screen_test.o serial_command.o -lserial
+
 send_hex: send_hex.o serial_command.o
 	g++ -o send_hex send_hex.o serial_command.o -lserial
 
