@@ -7,4 +7,10 @@ or standard VGA.
 RC2014 interface via serial, with 6 pin connector for
 a serial keyboard.
 
-A PS/2 keyboard connector is also provided.
+A PS/2 keyboard interface.
+
+_Rev A Errors_
+
+The VGA connector overlaps several resistors and C2.  This is salvageable
+by either cutting away part of the VGA or mounting the other parts on the back.
+
