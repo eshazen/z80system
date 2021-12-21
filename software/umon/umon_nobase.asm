@@ -24,6 +24,8 @@
 ;;; gs [<lba_h> <lba_l> <addr> <count>]  GETSYS load CP/M
 ;;;                            defaults to 0 0 E000 40
 	
+	extern	sec128		;use 128 byte disk sectors
+
 ; 	org	08100H
  	org	UMON_ORIGIN	
 

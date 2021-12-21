@@ -32,6 +32,10 @@
 ;;;     set PPI direction to INPUT      CTRL = 92h
 ;;; 
 
+;;; Mods:
+;;; 2021-12-18:  modify sector read/write to (optionally)
+;;; do only 128 bytes for CP/M
+
 ;;; 8255 ports
 PPIA:	equ	20h
 PPIB:	equ	21h
@@ -86,6 +90,23 @@ IDE_Idle:
 	call	IDE_Wait_Ready
 	pop	af
 	ret
+
+;;; ----------------------------------------
+	ifdef disk_spindown
+
+;;; set IDE timeout to A * 5s
+IDE_SetTimeout:
+	push	af
+	call	IDE_Wait_Ready
+	ld	c, IDE_NSEC
+	pop	af
+	call	IDE_Byte_write
+	ld	a,0e2h		;command to set timeout
+	call	IDE_Do_Cmd
+	ret
+
+	endif
+;;; ----------------------------------------
 
 ;;; read IDE register C, 8-bit data to A
 IDE_Byte_Read:
@@ -219,7 +240,8 @@ IDE_Setup_LBA:
 	ret
 
 
-;;; Read sector (256 words) from DEHL to (IX)
+;;; Read sector (128 or 512 bytes depending on 'sec128') from DEHL to (IX)
+;;; return with DE pointing to next location after end of user buffer
 IDE_Read_Sector:
 	call	IDE_Wait_Ready
 	call	IDE_Setup_LBA
@@ -233,9 +255,13 @@ IDE_Read_Sector:
 
 	call	IDE_Do_Cmd
 	call	IDE_Wait_DRQ
-	ld	b,0		;count
-	pop	de
-	ld	c,0		;data at address 0
+ifdef sec128
+	ld	b,40h		;count 40h words 80h bytes
+else
+	ld	b,0		;count 0=256 words
+endif	
+	pop	de		;dest addr to DE
+	ld	c,0		;data in IDE register 0
 IDE_RSW:
 	call	IDE_Word_Read
 	ld	a,h
@@ -244,11 +270,18 @@ IDE_RSW:
 	ld	a,l
 	ld	(de),a
 	inc	de
-	djnz	IDE_RSW
+	djnz	IDE_RSW		;loop over desired words
+ifdef sec128
+	;;  read and discard remaining 192 words
+	ld	b,0c0h
+ide_disw:
+	call	IDE_Word_Read
+	djnz	ide_disw
+endif
 	call	IDE_Get_Status
 	ret
 
-;;; Write sector (256 words) to DEHL from (IX)
+;;; Write sector (128 or 512 bytes) to DEHL from (IX)
 ;;; return status register value in A
 IDE_Write_Sector:
 	call	IDE_Wait_Ready
@@ -263,7 +296,16 @@ IDE_Write_Sector:
 
 	call	IDE_Do_Cmd
 	call	IDE_Wait_DRQ
-	ld	b,0
+
+	ifdef	sec128
+;;; ----------------------------------------
+	ld	b,40h	  ; 128-byte mode, 40h words
+;;; ----------------------------------------
+	else
+	ld	b,0	  ; 512-byte mode, 100h words
+;;; ----------------------------------------
+	endif
+	
 	pop	de		;pointer to de
 
 IDE_WSW:
@@ -279,6 +321,18 @@ IDE_WSW:
 	ld	c,0		;register 0 for data
 	call	IDE_Word_Write
 	djnz	IDE_WSW
+
+;;; ----------------------------------------
+	ifdef	sec128
+	;; write zeros on rest of physical sector
+	ld	a,0
+	ld	b,0c0h		;192 words remaining
+
+IDEFS:	call	IDE_Word_Write
+	djnz	IDEFS
+	endif
+;;; ----------------------------------------
+
 	call	IDE_Wait_Ready
 	call	IDE_Get_Status
 	ret

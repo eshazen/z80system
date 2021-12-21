@@ -11,12 +11,23 @@
 ;;;   A       - 241K IBM standard
 ;;;   BCDEFG  - 8M 64K block "hard drives" (256 tracks, 256 sectors)
 ;;; 
-	MACLIB DISKDEF
 	
+	extern	disk_spindown	;enable disk spin-down after 10 min
+	extern	mux_sio		;switch SIO ports with switch at 00/bit 0
+	extern	sec128		; 128 byte sector ops
+
+
+	MACLIB DISKDEF
+
 ;	skeletal cbios for first level of CP/M 2.0 alteration
 ;
 ;;; below set for initial 20K system
 	
+;;; Mods:
+;;; 2021-12-18:  modify sector read/write to (optionally)
+;;; do only 128 bytes for CP/M
+;;; for SIO call rxrdy, getc, putc _Y for console, _X for reader/punch
+;;;   (switch select in serial.asm)
 
 ;ccp:	equ	03400h		;base of ccp
 ;bdos:	equ	03C06h		;bdos entry
@@ -81,6 +92,12 @@ boot:	;simplest case is to just perform parameter initialization
 	out	(38h),a		;increment memory page thing (all RAM)
 	call	io_init		;set up the SIO
 	call	IDE_Initialize	;initialize the IDE
+;;; ----------------------------------------
+	ifdef	disk_spindown
+	ld	a,60		;60 * 5s = 5 min disk spin-down timeout
+	call	IDE_SetTimeout
+	endif
+;;; ----------------------------------------
 	JP	gocpm		;initialize and go to cp/m
 ;
 wboot:	;simplest case is to read the disk until all sectors loaded
@@ -168,40 +185,40 @@ diskok:	LD 	c, a		;send to the ccp
 ;
 const:	;console status, return 0ffh if character ready, 00h if not
 	xor	a
-	call	rxrdy
+	call	rxrdy_Y
 	ret	z
 	dec	a
 	ret
 
 conin:	;console character into register a
-	jp	getc
+	jp	getc_Y
 
 conout:	;console character output from register c
 	ld	a,c
 	and	7fh
-	jp	putc
+	jp	putc_Y
 
 list:	;list character from register c
 	LD 	a, c	  	;character to register a
 	and	7fh
-	jp	putc_B		;SIO port B
+	jp	putc_X		;SIO port B
 	ret		  	;null subroutine
 ;
 listst:	;return list status (0 if not ready, 1 if ready)
 	xor	a
-	call	txrdy_B
+	call	txrdy_X
 	ret	z
 	inc	a
 	ret
 ;
 punch:	;punch	character from	register C
 	LD 	a, c		;character to register a
-	jp	putc_B		;SIO port B
+	jp	putc_X		;SIO port B
 	ret			;null subroutine
 ;
 ;
 reader:	;reader character into register a from reader device
-	call	getc_B
+	call	getc_X
 	AND    7fh		;remember to strip parity bit
 	ret
 
@@ -279,6 +296,15 @@ read:
 ;Dma address in 'dmaad' (0-65535)
 ;
 	call	setuprw
+;;; ----------------------------------------
+;;; 128-byte sectors implemented in disk_ide so we can
+;;; write directly to the user buffer, saving time/code
+	ifdef	sec128
+	ld	ix,(dmaad)
+	call	IDE_Read_Sector
+;;; ----------------------------------------
+	else
+;;; ----------------------------------------
 	ld	ix,hstbuf
 	call	IDE_Read_Sector	;read 512 bytes to hstbuf
 	ld	hl,(dmaad)	;copy 128 bytes to user
@@ -286,6 +312,8 @@ read:
 	ld	hl,hstbuf
 	ld	bc,128
 	ldir
+;;; ----------------------------------------
+	endif
 	jr	rwchk
 	
 write:
@@ -295,12 +323,21 @@ write:
 ;Track number in 'track'
 ;Sector number in 'sector'
 ;Dma address in 'dmaad' (0-65535)
+	call 	setuprw
+;;; ----------------------------------------
+	ifdef	sec128
+	ld	ix,(dmaad)
+;;; ----------------------------------------
+	else
+	
 	ld	hl,(dmaad)	;copy 128 bytes to hstbuf
 	ld	de,hstbuf
 	ld	bc,128
 	ldir
-	call 	setuprw
 	ld	ix,hstbuf
+
+	endif
+;;; ----------------------------------------
 	call	IDE_Write_Sector
 
 rwchk:	and	1		;IDE error bit is bit 0
@@ -396,5 +433,10 @@ diskp4:	equ $
 
 diskend: equ $
 	
+	ifdef sec128
+hstbuf: ds	128		;buffer for host disk sector
+	else
 hstbuf: ds	512		;buffer for host disk sector
+	endif
+	
 	end

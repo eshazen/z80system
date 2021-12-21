@@ -1,16 +1,16 @@
+Z80ASM = /home/hazen/bin/zmac
+base=0A100H
 
-EXECS = zout/umon_8100H.hex zout/hexload.hex send_hex simple_server \
+EXECS = zout/umon_$(base).hex zout/hexload.hex send_hex simple_server \
 	com2db
 
 all: $(EXECS)
 
-Z80ASM = /home/hazen/bin/zmac
-base=8100H
 
 CFLAGS = -ggdb -O0
 CPPFLAGS = -ggdb -O0
 
-zout/umon_8100H.hex: umon_nobase.asm serial.asm console.asm hex.asm c-link.asm
+zout/umon_$(base).hex: umon_nobase.asm serial.asm console.asm hex.asm c-link.asm disk_ide.asm
 ifeq ($(base),xxx)
 echo "Missing base=value"
 exit 1
