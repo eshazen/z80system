@@ -73,4 +73,47 @@ module case() {
      }
 }
 
-case();
+// right triangular prism of height h with sides s
+module prism( h, s) {
+     linear_extrude( height=h) {
+	  polygon( points=[ [0,0], [s,s], [s,0], [0,0]]);
+     }
+}
+     
+
+module cutter() {
+     cube( [case_wid*.7, case_hgt+2*e, case_rear+10]);
+     translate( [e-5, 0, 0])
+	  prism( h=case_rear+2*e+thick, s=5);
+     translate( [e, case_hgt+2*e-5, 0])
+     rotate( [0, 0, 90])
+	  prism( h=case_rear+2*e+thick, s=5);
+     rotate( [90, 0, 0]) {
+	  translate( [e-5, 0, -40]) prism( h=30, s=5);
+	  translate( [e-5, 0, -110]) prism( h=30, s=5);
+     }
+     rotate( [90, 180, 180]) {
+	  translate( [e-5, -3, 45])
+	  prism( h=30, s=5);
+     }
+}
+
+module left() {
+     difference() {
+	  case();
+	  translate( [case_wid/2, -e, -e])
+	       cutter();
+     }
+}
+
+module right() {
+     intersection() {
+	  case();
+	  translate( [case_wid/2, -e, -e])
+	       cutter();
+     }
+}
+
+left();
+// right();
+// cutter();
