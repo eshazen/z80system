@@ -16,4 +16,8 @@ OPs
 **.elf
 **.hex
 **.map
+**.stl
 **.o
+com2db
+send_hex
+simple_server
