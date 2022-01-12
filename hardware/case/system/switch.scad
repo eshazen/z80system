@@ -7,7 +7,7 @@ sw_len = 55;
 sw_thk = 1.6;
 sw_wall = 15;
 
-e = 0.1;
+// e = 0.1;
 
 hole_dia = 4.0;
 

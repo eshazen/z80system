@@ -5,11 +5,12 @@
 wid = 12.5;
 hgt = 14.0;
 // thk = 0.125;
-thk=0.092;
+ thk=0.092;
 
 case_hgt = 3.25;
 
 e = 0.01;
+g = 0.01;			/* mechanical gap */
 
 mhd = 0.150;
 
@@ -52,20 +53,47 @@ module kb_pcb() {
      }
 }
 
+sbh = 0.5;
+
+module kb_plate_bracket() {
+  difference() {
+    cube( [sbh, kb_case_dy, thk]);
+    hole_at( sbh/2, 0.5, 0.125);
+    hole_at( sbh/2, kb_case_dy-0.5, 0.125);
+  }
+}
 
 module kb_plate() {
-     color("brown") {
-	  translate([ 0, 0, kb_case_front_z]) {
-	       rotate( [ kb_slope, 0, 0]) {
-		    difference() {
-			 cube( [wid+thk, kb_case_dy, thk]);
-			 translate( [kb_marg+kb_case_left_marg, kb_marg+kb_case_bottom_marg, -e])
-			      cube( [kb_wid-kb_case_left_marg-kb_case_right_marg,
-				     kb_hgt-kb_case_top_marg-kb_case_bottom_marg, 1.6+2*e]);
-		    }
-	       }
-	  }
-     }
+  difference() {
+    // the main plate
+    cube( [wid+thk, kb_case_dy, thk]);
+    // cutout for the keys
+    translate( [kb_marg+kb_case_left_marg, kb_marg+kb_case_bottom_marg, -e])
+      cube( [kb_wid-kb_case_left_marg-kb_case_right_marg,
+	     kb_hgt-kb_case_top_marg-kb_case_bottom_marg, 1.6+2*e]);
+  }
+  // side brackets
+  translate( [thk+g, 0, e]) rotate( [0, 90, 0]) kb_plate_bracket();
+  translate( [wid-g-thk, 0, e]) rotate( [0, 90, 0]) kb_plate_bracket();
+  // front lip
+  translate( [0, -thk, 0]) {
+    difference() {
+      cube( [wid+thk, thk, thk]);
+      rotate( [-kb_slope, 0, 0])
+	translate( [-e, -2*e, -thk+g])
+      cube( [wid+thk+2*e, thk*2, thk]);
+    }
+  }
+}
+
+module kb_plate_rot() {
+  color("brown") {
+    translate([ 0, 0, kb_case_front_z]) {
+      rotate( [ kb_slope, 0, 0]) {
+	kb_plate();
+      }
+    }
+  }
 }
 
 //
@@ -292,26 +320,30 @@ module upfront() {
 	  color("brown") cube( [wid+thk, case_hgt-kb_case_rear_z, thk]);
 }
 
+module sides() {
+  rotate( [90, 0, -90]) {
+    translate([-hgt,0,-thk]) {
+      left();
+      translate( [0, 0, -wid])
+	right();
+    }
+  }
+
+  rotate( [90, 0, 0])  translate( [0, 0, -hgt])    back();
+
+  rotate( [90, 0, 0]) front();
+}
+
 module draw() {
      scale( [25.4, 25.4, 25.4]) {
-	  plate();
+       % plate();
 
-	  parts();
+        % sides();
+       // parts();
 
-	  rotate( [90, 0, -90]) {
-	       translate([-hgt,0,-thk]) {
-		    left();
-		    translate( [0, 0, -wid])
-			 right();
-	       }
-	  }
 
-	  rotate( [90, 0, 0])  translate( [0, 0, -hgt])    back();
-
-	  rotate( [90, 0, 0]) front();
-
-	  kb_plate();
-	  upfront();
+       //	  kb_plate_rot();
+	  //	  upfront();
 
     }
 
@@ -320,4 +352,7 @@ module draw() {
 
 
 //projection()
-  draw();
+ draw();
+
+// flat KB plate for printing
+// rotate( [180, 0, 0]) scale( [25.4, 25.4, 25.4]) kb_plate();
