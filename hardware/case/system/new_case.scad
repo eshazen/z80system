@@ -5,7 +5,7 @@
 //
 mm=25.4;
 e = 0.01;
-g = 0.01;			/* mechanical gap */
+g = 0.005;			/* mechanical gap */
 
 wid = 12.5;
 hgt = 14.0;
@@ -17,9 +17,9 @@ thk = 10/mm;			/* missed thickness */
 
 case_hgt = 3.25;
 
-
-mhd = 0.150;
 sbh = 0.5;
+
+nbtab = 15;			/* number of tabs on each side of base */
 
 
 //
@@ -28,15 +28,40 @@ sbh = 0.5;
 //
 module tabs( length, 		/* length in X */
 	     num, 		/* number of tabs */
-	     pol,		/* polarity 1=cut 2=create */
+	     pol,		/* polarity 0=cut 1=create */
 	     wid,		/* width in Y */
 	     hgt		/* height in Z */
      )
 {
      tlen = length / num;	/* length of one tab */
-
-// FIXME: not finished
+     de = g;			/* clearance set by global g */
      
+     // // draw a "ruler"
+     // cube( [length, e, e]);
+     // for( i= [0 : 1: num]) {
+     // 	  translate( [ tlen*i, 0, 0])
+     // 	       color("black")
+     // 	       cube( [e, e, 2]);
+     // }
+	  
+
+     translate( [-de, 0, 0]) {
+
+	  if( pol) {
+	       for( i= [ 0 : 2 : num-1 ]) {
+		    translate( [ tlen*i, -de, -de]) {
+			 cube( [tlen+2*de, wid+2*de, hgt+2*de]);
+		    }
+	       }
+	  } else {
+	       for( i= [ 1 : 2 : num-1 ]) {
+		    translate( [ tlen*i, -de, -de]) {
+			 cube( [tlen+2*de, wid+2*de, hgt+2*de]);
+		    }
+	       }
+	  }
+
+     }
 }
 
 
@@ -251,7 +276,26 @@ module plate() {
 	  translate( [bp_x, bp_y, 0]) bp_holes();
 
 	  case_holes();
+
+	  // cut out tabs on left edge
+	  translate( [sthk, 0, 0])
+	       rotate( [0, 0, 90])
+	       tabs( hgt, nbtab, 1, sthk, bthk);
+
+	  // tabs on right edge
+	  translate( [wid, 0, 0])
+	       rotate( [0, 0, 90])
+	       tabs( hgt, nbtab, 1, sthk, bthk);
+
+	  // tabs on back edge
+	  translate( [0, hgt-sthk, 0])
+	       tabs( wid, nbtab, 1, sthk, bthk);
+
+	  // tabs on front edge
+	  tabs( wid, nbtab, 1, sthk, bthk);
+
      }
+
 }
 
 
@@ -322,7 +366,7 @@ module lid() {
 module left() {
 
      lpoints = [ [0,bthk+sw_len/mm], [0, case_hgt], [hgt-kb_case_dy, case_hgt], [hgt-kb_case_dy, 1.5],
-		[hgt, 5/8], [hgt, 0], [sw_wid/mm+bthk, 0], [sw_wid/mm+bthk, bthk+sw_len/mm] ];
+		[hgt, kb_case_front_z], [hgt, 0], [sw_wid/mm+bthk, 0], [sw_wid/mm+bthk, bthk+sw_len/mm] ];
 
      difference() {
 	  // draw the side outline
@@ -332,7 +376,18 @@ module left() {
 	       translate( [x, 0.75, 0])
 		    slot( 0.2, 2);
 	  }
-	  //
+	  // cut out tabs on bottom
+	  tabs( hgt, nbtab, 0, bthk, sthk);
+
+	  // cut out tabs on back
+	  translate( [sthk, 0, 0])
+	       rotate( [0, 0, 90])
+	       tabs( case_hgt, 5, 0, sthk, sthk);
+
+	  // cut out tabs on front
+	  translate( [hgt, 0, 0])
+	       rotate( [0, 0, 90])
+	       tabs( kb_case_front_z, 5, 0, sthk, sthk);
      }
 }
 
@@ -341,7 +396,7 @@ module left() {
 module right() {
 
      rpoints = [ [0,0], [0, case_hgt], [hgt-kb_case_dy, case_hgt], [hgt-kb_case_dy, 1.5],
-		[hgt, 5/8], [hgt, 0], [0,0]];
+		[hgt, kb_case_front_z], [hgt, 0], [0,0]];
 
      difference() {
 	  linear_extrude(sthk) { polygon( points=rpoints);};
@@ -349,6 +404,18 @@ module right() {
 	       translate( [x, 0.75, 0])
 		    slot( 0.2, 2);
 	  }
+	  // cut out tabs on bottom
+	  tabs( hgt, nbtab, 0, bthk, sthk);
+
+	  // cut out tabs on back
+	  translate( [sthk, 0, 0])
+	       rotate( [0, 0, 90])
+	       tabs( case_hgt, 5, 0, sthk, sthk);
+
+	  // cut out tabs on front
+	  translate( [hgt, 0, 0])
+	       rotate( [0, 0, 90])
+	       tabs( kb_case_front_z, 5, 0, sthk, sthk);
      }
 }
 
@@ -357,15 +424,38 @@ module back() {
 
      bpoints = [ [0,0], [0, case_hgt], [wid, case_hgt], 
 		 [wid, 0], [2, 0], [2,2], [5,2], [5,0], [0,0] ];
+     difference() {
+	  linear_extrude(sthk) { polygon( points=bpoints); };
+	  // cut out tabs at bottom
+	  tabs( wid, nbtab, 0, bthk, sthk);
+	  // tabs at left and right
+	  translate( [sthk, 0, 0])
+	       rotate( [0, 0, 90])
+	       tabs( case_hgt, 5, 1, sthk, sthk);
+	  translate( [wid, 0, 0])
+	       rotate( [0, 0, 90])
+	       tabs( case_hgt, 5, 1, sthk, sthk);
 
-     linear_extrude(sthk) { polygon( points=bpoints);};
+     }
+	  
 }
 
 // front
 module front() {
-     fpoints = [ [0,0], [0, 5/8], [wid, 5/8], [wid, 0] ];
+     fpoints = [ [0,0], [0, kb_case_front_z], [wid, kb_case_front_z], [wid, 0] ];
 
-     linear_extrude(sthk) { polygon( points=fpoints);};
+     difference() {
+	  linear_extrude(sthk) { polygon( points=fpoints);};
+	  // bottom tabs
+	  tabs( wid, nbtab, 0, bthk, sthk);
+	  // left and right tabs
+	  translate( [sthk, 0, 0])
+	       rotate( [0, 0, 90])
+	       tabs( kb_case_front_z, 5, 1, sthk, sthk);
+	  translate( [wid, 0, 0])
+	       rotate( [0, 0, 90])
+	       tabs( kb_case_front_z, 5, 1, sthk, sthk);
+     }
 }
 
 ubh = 0.3;
@@ -409,10 +499,9 @@ module sides() {
 
 module draw() {
      scale( [mm, mm, mm]) {
-       plate();
-
-       % sides();
-       //  left();
+       color("cyan") plate();
+       sides();
+//	  back();
        // parts();
 
 
@@ -420,7 +509,7 @@ module draw() {
 	// upfront();
 
 	// lid_flat();
-	% lid();
+	//% lid();
      }
 
 
@@ -428,7 +517,7 @@ module draw() {
 
 
 // projection()
- draw();
+draw();
 
 // flat KB plate for printing
 //rotate( [180, 0, 0]) scale( [mm, mm, mm]) kb_plate();
