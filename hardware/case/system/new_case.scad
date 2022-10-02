@@ -1,27 +1,50 @@
 //
 // retro-z80 system case
-// used to 3D print a prototype case and parts from JLC - fit OK
-// 
-
-wid = 12.5;
-hgt = 14.0;
- thk = 0.125;
-//thk=0.092;
-
-case_hgt = 3.25;
-
+// copied 2022-10-02 from bottom.scan
+// updating for laser-cut version with separate panels and interlocking tabs
+//
+mm=25.4;
 e = 0.01;
 g = 0.01;			/* mechanical gap */
 
+wid = 12.5;
+hgt = 14.0;
+
+bthk = 3.0/mm;			/* bottom thickness */
+sthk = 2.0/mm;			/* side thickness */
+
+thk = 10/mm;			/* missed thickness */
+
+case_hgt = 3.25;
+
+
 mhd = 0.150;
 sbh = 0.5;
+
+
+//
+// generate a set of tabs
+// automatically enlarge by e
+//
+module tabs( length, 		/* length in X */
+	     num, 		/* number of tabs */
+	     pol,		/* polarity 1=cut 2=create */
+	     wid,		/* width in Y */
+	     hgt		/* height in Z */
+     )
+{
+     tlen = length / num;	/* length of one tab */
+
+// FIXME: not finished
+     
+}
 
 
 include <switch.scad>
 
 module hole_at( x, y, d) {
      translate( [x, y, -e])
-	  cylinder( h=thk+2*e, d=d);
+	  cylinder( h=bthk+2*e, d=d);
 }
 
 kb_wid = 11.9;
@@ -58,7 +81,7 @@ module kb_pcb() {
 
 module kb_plate_bracket() {
   difference() {
-    cube( [sbh, kb_case_dy, thk]);
+    cube( [sbh, kb_case_dy, sthk]);
     hole_at( sbh/2, 0.5, 0.125);
     hole_at( sbh/2, kb_case_dy-0.5, 0.125);
   }
@@ -74,15 +97,15 @@ module kb_plate() {
 	     kb_hgt-kb_case_top_marg-kb_case_bottom_marg, 1.6+2*e]);
   }
   // side brackets
-  translate( [thk+g, 0, e]) rotate( [0, 90, 0]) kb_plate_bracket();
-  translate( [wid-g-thk, 0, e]) rotate( [0, 90, 0]) kb_plate_bracket();
+  translate( [sthk+g, 0, e]) rotate( [0, 90, 0]) kb_plate_bracket();
+  translate( [wid-g-sthk, 0, e]) rotate( [0, 90, 0]) kb_plate_bracket();
   // front lip
-  translate( [0, -thk+e, 0]) {
+  translate( [0, -sthk+e, 0]) {
     difference() {
-      cube( [wid+thk, thk, thk]);
+      cube( [wid+sthk, sthk, sthk]);
       rotate( [-kb_slope, 0, 0])
-	translate( [-e, -2*e, -thk+g])
-      cube( [wid+thk+2*e, thk*2, thk]);
+	translate( [-e, -2*e, -sthk+g])
+      cube( [wid+sthk+2*e, sthk*2, sthk]);
     }
   }
 }
@@ -129,6 +152,8 @@ ps_wid = 3.75;
 ps_hgt = 5.0;
 ps_thk = 1.75;
 
+ps_z = 1.5;
+
 module ps_box() {
      cube( [ps_wid, ps_hgt, ps_z]);
 }
@@ -157,7 +182,7 @@ rc_points = [ [0,0], [0,35], [15,50], [99.1-5, 50], [99.1, 45],
 
 module board_at( x, y, z) {
      translate( [x, y, z])
-	  scale( [1/25.4, 1/25.4, 1/25.4])
+	  scale( [1/mm, 1/mm, 1/mm])
 	  rotate( [90, 0, 90])
 	  color( [0.4, 0, 0.5, 1])
 	  linear_extrude( 1.6) {
@@ -186,7 +211,7 @@ module bp_pcb() {
 slot_spc = 0.65;
 slot_num = 12;
 slot_yoff = ((bp_hgt)-((slot_num-1)*slot_spc))/2;
-slot_xoff = ((bp_wid)-100/25.4)/2;
+slot_xoff = ((bp_wid)-100/mm)/2;
 
 module bp_boards() {
      translate( [bp_x+slot_xoff, bp_y+slot_yoff, 0.7]) {
@@ -210,7 +235,7 @@ module case_holes() {
 
 module plate() {
      difference() {
-	  cube( [wid, hgt, thk]);
+	  cube( [wid, hgt, bthk]);
 
 	  // keyboard mount holes
 	  translate( [ kb_marg, kb_marg, 0]) {
@@ -241,7 +266,7 @@ module parts() {
      translate( [hd_x, hd_y, 0.5]) {
 	  color("grey") {
 	       hd_box();
-	       translate( [0, abs(ps_hgt-hd_hgt), hd_thk+0.25])
+	       translate( [0, abs(ps_hgt-hd_hgt), hd_thk+0.1])
 		    ps_box();
 	  }
      }
@@ -250,7 +275,7 @@ module parts() {
      bp_boards();
 
      // switch bracket
-     color("black") translate( [0, hgt-thk, thk]) rotate( [90, 00, 270]) bracket();
+     color("black") translate( [0, hgt-thk, sthk]) rotate( [90, 00, 270]) bracket();
 
 }
 
@@ -258,31 +283,31 @@ module parts() {
 // rounded slot
 module slot( w, l) {
      translate( [w/2, w/2, -e]) {
-	  cylinder( h=thk+2*e, r=w/2);
+	  cylinder( h=bthk+2*e, r=w/2);
 	  translate( [0, l-w, 0])
-	       cylinder( h=thk+2*e, r=w/2);
+	       cylinder( h=bthk+2*e, r=w/2);
      }
      translate( [0, w/2, -e])
-	  cube( [w, l-w, thk+2*e]);
+	  cube( [w, l-w, bthk+2*e]);
 }
 
 
 // top lid
 module lid_flat() {
      difference() {
-	  cube( [wid+thk, hgt-kb_case_dy , thk]);
+	  cube( [wid, hgt-kb_case_dy , sthk]);
 	  for( x=[.5: 1: wid-.5])
 	       translate( [x, 2, 0])
 	       slot( .25, 5);
      }
-     translate( [thk+g, 0, -sbh+e]) rotate( [90, 0, 90]) lid_bracket();
-     translate( [wid-thk-g, 0, -sbh+e]) rotate( [90, 0, 90]) lid_bracket();
+     translate( [sthk+g, 0, -sbh+e]) rotate( [90, 0, 90]) lid_bracket();
+     translate( [wid-sthk-g, 0, -sbh+e]) rotate( [90, 0, 90]) lid_bracket();
 }
 
 module lid_bracket() {
      translate( [sbh, 0, 0])
      difference() {
-	  cube( [hgt-kb_case_dy-2*sbh, sbh, thk]);
+	  cube( [hgt-kb_case_dy-2*sbh, sbh, sthk]);
 	  hole_at( 2*sbh, sbh/2, .125);
 	  hole_at( hgt-kb_case_dy-4*sbh, sbh/2, .125);
      }
@@ -296,15 +321,18 @@ module lid() {
 // left side
 module left() {
 
-     lpoints = [ [0,thk+sw_len/25.4], [0, case_hgt], [hgt-kb_case_dy, case_hgt], [hgt-kb_case_dy, 1.5],
-		[hgt, 5/8], [hgt, 0], [sw_wid/25.4+thk, 0], [sw_wid/25.4+thk, thk+sw_len/25.4] ];
+     lpoints = [ [0,bthk+sw_len/mm], [0, case_hgt], [hgt-kb_case_dy, case_hgt], [hgt-kb_case_dy, 1.5],
+		[hgt, 5/8], [hgt, 0], [sw_wid/mm+bthk, 0], [sw_wid/mm+bthk, bthk+sw_len/mm] ];
 
      difference() {
-	  linear_extrude(thk) { polygon( points=lpoints);};
-	  for( x=[sw_wid/25.4+.5:0.75:hgt-kb_case_dy]) {
+	  // draw the side outline
+	  linear_extrude(sthk) { polygon( points=lpoints);};
+	  // cut out the cooling slots
+	  for( x=[sw_wid/mm+.5:0.75:hgt-kb_case_dy]) {
 	       translate( [x, 0.75, 0])
 		    slot( 0.2, 2);
 	  }
+	  //
      }
 }
 
@@ -316,8 +344,8 @@ module right() {
 		[hgt, 5/8], [hgt, 0], [0,0]];
 
      difference() {
-	  linear_extrude(thk) { polygon( points=rpoints);};
-	  for( x=[sw_wid/25.4+.5:0.75:hgt-kb_case_dy]) {
+	  linear_extrude(sthk) { polygon( points=rpoints);};
+	  for( x=[sw_wid/mm+.5:0.75:hgt-kb_case_dy]) {
 	       translate( [x, 0.75, 0])
 		    slot( 0.2, 2);
 	  }
@@ -330,14 +358,14 @@ module back() {
      bpoints = [ [0,0], [0, case_hgt], [wid, case_hgt], 
 		 [wid, 0], [2, 0], [2,2], [5,2], [5,0], [0,0] ];
 
-     linear_extrude(thk) { polygon( points=bpoints);};
+     linear_extrude(sthk) { polygon( points=bpoints);};
 }
 
 // front
 module front() {
-     fpoints = [ [0,0], [0, 5/8], [wid+thk, 5/8], [wid+thk, 0] ];
+     fpoints = [ [0,0], [0, 5/8], [wid, 5/8], [wid, 0] ];
 
-     linear_extrude(thk) { polygon( points=fpoints);};
+     linear_extrude(sthk) { polygon( points=fpoints);};
 }
 
 ubh = 0.3;
@@ -345,7 +373,7 @@ ubh = 0.3;
 module upfront_bracket() {
      upf_b_y = case_hgt-kb_case_rear_z;
      difference() {
-	  cube( [ubh, upf_b_y, thk]);
+	  cube( [ubh, upf_b_y, sthk]);
 	  hole_at( ubh/2, .25, .125);
 	  hole_at( ubh/2, upf_b_y-.25, .125);
      }
@@ -353,38 +381,38 @@ module upfront_bracket() {
 	  
 
 module upfront_flat() {
-     color("brown") cube( [wid+thk, case_hgt-kb_case_rear_z, thk]);
-     translate( [thk+g, 0, e]) rotate( [0, 90, 0]) upfront_bracket();
-     translate( [wid-thk-g, 0, e]) rotate( [0, 90, 0]) upfront_bracket();
+     color("brown") cube( [wid+sthk, case_hgt-kb_case_rear_z, sthk]);
+     translate( [sthk+g, 0, e]) rotate( [0, 90, 0]) upfront_bracket();
+     translate( [wid-sthk-g, 0, e]) rotate( [0, 90, 0]) upfront_bracket();
 }
 
 // upper front
 module upfront() {
-     translate( [0, kb_case_flat_dy+thk, kb_case_rear_z])
+     translate( [0, kb_case_flat_dy+sthk, kb_case_rear_z])
 	  rotate( [90, 0, 0])
 	  upfront_flat();
 }
 
 module sides() {
   rotate( [90, 0, -90]) {
-    translate([-hgt,0,-thk]) {
-      left();
-      translate( [0, 0, -wid])
+    translate([-hgt,0,-sthk]) {
+     left();
+      translate( [0, 0, sthk-wid])
 	right();
     }
   }
 
   rotate( [90, 0, 0])  translate( [0, 0, -hgt])    back();
 
-  rotate( [90, 0, 0]) front();
+  rotate( [90, 0, 0]) translate( [0, 0, -sthk]) front();
 }
 
 module draw() {
-     scale( [25.4, 25.4, 25.4]) {
-       // plate();
+     scale( [mm, mm, mm]) {
+       plate();
 
-       // sides();
-	  left();
+       % sides();
+       //  left();
        // parts();
 
 
@@ -392,17 +420,17 @@ module draw() {
 	// upfront();
 
 	// lid_flat();
-	// lid();
+	% lid();
      }
 
 
 }
 
 
- projection()
+// projection()
  draw();
 
 // flat KB plate for printing
-//rotate( [180, 0, 0]) scale( [25.4, 25.4, 25.4]) kb_plate();
-// rotate( [180, 0, 0]) scale( [25.4, 25.4, 25.4]) upfront_flat();
-// rotate( [180, 0, 0]) scale( [25.4, 25.4, 25.4]) lid_flat();
+//rotate( [180, 0, 0]) scale( [mm, mm, mm]) kb_plate();
+// rotate( [180, 0, 0]) scale( [mm, mm, mm]) upfront_flat();
+// rotate( [180, 0, 0]) scale( [mm, mm, mm]) lid_flat();
