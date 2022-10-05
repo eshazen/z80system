@@ -22,6 +22,14 @@ sbh = 0.5;
 nbtab = 15;			/* number of tabs on each side of base */
 
 
+bracket_shift = 0.25;		/* shift switch bracket forward */
+
+// animation:  $t runs (0...1)
+// explo = $t * 0.25;
+
+explo = abs($t-0.5)*0.25;			/* "explode" factor */
+// explo = 0;
+
 //
 // generate a set of tabs
 // automatically enlarge by e
@@ -113,26 +121,27 @@ module kb_plate_bracket() {
 }
 
 module kb_plate() {
-  difference() {
-    // the main plate
-    cube( [wid+thk, kb_case_dy, thk]);
-    // cutout for the keys
-    translate( [kb_marg+kb_case_left_marg, kb_marg+kb_case_bottom_marg, -e])
-      cube( [kb_wid-kb_case_left_marg-kb_case_right_marg,
-	     kb_hgt-kb_case_top_marg-kb_case_bottom_marg, 1.6+2*e]);
-  }
-  // side brackets
-  translate( [sthk+g, 0, e]) rotate( [0, 90, 0]) kb_plate_bracket();
-  translate( [wid-g-sthk, 0, e]) rotate( [0, 90, 0]) kb_plate_bracket();
-  // front lip
-  translate( [0, -sthk+e, 0]) {
-    difference() {
-      cube( [wid+sthk, sthk, sthk]);
-      rotate( [-kb_slope, 0, 0])
-	translate( [-e, -2*e, -sthk+g])
-      cube( [wid+sthk+2*e, sthk*2, sthk]);
-    }
-  }
+
+     difference() {
+	  // the main plate
+	  cube( [wid+thk, kb_case_dy, thk]);
+	  // cutout for the keys
+	  translate( [kb_marg+kb_case_left_marg, kb_marg+kb_case_bottom_marg, -e])
+	       cube( [kb_wid-kb_case_left_marg-kb_case_right_marg,
+		      kb_hgt-kb_case_top_marg-kb_case_bottom_marg, 1.6+2*e]);
+     }
+     // side brackets
+     translate( [sthk+g, 0, e]) rotate( [0, 90, 0]) kb_plate_bracket();
+     translate( [wid-g-sthk, 0, e]) rotate( [0, 90, 0]) kb_plate_bracket();
+     // front lip
+     translate( [0, -sthk+e, 0]) {
+	  difference() {
+	       cube( [wid+sthk, sthk, sthk]);
+	       rotate( [-kb_slope, 0, 0])
+		    translate( [-e, -2*e, -sthk+g])
+		    cube( [wid+sthk+2*e, sthk*2, sthk]);
+	  }
+     }
 }
 
 module kb_plate_rot() {
@@ -259,6 +268,8 @@ module case_holes() {
 
 
 module plate() {
+
+     translate( [0, 0, -explo])
      difference() {
 	  cube( [wid, hgt, bthk]);
 
@@ -319,7 +330,7 @@ module parts() {
      bp_boards();
 
      // switch bracket
-     color("black") translate( [0, hgt-thk, sthk]) rotate( [90, 00, 270]) bracket();
+     color("black") translate( [0, hgt-bracket_shift, bthk]) rotate( [90, 00, 270]) bracket();
 
 }
 
@@ -343,9 +354,23 @@ module lid_flat() {
 	  for( x=[.5: 1: wid-.5])
 	       translate( [x, 2, 0])
 	       slot( .25, 5);
+	  // cut out tabs at back and front
+	  tabs( wid, nbtab, 1, sthk, sthk);
+	  translate( [0, hgt-kb_case_dy-sthk, 0])
+	       tabs( wid, nbtab, 1, sthk, sthk);	       
+	  // cut out tabs and left and right
+	  translate( [sthk, 0, 0])
+	       rotate( [0, 0, 90])
+	       tabs( hgt-kb_case_dy, 7, 1, sthk, sthk);
+	  translate( [wid, 0, 0])
+	       rotate( [0, 0, 90])
+	       tabs( hgt-kb_case_dy, 7, 1, sthk, sthk);
+
      }
-     translate( [sthk+g, 0, -sbh+e]) rotate( [90, 0, 90]) lid_bracket();
-     translate( [wid-sthk-g, 0, -sbh+e]) rotate( [90, 0, 90]) lid_bracket();
+
+     // delete 3D printed bracket
+     //     translate( [sthk+g, 0, -sbh+e]) rotate( [90, 0, 90]) lid_bracket();
+     //     translate( [wid-sthk-g, 0, -sbh+e]) rotate( [90, 0, 90]) lid_bracket();
 }
 
 module lid_bracket() {
@@ -358,66 +383,59 @@ module lid_bracket() {
 }
 
 module lid() {
-     translate( [0, kb_case_dy, case_hgt])
+     translate( [0, kb_case_dy, explo+case_hgt-sthk])
      lid_flat();
 }
 
-// left side
-module left() {
+// side (left or right)
 
-     lpoints = [ [0,bthk+sw_len/mm], [0, case_hgt], [hgt-kb_case_dy, case_hgt], [hgt-kb_case_dy, 1.5],
-		[hgt, kb_case_front_z], [hgt, 0], [sw_wid/mm+bthk, 0], [sw_wid/mm+bthk, bthk+sw_len/mm] ];
+// left side
+module side( left) {
+
+     rpoints = [ [0,0], [0, case_hgt], [hgt-kb_case_dy, case_hgt], [hgt-kb_case_dy, kb_case_rear_z],
+		[hgt, kb_case_front_z], [hgt, 0], [0,0]];
 
      difference() {
 	  // draw the side outline
-	  linear_extrude(sthk) { polygon( points=lpoints);};
+	  linear_extrude(sthk) { polygon( points=rpoints);};
+
+	  if( left) {
+	       // cut out the switch bracket
+	       translate( [bracket_shift-g, -e, -e])
+		    cube( [sw_wid/mm+2*g, sw_len/mm+e+g+bthk, sthk+2*e]);
+	  }
+
 	  // cut out the cooling slots
 	  for( x=[sw_wid/mm+.5:0.75:hgt-kb_case_dy]) {
 	       translate( [x, 0.75, 0])
 		    slot( 0.2, 2);
 	  }
+
 	  // cut out tabs on bottom
 	  tabs( hgt, nbtab, 0, bthk, sthk);
+
+	  // tabs on top
+	  translate( [0, case_hgt-sthk, 0])
+	       tabs( hgt-kb_case_dy, 7, 0, sthk, sthk);
 
 	  // cut out tabs on back
 	  translate( [sthk, 0, 0])
 	       rotate( [0, 0, 90])
 	       tabs( case_hgt, 5, 0, sthk, sthk);
 
-	  // cut out tabs on front
+
+	  // cut out tabs on lower front
 	  translate( [hgt, 0, 0])
 	       rotate( [0, 0, 90])
 	       tabs( kb_case_front_z, 5, 0, sthk, sthk);
+
+	  // tabs upper front
+	  translate( [hgt-kb_case_dy, kb_case_rear_z, 0])
+	       rotate( [0, 0, 90])
+	       tabs( case_hgt-kb_case_rear_z, 5, 0, sthk, sthk);
      }
 }
 
-
-// right side
-module right() {
-
-     rpoints = [ [0,0], [0, case_hgt], [hgt-kb_case_dy, case_hgt], [hgt-kb_case_dy, 1.5],
-		[hgt, kb_case_front_z], [hgt, 0], [0,0]];
-
-     difference() {
-	  linear_extrude(sthk) { polygon( points=rpoints);};
-	  for( x=[sw_wid/mm+.5:0.75:hgt-kb_case_dy]) {
-	       translate( [x, 0.75, 0])
-		    slot( 0.2, 2);
-	  }
-	  // cut out tabs on bottom
-	  tabs( hgt, nbtab, 0, bthk, sthk);
-
-	  // cut out tabs on back
-	  translate( [sthk, 0, 0])
-	       rotate( [0, 0, 90])
-	       tabs( case_hgt, 5, 0, sthk, sthk);
-
-	  // cut out tabs on front
-	  translate( [hgt, 0, 0])
-	       rotate( [0, 0, 90])
-	       tabs( kb_case_front_z, 5, 0, sthk, sthk);
-     }
-}
 
 // back
 module back() {
@@ -426,8 +444,11 @@ module back() {
 		 [wid, 0], [2, 0], [2,2], [5,2], [5,0], [0,0] ];
      difference() {
 	  linear_extrude(sthk) { polygon( points=bpoints); };
-	  // cut out tabs at bottom
-	  tabs( wid, nbtab, 0, bthk, sthk);
+	  // top tabs
+	  tabs( wid, nbtab, 0, sthk, sthk);
+	  // bottom tabs
+	  translate( [0, case_hgt-sthk, 0])
+	       tabs( wid, nbtab, 0, bthk, sthk);	       
 	  // tabs at left and right
 	  translate( [sthk, 0, 0])
 	       rotate( [0, 0, 90])
@@ -435,7 +456,6 @@ module back() {
 	  translate( [wid, 0, 0])
 	       rotate( [0, 0, 90])
 	       tabs( case_hgt, 5, 1, sthk, sthk);
-
      }
 	  
 }
@@ -471,14 +491,29 @@ module upfront_bracket() {
 	  
 
 module upfront_flat() {
-     color("brown") cube( [wid+sthk, case_hgt-kb_case_rear_z, sthk]);
-     translate( [sthk+g, 0, e]) rotate( [0, 90, 0]) upfront_bracket();
-     translate( [wid-sthk-g, 0, e]) rotate( [0, 90, 0]) upfront_bracket();
+     difference() {
+	  cube( [wid, case_hgt-kb_case_rear_z, sthk]);
+	  // tabs top and bottom
+	  tabs( wid, nbtab, 0, sthk, sthk);
+	  translate( [0, case_hgt-kb_case_rear_z-sthk, 0])
+	       tabs( wid, nbtab, 0, sthk, sthk);
+	  // tabs left and right
+	  translate( [sthk, 0, 0])
+	       rotate( [0, 0, 90])
+	       tabs( case_hgt-kb_case_rear_z, 5, 1, sthk, sthk);
+	  translate( [wid, 0, 0])
+	       rotate( [0, 0, 90])
+	       tabs( case_hgt-kb_case_rear_z, 5, 1, sthk, sthk);
+     }
+	  
+
+//     translate( [sthk+g, 0, e]) rotate( [0, 90, 0]) upfront_bracket();
+//     translate( [wid-sthk-g, 0, e]) rotate( [0, 90, 0]) upfront_bracket();
 }
 
 // upper front
 module upfront() {
-     translate( [0, kb_case_flat_dy+sthk, kb_case_rear_z])
+     translate( [0, kb_case_flat_dy+2*sthk-explo, kb_case_rear_z])
 	  rotate( [90, 0, 0])
 	  upfront_flat();
 }
@@ -486,37 +521,46 @@ module upfront() {
 module sides() {
   rotate( [90, 0, -90]) {
     translate([-hgt,0,-sthk]) {
-     left();
-      translate( [0, 0, sthk-wid])
-	right();
+	 translate( [0, 0, explo])
+//	 color("lightgreen") side(1);
+	 side(1);
+	 translate( [0, 0, -explo])
+	 translate( [0, 0, sthk-wid])
+	      color("lightgreen") side(0);
     }
   }
 
-  rotate( [90, 0, 0])  translate( [0, 0, -hgt])    back();
+  rotate( [90, 0, 0])  translate( [0, 0, -hgt-explo]) color("beige")   back();
 
-  rotate( [90, 0, 0]) translate( [0, 0, -sthk]) front();
+  rotate( [90, 0, 0]) translate( [0, 0, explo-sthk]) color("blue") front();
 }
 
 module draw() {
      scale( [mm, mm, mm]) {
        color("cyan") plate();
-       sides();
-//	  back();
-       // parts();
+//       sides();
+	//  side(1);
+
+//	back();
+
+//       parts();
 
 
        	// kb_plate_rot();
-	// upfront();
+//	 color("violet") lid();
+//	 color("pink") upfront();
+	 
+//	  upfront_flat();
 
-	// lid_flat();
-	//% lid();
+//	 lid_flat();
+//	color("magenta") lid();
      }
 
 
 }
 
 
-// projection()
+projection()
 draw();
 
 // flat KB plate for printing

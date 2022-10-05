@@ -16,7 +16,7 @@ module hole( x, y, dia=4) {
 	  cylinder( h=sw_thk+2*e, d=dia);
 }
 
-module slot( x, y, sw_wid, hgt) {
+module sw_slot( x, y, sw_wid, hgt) {
   translate( [x, y, -e])
      cube( [sw_wid, hgt, sw_thk+2*e]);
 }
@@ -34,7 +34,7 @@ module bracket() {
     cube( [sw_wid, sw_len, sw_thk]);	/* plate */
     hole( 10, 14);
     hole( 10+40, 14);
-    slot( (40-29)/2+10, 14-21/2, 29, 21);
+    sw_slot( (40-29)/2+10, 14-21/2, 29, 21);
     hole( 65, 14, 6.5);
     hole( 30, 40, 15);		/* fuse holder */
     translate( [55, 3, sw_thk/2])
