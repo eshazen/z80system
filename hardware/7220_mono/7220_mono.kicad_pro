@@ -3,7 +3,7 @@
     "3dviewports": [],
     "design_settings": {
       "defaults": {
-        "board_outline_line_width": 0.15,
+        "board_outline_line_width": 0.049999999999999996,
         "copper_line_width": 0.19999999999999998,
         "copper_text_italic": false,
         "copper_text_size_h": 1.5,
@@ -38,7 +38,7 @@
           "height": 1.524,
           "width": 1.524
         },
-        "silk_line_width": 0.15,
+        "silk_line_width": 0.12,
         "silk_text_italic": false,
         "silk_text_size_h": 1.0,
         "silk_text_size_v": 1.0,
@@ -104,6 +104,8 @@
         "via_dangling": "warning",
         "zones_intersect": "error"
       },
+      "rule_severitieslegacy_courtyards_overlap": true,
+      "rule_severitieslegacy_no_courtyard_defined": false,
       "rules": {
         "max_error": 0.005,
         "min_clearance": 0.0,
@@ -166,7 +168,8 @@
       ],
       "track_widths": [],
       "via_dimensions": [],
-      "zones_allow_external_fillets": false
+      "zones_allow_external_fillets": false,
+      "zones_use_no_outline": true
     },
     "layer_presets": [],
     "viewports": []
@@ -379,7 +382,7 @@
       "pin_to_pin": "warning",
       "power_pin_not_driven": "error",
       "similar_labels": "warning",
-      "simulation_model_issue": "ignore",
+      "simulation_model_issue": "error",
       "unannotated": "error",
       "unit_value_mismatch": "error",
       "unresolved_variable": "error",
@@ -391,7 +394,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "cpu.kicad_pro",
+    "filename": "7220_mono.kicad_pro",
     "version": 1
   },
   "net_settings": {
@@ -422,267 +425,247 @@
     "netclass_patterns": [
       {
         "netclass": "Default",
-        "pattern": "+5V"
+        "pattern": "/2xWCLK"
       },
       {
         "netclass": "Default",
-        "pattern": "/A0"
+        "pattern": "/AD0"
       },
       {
         "netclass": "Default",
-        "pattern": "/A1"
+        "pattern": "/AD1"
       },
       {
         "netclass": "Default",
-        "pattern": "/A10"
+        "pattern": "/AD10"
       },
       {
         "netclass": "Default",
-        "pattern": "/A11"
+        "pattern": "/AD11"
       },
       {
         "netclass": "Default",
-        "pattern": "/A12"
+        "pattern": "/AD12"
       },
       {
         "netclass": "Default",
-        "pattern": "/A13"
+        "pattern": "/AD13"
       },
       {
         "netclass": "Default",
-        "pattern": "/A14"
+        "pattern": "/AD14"
       },
       {
         "netclass": "Default",
-        "pattern": "/A15"
+        "pattern": "/AD15"
       },
       {
         "netclass": "Default",
-        "pattern": "/A2"
+        "pattern": "/AD2"
       },
       {
         "netclass": "Default",
-        "pattern": "/A3"
+        "pattern": "/AD3"
       },
       {
         "netclass": "Default",
-        "pattern": "/A4"
+        "pattern": "/AD4"
       },
       {
         "netclass": "Default",
-        "pattern": "/A5"
+        "pattern": "/AD5"
       },
       {
         "netclass": "Default",
-        "pattern": "/A6"
+        "pattern": "/AD6"
       },
       {
         "netclass": "Default",
-        "pattern": "/A7"
+        "pattern": "/AD7"
       },
       {
         "netclass": "Default",
-        "pattern": "/A8"
+        "pattern": "/AD8"
       },
       {
         "netclass": "Default",
-        "pattern": "/A9"
+        "pattern": "/AD9"
       },
       {
         "netclass": "Default",
-        "pattern": "/BANK0"
+        "pattern": "/ALE"
       },
       {
         "netclass": "Default",
-        "pattern": "/BANK1"
+        "pattern": "/DBIN"
       },
       {
         "netclass": "Default",
-        "pattern": "/BANK2"
+        "pattern": "/HSYNC"
       },
       {
         "netclass": "Default",
-        "pattern": "/BANK3"
+        "pattern": "/LOAD-MASK"
       },
       {
         "netclass": "Default",
-        "pattern": "/BANK4"
+        "pattern": "/MA0"
       },
       {
         "netclass": "Default",
-        "pattern": "/BANK5"
+        "pattern": "/MA1"
       },
       {
         "netclass": "Default",
-        "pattern": "/BANK6"
+        "pattern": "/MA10"
       },
       {
         "netclass": "Default",
-        "pattern": "/BANK7"
+        "pattern": "/MA11"
       },
       {
         "netclass": "Default",
-        "pattern": "/BAUD_A"
+        "pattern": "/MA12"
       },
       {
         "netclass": "Default",
-        "pattern": "/BAUD_B"
+        "pattern": "/MA13"
       },
       {
         "netclass": "Default",
-        "pattern": "/CLK"
+        "pattern": "/MA14"
       },
       {
         "netclass": "Default",
-        "pattern": "/CLK2"
+        "pattern": "/MA15"
       },
       {
         "netclass": "Default",
-        "pattern": "/D0"
+        "pattern": "/MA2"
       },
       {
         "netclass": "Default",
-        "pattern": "/D1"
+        "pattern": "/MA3"
       },
       {
         "netclass": "Default",
-        "pattern": "/D2"
+        "pattern": "/MA4"
       },
       {
         "netclass": "Default",
-        "pattern": "/D3"
+        "pattern": "/MA5"
       },
       {
         "netclass": "Default",
-        "pattern": "/D4"
+        "pattern": "/MA6"
       },
       {
         "netclass": "Default",
-        "pattern": "/D5"
+        "pattern": "/MA7"
       },
       {
         "netclass": "Default",
-        "pattern": "/D6"
+        "pattern": "/MA8"
       },
       {
         "netclass": "Default",
-        "pattern": "/D7"
+        "pattern": "/MA9"
       },
       {
         "netclass": "Default",
-        "pattern": "/PIEO"
+        "pattern": "/PIX-CLK"
       },
       {
         "netclass": "Default",
-        "pattern": "/RA14"
+        "pattern": "/Q1"
       },
       {
         "netclass": "Default",
-        "pattern": "/TO0"
+        "pattern": "/Q2"
       },
       {
         "netclass": "Default",
-        "pattern": "/TRG0"
+        "pattern": "/SER-PIX"
       },
       {
         "netclass": "Default",
-        "pattern": "/TRG3"
+        "pattern": "/VIDEO"
       },
       {
         "netclass": "Default",
-        "pattern": "/nBANK"
+        "pattern": "/VSR-LD"
       },
       {
         "netclass": "Default",
-        "pattern": "/nBOOT"
+        "pattern": "/VSYNC"
       },
       {
         "netclass": "Default",
-        "pattern": "/nCTC"
+        "pattern": "/cpu_if/A0"
       },
       {
         "netclass": "Default",
-        "pattern": "/nDART"
+        "pattern": "/cpu_if/DB0"
       },
       {
         "netclass": "Default",
-        "pattern": "/nDCDA"
+        "pattern": "/cpu_if/DB1"
       },
       {
         "netclass": "Default",
-        "pattern": "/nDCDB"
+        "pattern": "/cpu_if/DB2"
       },
       {
         "netclass": "Default",
-        "pattern": "/nINT"
+        "pattern": "/cpu_if/DB3"
       },
       {
         "netclass": "Default",
-        "pattern": "/nIO14"
+        "pattern": "/cpu_if/DB4"
       },
       {
         "netclass": "Default",
-        "pattern": "/nIO18"
+        "pattern": "/cpu_if/DB5"
       },
       {
         "netclass": "Default",
-        "pattern": "/nIORQ"
+        "pattern": "/cpu_if/DB6"
       },
       {
         "netclass": "Default",
-        "pattern": "/nM1"
+        "pattern": "/cpu_if/DB7"
       },
       {
         "netclass": "Default",
-        "pattern": "/nMRD"
+        "pattern": "/cpu_if/~{RD}"
       },
       {
         "netclass": "Default",
-        "pattern": "/nMREQ"
+        "pattern": "/cpu_if/~{WR}"
       },
       {
         "netclass": "Default",
-        "pattern": "/nMWR"
+        "pattern": "/~{2xWCLK}"
       },
       {
         "netclass": "Default",
-        "pattern": "/nPIO"
+        "pattern": "/~{ALE}"
       },
       {
         "netclass": "Default",
-        "pattern": "/nRAM"
+        "pattern": "/~{BLANK}"
       },
       {
         "netclass": "Default",
-        "pattern": "/nRBOOT"
+        "pattern": "/~{DBIN}"
       },
       {
         "netclass": "Default",
-        "pattern": "/nRD"
+        "pattern": "/~{PIX-CLK}"
       },
       {
         "netclass": "Default",
-        "pattern": "/nRIA"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/nROM"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/nRST"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/nRd"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/nWAIT"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/nWR"
+        "pattern": "/~{WE}"
       },
       {
         "netclass": "Default",
@@ -690,23 +673,7 @@
       },
       {
         "netclass": "Default",
-        "pattern": "Net-(C1-Pad1)"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "Net-(C2-Pad1)"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "Net-(D1-Pad1)"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "Net-(D3-Pad1)"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "Net-(D4-Pad1)"
+        "pattern": "Gnd"
       },
       {
         "netclass": "Default",
@@ -714,7 +681,15 @@
       },
       {
         "netclass": "Default",
+        "pattern": "Net-(J1-Pad10)"
+      },
+      {
+        "netclass": "Default",
         "pattern": "Net-(J1-Pad11)"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "Net-(J1-Pad12)"
       },
       {
         "netclass": "Default",
@@ -722,11 +697,11 @@
       },
       {
         "netclass": "Default",
-        "pattern": "Net-(J1-Pad15)"
+        "pattern": "Net-(J1-Pad14)"
       },
       {
         "netclass": "Default",
-        "pattern": "Net-(J1-Pad17)"
+        "pattern": "Net-(J1-Pad15)"
       },
       {
         "netclass": "Default",
@@ -738,7 +713,15 @@
       },
       {
         "netclass": "Default",
+        "pattern": "Net-(J1-Pad20)"
+      },
+      {
+        "netclass": "Default",
         "pattern": "Net-(J1-Pad21)"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "Net-(J1-Pad22)"
       },
       {
         "netclass": "Default",
@@ -746,15 +729,15 @@
       },
       {
         "netclass": "Default",
+        "pattern": "Net-(J1-Pad24)"
+      },
+      {
+        "netclass": "Default",
         "pattern": "Net-(J1-Pad25)"
       },
       {
         "netclass": "Default",
-        "pattern": "Net-(J1-Pad27)"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "Net-(J1-Pad29)"
+        "pattern": "Net-(J1-Pad26)"
       },
       {
         "netclass": "Default",
@@ -762,15 +745,11 @@
       },
       {
         "netclass": "Default",
-        "pattern": "Net-(J1-Pad31)"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "Net-(J1-Pad33)"
-      },
-      {
-        "netclass": "Default",
         "pattern": "Net-(J1-Pad35)"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "Net-(J1-Pad36)"
       },
       {
         "netclass": "Default",
@@ -778,7 +757,15 @@
       },
       {
         "netclass": "Default",
+        "pattern": "Net-(J1-Pad38)"
+      },
+      {
+        "netclass": "Default",
         "pattern": "Net-(J1-Pad39)"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "Net-(J1-Pad4)"
       },
       {
         "netclass": "Default",
@@ -786,7 +773,15 @@
       },
       {
         "netclass": "Default",
+        "pattern": "Net-(J1-Pad6)"
+      },
+      {
+        "netclass": "Default",
         "pattern": "Net-(J1-Pad7)"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "Net-(J1-Pad8)"
       },
       {
         "netclass": "Default",
@@ -794,7 +789,83 @@
       },
       {
         "netclass": "Default",
-        "pattern": "Net-(J2-Pad1)"
+        "pattern": "Net-(J1-PadB10)"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "Net-(J1-PadB11)"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "Net-(J1-PadB12)"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "Net-(J1-PadB13)"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "Net-(J1-PadB14)"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "Net-(J1-PadB15)"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "Net-(J1-PadB16)"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "Net-(J1-PadB17)"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "Net-(J1-PadB18)"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "Net-(J1-PadB19)"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "Net-(J1-PadB20)"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "Net-(J1-PadB3)"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "Net-(J1-PadB4)"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "Net-(J1-PadB5)"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "Net-(J1-PadB6)"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "Net-(J1-PadB7)"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "Net-(J1-PadB8)"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "Net-(J1-PadB9)"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "Net-(J2-Pad10)"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "Net-(J2-Pad12)"
       },
       {
         "netclass": "Default",
@@ -802,55 +873,27 @@
       },
       {
         "netclass": "Default",
-        "pattern": "Net-(J2-Pad3)"
-      },
-      {
-        "netclass": "Default",
         "pattern": "Net-(J2-Pad4)"
       },
       {
         "netclass": "Default",
-        "pattern": "Net-(J2-Pad5)"
+        "pattern": "Net-(J2-Pad6)"
       },
       {
         "netclass": "Default",
-        "pattern": "Net-(J3-Pad1)"
+        "pattern": "Net-(J2-Pad8)"
       },
       {
         "netclass": "Default",
-        "pattern": "Net-(J3-Pad2)"
+        "pattern": "Net-(R3-Pad1)"
       },
       {
         "netclass": "Default",
-        "pattern": "Net-(J3-Pad3)"
+        "pattern": "Net-(U1-Pad10)"
       },
       {
         "netclass": "Default",
-        "pattern": "Net-(J3-Pad4)"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "Net-(J3-Pad5)"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "Net-(JP1-Pad2)"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "Net-(R1-Pad1)"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "Net-(R5-Pad1)"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "Net-(R6-Pad1)"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "Net-(R7-Pad1)"
+        "pattern": "Net-(U1-Pad11)"
       },
       {
         "netclass": "Default",
@@ -862,107 +905,167 @@
       },
       {
         "netclass": "Default",
-        "pattern": "Net-(U1-Pad8)"
+        "pattern": "Net-(U1-Pad38)"
       },
       {
         "netclass": "Default",
-        "pattern": "Net-(U10-Pad10)"
+        "pattern": "Net-(U1-Pad39)"
       },
       {
         "netclass": "Default",
-        "pattern": "Net-(U10-Pad11)"
+        "pattern": "Net-(U1-Pad4)"
       },
       {
         "netclass": "Default",
-        "pattern": "Net-(U10-Pad12)"
+        "pattern": "Net-(U1-Pad5)"
       },
       {
         "netclass": "Default",
-        "pattern": "Net-(U10-Pad9)"
+        "pattern": "Net-(U1-Pad7)"
       },
       {
         "netclass": "Default",
-        "pattern": "Net-(U11-Pad10)"
+        "pattern": "Net-(U1-Pad9)"
       },
       {
         "netclass": "Default",
-        "pattern": "Net-(U11-Pad17)"
+        "pattern": "Net-(U11-Pad12)"
       },
       {
         "netclass": "Default",
-        "pattern": "Net-(U11-Pad30)"
+        "pattern": "Net-(U11-Pad5)"
       },
       {
         "netclass": "Default",
-        "pattern": "Net-(U11-Pad7)"
+        "pattern": "Net-(U11-Pad8)"
       },
       {
         "netclass": "Default",
-        "pattern": "Net-(U13-Pad12)"
+        "pattern": "Net-(U11-Pad9)"
       },
       {
         "netclass": "Default",
-        "pattern": "Net-(U13-Pad13)"
+        "pattern": "Net-(U12-Pad1)"
       },
       {
         "netclass": "Default",
-        "pattern": "Net-(U13-Pad8)"
+        "pattern": "Net-(U12-Pad2)"
       },
       {
         "netclass": "Default",
-        "pattern": "Net-(U14-Pad11)"
+        "pattern": "Net-(U12-Pad6)"
       },
       {
         "netclass": "Default",
-        "pattern": "Net-(U14-Pad12)"
+        "pattern": "Net-(U13-Pad1)"
       },
       {
         "netclass": "Default",
-        "pattern": "Net-(U15-Pad5)"
+        "pattern": "Net-(U16-Pad28)"
       },
       {
         "netclass": "Default",
-        "pattern": "Net-(U17-Pad6)"
+        "pattern": "Net-(U2-Pad6)"
       },
       {
         "netclass": "Default",
-        "pattern": "Net-(U17-Pad9)"
+        "pattern": "Net-(U2-Pad8)"
       },
       {
         "netclass": "Default",
-        "pattern": "Net-(U18-Pad12)"
+        "pattern": "Net-(U20-Pad11)"
       },
       {
         "netclass": "Default",
-        "pattern": "Net-(U18-Pad2)"
+        "pattern": "Net-(U20-Pad17)"
       },
       {
         "netclass": "Default",
-        "pattern": "Net-(U18-Pad8)"
+        "pattern": "Net-(U20-Pad18)"
       },
       {
         "netclass": "Default",
-        "pattern": "Net-(U18-Pad9)"
+        "pattern": "Net-(U20-Pad19)"
       },
       {
         "netclass": "Default",
-        "pattern": "Net-(U2-Pad7)"
+        "pattern": "Net-(U20-Pad2)"
       },
       {
         "netclass": "Default",
-        "pattern": "Net-(U3-Pad23)"
+        "pattern": "Net-(U20-Pad3)"
       },
       {
         "netclass": "Default",
-        "pattern": "Net-(U3-Pad25)"
+        "pattern": "Net-(U20-Pad9)"
       },
       {
         "netclass": "Default",
-        "pattern": "Net-(U3-Pad28)"
+        "pattern": "Net-(U21-Pad11)"
       },
       {
         "netclass": "Default",
-        "pattern": "Net-(U6-Pad2)"
+        "pattern": "Net-(U21-Pad17)"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "Net-(U21-Pad18)"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "Net-(U3-Pad1)"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "Net-(U3-Pad9)"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "Net-(U4-Pad3)"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "Net-(U5-Pad11)"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "Net-(U6-Pad1)"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "Net-(U8-Pad11)"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "Net-(U8-Pad15)"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "Net-(U9-Pad1)"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "Net-(U9-Pad10)"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "Net-(U9-Pad13)"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "Net-(U9-Pad14)"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "Net-(U9-Pad15)"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "Net-(U9-Pad2)"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "Net-(U9-Pad7)"
       },
       {
         "netclass": "Default",
@@ -971,6 +1074,10 @@
       {
         "netclass": "Default",
         "pattern": "VCC"
+      },
+      {
+        "netclass": "Default",
+        "pattern": "Vcc"
       }
     ]
   },
@@ -978,7 +1085,7 @@
     "last_paths": {
       "gencad": "",
       "idf": "",
-      "netlist": "",
+      "netlist": "7220_mono.net",
       "specctra_dsn": "",
       "step": "",
       "vrml": ""
@@ -1008,9 +1115,19 @@
     "meta": {
       "version": 1
     },
-    "net_format_name": "",
+    "net_format_name": "Pcbnew",
+    "ngspice": {
+      "fix_include_paths": true,
+      "fix_passive_vals": false,
+      "meta": {
+        "version": 0
+      },
+      "model_mode": 0,
+      "workbook_filename": ""
+    },
     "page_layout_descr_file": "",
     "plot_directory": "",
+    "spice_adjust_passive_values": false,
     "spice_current_sheet_as_root": false,
     "spice_external_command": "spice \"%I\"",
     "spice_model_current_sheet_as_root": true,
@@ -1019,11 +1136,6 @@
     "subpart_first_id": 65,
     "subpart_id_separator": 0
   },
-  "sheets": [
-    [
-      "4148472e-1f07-44f1-9be6-fc713df9e5c1",
-      ""
-    ]
-  ],
+  "sheets": [],
   "text_variables": {}
 }

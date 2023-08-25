@@ -538,12 +538,12 @@ module sides() {
 module draw() {
      scale( [mm, mm, mm]) {
        color("cyan") plate();
-//       sides();
+       sides();
 	//  side(1);
 
 //	back();
 
-//       parts();
+       parts();
 
 
        	// kb_plate_rot();
@@ -560,7 +560,7 @@ module draw() {
 }
 
 
-projection()
+// projection()
 draw();
 
 // flat KB plate for printing
