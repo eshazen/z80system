@@ -3,7 +3,7 @@ Yet another home-brew z80 system
 
 This project has diverged a lot from my original plan to build a
 from-scratch portable Z80 system.  I may yet do that.  Meanwhile I
-have an RC2014 system running happily
+have an RC2014 system ~~running happily~~ which is very flaky.
 
 ## What works now
 
@@ -14,11 +14,23 @@ have an RC2014 system running happily
 * [Keyboard](https://github.com/eshazen/z80system/tree/master/hardware/keyboard/minimal-60-v3) -
   60% keyboard with serial output
 * [AVR_Code](https://github.com/eshazen/z80system/tree/master/hardware/keyboard/AVR_code) -
-  AVR firmware for above
+  AVR firmware for keyboard
 
-## Old/Future notes and ideas
+## Moving Forward
 
-NOTE:  Nothing here is done/working yet!
+After having fun with an RC2014 system for a bit, I found it to be too
+flaky for serious use.  Not really interested in debugging it now.
+
+2023 Proposed changes:
+
+* Consider ECB SBC compatible design, but with Z80 CTC, DART, PIO
+  instead of the Intel ones
+* Add an IDE interface.  Seems as if an 8255 is a winner for this
+* Maybe an ICOM Floppy interface, another 8255?
+* Connect the CTC TO/TRG pins to a header (only)
+* Add a 4.9152 osc and 74HC4040 as a simple baud rate generator
+* Change the CPU clock to 4/8 MHz
+* 
 
 I'm starting (slowly, for now) on a home-brew Z80 general-purpose
 computer.  I'm not very interested in the 8-bit gaming or
