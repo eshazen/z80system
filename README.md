@@ -30,7 +30,7 @@ flaky for serious use.  Not really interested in debugging it now.
 * Connect the CTC TO/TRG pins to a header (only)
 * Add a 4.9152 osc and 74HC4040 as a simple baud rate generator
 * Change the CPU clock to 4/8 MHz
-* 
+* Add a network interface with ENC28J60 (see e.g. http://tuxgraphics.org/electronics/200905/embedded-tcp-ip-stack.shtml)
 
 I'm starting (slowly, for now) on a home-brew Z80 general-purpose
 computer.  I'm not very interested in the 8-bit gaming or
