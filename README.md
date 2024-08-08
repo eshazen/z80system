@@ -5,6 +5,28 @@ This project has diverged a lot from my original plan to build a
 from-scratch portable Z80 system.  I may yet do that.  Meanwhile I
 have an RC2014 system ~~running happily~~ which is very flaky.
 
+## New thoughts in 2024
+
+Renewed interest in:
+
+* A homebrew system with at least some retro features
+* Rock-solid operation
+* Two console options:
+  * UART (FTDI)
+  * Keyboard and video
+* Easy interface for backup / file transfer (Ethernet, UART, other)
+* Some way to boot without an EPROM programmer (AVR would be OK)
+* IDE Hard drive (not sure why I'm obsessed with this!)
+* VGA-class video, eventually with pixel graphics
+* Possible ICom floppy interface
+
+Not so interested in building all the peripherals (SIO, DMA, CTC) and
+MMU so a Z180 seems like a nice option.  Looking at the SC131 SBC as a
+starter, though it has no expansion.
+
+If I didn't want to build it I would just buy a Z80-MBC2 kit :)
+
+
 ## What works now
 
 * [FPGA_VGA](https://github.com/eshazen/z80system/tree/master/hardware/rc2014_vga) -
@@ -31,6 +53,8 @@ flaky for serious use.  Not really interested in debugging it now.
 * Add a 4.9152 osc and 74HC4040 as a simple baud rate generator
 * Change the CPU clock to 4/8 MHz
 * Add a network interface with ENC28J60 (see e.g. http://tuxgraphics.org/electronics/200905/embedded-tcp-ip-stack.shtml)
+
+## Original notes
 
 I'm starting (slowly, for now) on a home-brew Z80 general-purpose
 computer.  I'm not very interested in the 8-bit gaming or
