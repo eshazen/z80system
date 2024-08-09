@@ -13,6 +13,8 @@
 // the second option sends "A:HEXLOAD CPM_file" before the file
 //
 
+// #define DEBUG
+
 #define TOUT 5000
 
 #include <stdint.h>
@@ -59,15 +61,25 @@ int main( int argc, char *argv[]) {
   sp.SetBaudRate( LibSerial::BaudRate::BAUD_115200); // set baud rate
 
   if( argc == 1) {
-    printf("Usage: send_hex [-s] <hex_file> [<cpm_file>]\n");
+    printf("Usage: send_hex [-s] [-c] [v] <hex_file> [<cpm_file>]\n");
     exit(1);
   }
 
+#ifdef DEBUG
+  printf("ARGC = %d\n", argc);
+#endif  
+
   for( int i=1; i<argc; i++) {
+#ifdef DEBUG
+    printf("Parse: %s\n", argv[i]);
+#endif    
     if( *argv[i] == '-') {
+#ifdef DEBUG
+      printf("  switch: %c\n", toupper( argv[i][1]));
+#endif      
       switch( toupper( argv[i][1])) {
       case 'C':
-	send_cmd = 1;
+	send_cmd = i;
 	break;
       case 'S':
 	init_cmd = "G C000";
@@ -80,12 +92,32 @@ int main( int argc, char *argv[]) {
 	exit(1);
       }
     } else {
-      if( hex_file == NULL)
+#ifdef DEBUG
+      printf("  File: %s\n", argv[i]);
+#endif      
+      if( hex_file == NULL) {
 	hex_file = argv[i];
-      else if( cpm_file == NULL)
+#ifdef DEBUG
+	printf("  Hex file: %s\n", hex_file);
+#endif
+      }
+      else if( cpm_file == NULL) {
 	cpm_file = argv[i];
+#ifdef DEBUG
+	printf("  Cpm file: %s\n", cpm_file);
+#endif
+      } else {
+#ifdef DEBUG
+	printf("  Unknown file: %s\n", argv[i]);
+#endif	
+	;
+      }
     }
   }
+
+#ifdef DEBUG
+  printf("Hex file now: %s\n", hex_file);
+#endif  
 
   if( send_cmd) {
     // special case, build CP/M command line from args
@@ -94,7 +126,7 @@ int main( int argc, char *argv[]) {
       exit(1);
     }
     buff[0] = '\0';
-    for( int i=2; i<argc; i++) {
+    for( int i=send_cmd+1; i<argc; i++) {
       if( i > 2)
 	strcat( buff, " ");
       strcat( buff, argv[i]);
@@ -117,7 +149,7 @@ int main( int argc, char *argv[]) {
     exit(1);
   } else {
     if( (fp = fopen( hex_file, "r")) == NULL) {
-      printf("Error opening %s for input\n", argv[1]);
+      printf("Error opening %s for input\n", hex_file);
       exit(1);
     }
   }

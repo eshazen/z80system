@@ -9,7 +9,54 @@
 ;;; getc_B  - receive char from port A to A, wait if needed
 ;;; rxrdy   - return NZ if characters available (uses A)
 ;;; txrdy   - return NZ if ready to send
+
+ifdef mux_sio	
+;;; multiplexed via switch
+txrdy_X: call	checksw
+	jr	z,txrdy
+	jr	txrdy_B
+
+txrdy_Y: call	checksw	
+	jr	z,txrdy_B
+	jr	txrdy
+;;; ----------------------------------------
+rxrdy_X: call	checksw
+	jr	z,rxrdy
+	jp 	rxrdy_B
 	
+rxrdy_Y: call	checksw
+	jr 	z, rxrdy_B
+	jr 	rxrdy
+;;; ----------------------------------------
+putc_X: call	checksw
+	jr	z,putc
+	jr	putc_B
+	
+putc_Y: call	checksw
+	jr	z, putc_B
+	jr	putc
+;;; ----------------------------------------
+getc_X: call	checksw
+	jr	z,getc
+	jr	getc_B
+	
+getc_Y:	call	checksw
+	jr	z,getc_B
+	jr	getc
+;;; ----------------------------------------
+endif	
+	
+	ifdef mux_sio
+	
+;;; read switch at port 00, check bit 0
+checksw: push	bc
+	ld	c,0
+	in	b,(c)
+	bit	0,b
+	pop	bc
+	ret
+
+	endif
 
 ;;; initialize console I/O (both ports)
 io_init: jp RC2014_SerialSIO2_Initialise_T2
@@ -17,6 +64,9 @@ io_init: jp RC2014_SerialSIO2_Initialise_T2
 
 ;;; send a character from A (SIO port A)
 ;;; wait if needed
+	ifndef mux_sio
+putc_Y:
+	endif
 putc:	push af
 putc1:	call RC2014_SerialSIO2A_OutputChar_T2
 	jr z,putc1
@@ -25,6 +75,9 @@ putc1:	call RC2014_SerialSIO2A_OutputChar_T2
 
 ;;; send a character from A (SIO port B)
 ;;; wait if needed
+	ifndef mux_sio
+putc_X:
+	endif
 putc_B:	push af
 putc1B:	call RC2014_SerialSIO2B_OutputChar_T2
 	jr z,putc1B
@@ -34,6 +87,9 @@ putc1B:	call RC2014_SerialSIO2B_OutputChar_T2
 
 ;;; receive a character to a (SIO port A)
 ;;; wait if needed
+	ifndef mux_sio
+getc_Y:
+	endif
 getc:	call RC2014_SerialSIO2A_InputChar_T2
 	ret nz
 	jr getc
@@ -41,6 +97,9 @@ getc:	call RC2014_SerialSIO2A_InputChar_T2
 
 ;;; receive a character to a (SIO port B)
 ;;; wait if needed
+	ifndef mux_sio
+getc_X:
+	endif
 getc_B:	call RC2014_SerialSIO2B_InputChar_T2
 	ret nz
 	jr getc_B
@@ -48,6 +107,9 @@ getc_B:	call RC2014_SerialSIO2B_InputChar_T2
 	
 
 ;;; return Z if no characters available, NZ if characters available
+	ifndef mux_sio
+rxrdy_Y:
+	endif
 rxrdy:	PUSH BC
 	LD C, kSIOAConT2	;Address of status register
 	IN B,(C)
@@ -56,6 +118,9 @@ rxrdy:	PUSH BC
         RET			;Return Z if no character
 
 ;;; return Z if no characters available, NZ if characters available
+	ifndef mux_sio
+rxrdy_X:
+	endif
 rxrdy_B: PUSH BC
 	LD C, kSIOBConT2	;Address of status register
 	IN B,(C)
@@ -69,6 +134,9 @@ flush_B:
 	jr flush_B
 
 ;;; return z if output is busy/full, NZ if ready to send
+	ifndef mux_sio
+txrdy_Y:
+	endif
 txrdy:	
         PUSH BC
         LD   C,kSIOAConT2   ;SIO control register
@@ -78,6 +146,9 @@ txrdy:
         RET                ;Return Z as character not output
 	
 ;;; return z if output is busy/full, NZ if ready to send
+	ifndef mux_sio
+txrdy_X:	
+	endif
 txrdy_B:	
         PUSH BC
         LD   C,kSIOBConT2   ;SIO control register

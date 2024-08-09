@@ -1,8 +1,0 @@
-#
-read_xdc src/Top.xdc
-read_vhdl src/top.vhd
-read_vhdl src/debounce.vhd
-read_vhdl src/synch.vhd
-read_vhdl src/mult.vhd
-# read_vhdl ip/fifo_8x1024/synth/fifo_8x1024.vhd
-# read_ip ip/fifo_8x1024/fifo_8x1024.xci

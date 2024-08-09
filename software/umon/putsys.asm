@@ -6,6 +6,9 @@
 	;;                LBA 16-17 is disk
 	;;
 	;; Expects UMON resident at 8100H !!
+	;;
+	;;  Mods:
+	;;  12/21/21 : increase sector count to 40h
 
 	org	100h
 
@@ -47,12 +50,12 @@ IDE_Write_Sector  equ  813Ch        ;14   003c      Write sector from IX to LBA=
 ;; fstsec:	equ	1		;initial sector to load
 ;; botskp:	equ	1		;sectors to skip for boot loader
 ;; secptk:	equ	26		;sectors per track
+;; nsects:	equ	26*2		;warm start sector count
 ;;; ---------- HD ----------
 fstsec:	equ	0		;initial sector to load
 botskp:	equ	0		;sectors to skip for boot loader
 secptk:	equ	250		;greater than nsects
-
-nsects:	equ	26*2		;warm start sector count
+nsects:	equ	40h		;warm start sector count
 
 	call	IDE_Initialize
 	call	IDE_Get_Status

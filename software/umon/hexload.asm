@@ -8,7 +8,7 @@
 ;;; 
 	org	0C000H
 
-stak:	equ	$
+stak:	equ	$-10
 	jp	main
 	
 ;	INCLUDE "serial.asm"
