@@ -15,14 +15,21 @@ Renewed interest in:
   * UART (FTDI)
   * Keyboard and video
 * Easy interface for backup / file transfer (Ethernet, UART, other)
+  (Ethernet ENC28J60, see below)
 * Some way to boot without an EPROM programmer (AVR would be OK)
 * IDE Hard drive (not sure why I'm obsessed with this!)
 * VGA-class video, eventually with pixel graphics
-* Possible ICom floppy interface
+* Possible ICom floppy interface (8255)
 
 Not so interested in building all the peripherals (SIO, DMA, CTC) and
 MMU so a Z180 seems like a nice option.  Looking at the SC131 SBC as a
 starter, though it has no expansion.
+
+Thoughts on Arduino as boot source:
+<br>Z180@8MHz requires nWAIT asserted 77ns after nM1 (too short for Arduino).
+<br>Using a 74xx165 in a classic way give up to 7 or 8 wait states,
+or an additional 875-1000ns.  This could work for the Arduino,
+but seems like nasty bricolage.
 
 If I didn't want to build it I would just buy a Z80-MBC2 kit :)
 
