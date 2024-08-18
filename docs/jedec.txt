@@ -1,0 +1,32 @@
+
+
+1  A18 +------------------------+ VCC   32
+2  A16 +------------------------+ nWE   31
+3  A15   1  A14 +----+  VCC   28  A17   30
+4  A12   2  A12 +----+  nWE   27  A14   29
+5  A7    3  A7  +----+  A13   26  A13   28
+6  A6    4  A6  +----+  A8    25  A8    27
+7  A5    5  A5  +----+  A9    24  A9    26
+8  A4    6  A4  +----+  A11   23  A11   25
+9  A3    7  A3  +----+  nOE   22  nOE   24
+10 A2    8  A2  +----+  A10   21  A10   23
+11 A1    9  A1  +----+  nCE   20  nCE   22
+12 A0   10  A0  +----+  D7    19  D7    21
+13 D0   11  D0  +----+  D6    18  D6    20
+14 D1   12  D1  +----+  D5    17  D5    19
+15 D2   13  D2  +----+  D4    16  D4    18
+16 GND  14  GND +----+  D3    15  D3    17
+
+To install 28 pin part (e.g. AT28C256) in 32-pin socket:
+
+Lift 27, 28 and wire to 32 (VCC, nWE)
+
+All other pins match except:
+
+Host A15 -> EEPROM A14
+
+On proposed Z180 setup A15...A18 are always low
+So EEPROM addresses above 16k would be inaccessible.
+
+To fix:  Lift 21 and wire to host pin 27.
+

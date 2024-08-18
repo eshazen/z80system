@@ -7,32 +7,33 @@ have an RC2014 system ~~running happily~~ which is very flaky.
 
 ## New thoughts in 2024
 
+* See [DevLog2024] (DevLog2024.md)
+
+Ordered:
+
+* SC131 complete kit
+* 3x Z80 chips
+* New EEPROM programmer PCB for Arduino Mega 2560
+* A few more 32kx8 flash and some 512kx8 RAMs
+
 Renewed interest in:
 
 * A homebrew system with at least some retro features
 * Rock-solid operation
 * Two console options:
-  * UART (FTDI)
-  * Keyboard and video
+  * UART (FTDI) to PC
+  * Keyboard and video (both UART also?)
 * Easy interface for backup / file transfer (Ethernet, UART, other)
   (Ethernet ENC28J60, see below)
-* Some way to boot without an EPROM programmer (AVR would be OK)
-* IDE Hard drive (not sure why I'm obsessed with this!)
+* IDE Hard drive (not sure why I'm obsessed with this!).  Could be SSD.
 * VGA-class video, eventually with pixel graphics
 * Possible ICom floppy interface (8255)
 
 Not so interested in building all the peripherals (SIO, DMA, CTC) and
-MMU so a Z180 seems like a nice option.  Looking at the SC131 SBC as a
-starter, though it has no expansion.
+MMU so a Z180 seems like a nice option.  Will start with SC131 to get experience
+with Z180.
 
-Thoughts on Arduino as boot source:
-<br>Z180@8MHz requires nWAIT asserted 77ns after nM1 (too short for Arduino).
-<br>Using a 74xx165 in a classic way give up to 7 or 8 wait states,
-or an additional 875-1000ns.  This could work for the Arduino,
-but seems like nasty bricolage.
-
-If I didn't want to build it I would just buy a Z80-MBC2 kit :)
-
+Possibly add a (buffered?) bus?  Not RC2014, not enough GND!
 
 ## What works now
 
