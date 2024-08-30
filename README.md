@@ -33,7 +33,17 @@ Not so interested in building all the peripherals (SIO, DMA, CTC) and
 MMU so a Z180 seems like a nice option.  Will start with SC131 to get experience
 with Z180.
 
-Possibly add a (buffered?) bus?  Not RC2014, not enough GND!
+### Buffered expansion bus
+
+* I/O (any address above FF)
+* Memory access at least 64k
+
+Would like to minimise the gate delays in decoding the data bus enable,
+so maybe just use A18, A19 for memory decode and A15 for IO decode.
+74AHC139 + 74AHC32 = ~15ns max delay.
+
+
+
 
 ## What works now
 
