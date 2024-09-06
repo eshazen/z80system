@@ -115,5 +115,5 @@ module right() {
 }
 
 left();
-// right();
+right();
 // cutter();
