@@ -2049,7 +2049,7 @@
 	(footprint "LED_THT:LED_D3.0mm"
 		(layer "F.Cu")
 		(uuid "20e99188-8f7c-4f3d-aa72-416912a3d05b")
-		(at 226.695 31.11 -90)
+		(at 228.6 34.285 -90)
 		(descr "LED, diameter 3.0mm, 2 pins")
 		(tags "LED diameter 3.0mm 2 pins")
 		(property "Reference" "D5"
@@ -2295,7 +2295,7 @@
 		(descr "C, Disc series, Radial, pin pitch=2.50mm, , diameter*width=5*2.5mm^2, Capacitor, http://cdn-reichelt.de/documents/datenblatt/B300/DS_KERKO_TC.pdf")
 		(tags "C Disc series Radial pin pitch 2.50mm  diameter 5mm width 2.5mm Capacitor")
 		(property "Reference" "C15"
-			(at 1.25 -2.5 360)
+			(at 1.25 -2.5 0)
 			(layer "F.SilkS")
 			(uuid "57f6ff56-ebdd-46ac-ab83-8c210e2ab13d")
 			(effects
@@ -2306,7 +2306,7 @@
 			)
 		)
 		(property "Value" ".01uF"
-			(at 1.25 2.5 360)
+			(at 1.25 2.5 0)
 			(layer "F.Fab")
 			(uuid "2150abff-fc10-4bac-98ba-4f992f15640c")
 			(effects
@@ -2481,7 +2481,7 @@
 			(uuid "c703da67-6de8-43ec-95e3-16dad9896b80")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 1.25 0 360)
+			(at 1.25 0 0)
 			(layer "F.Fab")
 			(uuid "13ae6436-1cf4-4760-9ba0-59ae7770a5dd")
 			(effects
@@ -4946,7 +4946,7 @@
 	(footprint "LED_THT:LED_D3.0mm"
 		(layer "F.Cu")
 		(uuid "3b95d9fa-faa7-4d59-b3d0-d34799be9397")
-		(at 205.105 31.115 -90)
+		(at 204.47 34.29 -90)
 		(descr "LED, diameter 3.0mm, 2 pins")
 		(tags "LED diameter 3.0mm 2 pins")
 		(property "Reference" "D1"
@@ -6384,7 +6384,7 @@
 	(footprint "LED_THT:LED_D3.0mm"
 		(layer "F.Cu")
 		(uuid "568bc289-1171-43c8-9555-14e92c99b0e2")
-		(at 212.725 31.11 -90)
+		(at 212.725 34.285 -90)
 		(descr "LED, diameter 3.0mm, 2 pins")
 		(tags "LED diameter 3.0mm 2 pins")
 		(property "Reference" "D2"
@@ -11108,7 +11108,7 @@
 	(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
 		(layer "F.Cu")
 		(uuid "7f6298cd-00d8-43bb-9b1d-bc5ff1d40e4d")
-		(at 205.105 48.26 90)
+		(at 204.47 51.435 90)
 		(descr "Resistor, Axial_DIN0207 series, Axial, Horizontal, pin pitch=10.16mm, 0.25W = 1/4W, length*diameter=6.3*2.5mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
 		(tags "Resistor Axial_DIN0207 series Axial Horizontal pin pitch 10.16mm 0.25W = 1/4W length 6.3mm diameter 2.5mm")
 		(property "Reference" "R1"
@@ -11460,7 +11460,7 @@
 	(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
 		(layer "F.Cu")
 		(uuid "8d08234b-6959-4642-af13-36b62cbbca5b")
-		(at 212.725 47.625 90)
+		(at 212.725 50.8 90)
 		(descr "Resistor, Axial_DIN0207 series, Axial, Horizontal, pin pitch=10.16mm, 0.25W = 1/4W, length*diameter=6.3*2.5mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
 		(tags "Resistor Axial_DIN0207 series Axial Horizontal pin pitch 10.16mm 0.25W = 1/4W length 6.3mm diameter 2.5mm")
 		(property "Reference" "R2"
@@ -12127,7 +12127,7 @@
 		(descr "C, Disc series, Radial, pin pitch=2.50mm, , diameter*width=5*2.5mm^2, Capacitor, http://cdn-reichelt.de/documents/datenblatt/B300/DS_KERKO_TC.pdf")
 		(tags "C Disc series Radial pin pitch 2.50mm  diameter 5mm width 2.5mm Capacitor")
 		(property "Reference" "C16"
-			(at 1.25 -2.5 360)
+			(at 1.25 -2.5 0)
 			(layer "F.SilkS")
 			(uuid "110dc8f8-de48-4786-a51e-ff1631bbb3f3")
 			(effects
@@ -12138,7 +12138,7 @@
 			)
 		)
 		(property "Value" ".01uF"
-			(at 1.25 2.5 360)
+			(at 1.25 2.5 0)
 			(layer "F.Fab")
 			(uuid "667a8ab1-c738-4862-ac41-77db424257c0")
 			(effects
@@ -12313,7 +12313,7 @@
 			(uuid "53780dcb-6962-4358-9be5-507b53d3dcfc")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 1.25 0 360)
+			(at 1.25 0 0)
 			(layer "F.Fab")
 			(uuid "da166d01-8a59-411c-882b-d6d9c120e97e")
 			(effects
@@ -12358,7 +12358,7 @@
 	(footprint "Potentiometer_THT:Potentiometer_Bourns_3266W_Vertical"
 		(layer "F.Cu")
 		(uuid "9d2d5a03-3d91-4ae8-8bf8-acede634cb8a")
-		(at 236.265 43.195 90)
+		(at 238.805 43.195 90)
 		(descr "Potentiometer, vertical, Bourns 3266W, https://www.bourns.com/docs/Product-Datasheets/3266.pdf")
 		(tags "Potentiometer vertical Bourns 3266W")
 		(property "Reference" "RV1"
@@ -20363,7 +20363,7 @@
 	(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
 		(layer "F.Cu")
 		(uuid "e4da78c9-c88a-4372-a7f3-46e3a51a3ef3")
-		(at 226.695 37.465 -90)
+		(at 228.6 40.64 -90)
 		(descr "Resistor, Axial_DIN0207 series, Axial, Horizontal, pin pitch=10.16mm, 0.25W = 1/4W, length*diameter=6.3*2.5mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
 		(tags "Resistor Axial_DIN0207 series Axial Horizontal pin pitch 10.16mm 0.25W = 1/4W length 6.3mm diameter 2.5mm")
 		(property "Reference" "R15"
@@ -21423,7 +21423,7 @@
 	(footprint "LED_THT:LED_D3.0mm"
 		(layer "F.Cu")
 		(uuid "efeae259-040f-4053-ac4f-07d72a47c8e7")
-		(at 219.71 31.11 -90)
+		(at 220.98 34.285 -90)
 		(descr "LED, diameter 3.0mm, 2 pins")
 		(tags "LED diameter 3.0mm 2 pins")
 		(property "Reference" "D4"
@@ -23722,7 +23722,7 @@
 		(descr "Resistor, Axial_DIN0207 series, Axial, Horizontal, pin pitch=10.16mm, 0.25W = 1/4W, length*diameter=6.3*2.5mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
 		(tags "Resistor Axial_DIN0207 series Axial Horizontal pin pitch 10.16mm 0.25W = 1/4W length 6.3mm diameter 2.5mm")
 		(property "Reference" "R16"
-			(at 5.08 -2.37 360)
+			(at 5.08 -2.37 0)
 			(layer "F.SilkS")
 			(uuid "39218b13-3785-4927-99b5-45b81f2c0dcd")
 			(effects
@@ -23733,7 +23733,7 @@
 			)
 		)
 		(property "Value" "470"
-			(at 5.08 2.37 360)
+			(at 5.08 2.37 0)
 			(layer "F.Fab")
 			(uuid "b6f2b0b5-e938-488f-a8c3-62f55455eaa2")
 			(effects
@@ -23974,7 +23974,7 @@
 			(uuid "52e9b263-5117-4c52-8e42-36cb3d5c04b4")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 5.08 0 360)
+			(at 5.08 0 0)
 			(layer "F.Fab")
 			(uuid "3dc5271c-5442-4b39-aa2c-7d467cc62d9f")
 			(effects
@@ -24019,7 +24019,7 @@
 	(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
 		(layer "F.Cu")
 		(uuid "faa74f90-12f8-4cc2-9b1f-ae61ed8e5d0a")
-		(at 219.71 37.465 -90)
+		(at 220.98 40.64 -90)
 		(descr "Resistor, Axial_DIN0207 series, Axial, Horizontal, pin pitch=10.16mm, 0.25W = 1/4W, length*diameter=6.3*2.5mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
 		(tags "Resistor Axial_DIN0207 series Axial Horizontal pin pitch 10.16mm 0.25W = 1/4W length 6.3mm diameter 2.5mm")
 		(property "Reference" "R14"
@@ -24873,5 +24873,101 @@
 		)
 		(layer "Edge.Cuts")
 		(uuid "a9f545e8-024e-4e56-b750-74f1bd062ee7")
+	)
+	(gr_text "RESET"
+		(at 213.995 64.135 0)
+		(layer "F.SilkS")
+		(uuid "8e687e8d-66a7-46ee-829e-1d4a2e129a9a")
+		(effects
+			(font
+				(size 1.905 1.905)
+				(thickness 0.2032)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "LED1"
+		(at 209.55 32.385 0)
+		(layer "F.SilkS")
+		(uuid "a7daa992-66ba-484c-aa85-b83dd7cde162")
+		(effects
+			(font
+				(size 1.905 1.905)
+				(thickness 0.2032)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "HALT"
+		(at 201.295 32.385 0)
+		(layer "F.SilkS")
+		(uuid "b607bfed-e1ab-4a42-9b53-de1aa9c5c8a8")
+		(effects
+			(font
+				(size 1.905 1.905)
+				(thickness 0.2032)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "LED3"
+		(at 225.425 32.385 0)
+		(layer "F.SilkS")
+		(uuid "bff94c10-07ea-49b4-94af-41d5c0b34f58")
+		(effects
+			(font
+				(size 1.905 1.905)
+				(thickness 0.2032)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "Port A"
+		(at 129.54 134.62 0)
+		(layer "F.SilkS")
+		(uuid "c210ce54-f4a1-4f49-8cc5-21bdfaa865d4")
+		(effects
+			(font
+				(size 1.905 1.905)
+				(thickness 0.2032)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "Port B"
+		(at 154.305 133.985 0)
+		(layer "F.SilkS")
+		(uuid "cb8f5209-3704-4b20-8e4f-642cc45bb10d")
+		(effects
+			(font
+				(size 1.905 1.905)
+				(thickness 0.2032)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "LED2"
+		(at 217.805 32.385 0)
+		(layer "F.SilkS")
+		(uuid "d41e97df-ea7e-4bb6-b88d-63c01f0636c9")
+		(effects
+			(font
+				(size 1.905 1.905)
+				(thickness 0.2032)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "Sync"
+		(at 175.895 133.985 0)
+		(layer "F.SilkS")
+		(uuid "e5c8d107-e751-41b6-8544-bbdf2221c9fe")
+		(effects
+			(font
+				(size 1.905 1.905)
+				(thickness 0.2032)
+			)
+			(justify left bottom)
+		)
 	)
 )
