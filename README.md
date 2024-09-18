@@ -7,7 +7,7 @@ have an RC2014 system ~~running happily~~ which is very flaky.
 
 ## New thoughts in 2024
 
-* See [DevLog2024] (DevLog2024.md)
+* See [DevLog2024](DevLog2024.md)
 
 Ordered:
 

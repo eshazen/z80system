@@ -1,13 +1,21 @@
 
 # Development log re-start 2024
 
+**2024-09-18** On Ubuntu 24.04 at work.  Install:
+
+    libgmp-dev
+	libxml2-dev
+	pkgconf
+
+Then build as below.
+
 **2024-08-14** Updating z88dk per:  https://github.com/z88dk/z88dk/wiki/installation
 
 This fails.  Start over:
 
     cd ~/work
 	rm -rf z88dk
-	git clone  --recursive  https://github.com/z88dk/z88dk.git
+	git clone  --recursive  https://github.cogm/z88dk/z88dk.git
 	cd z88dk
     export BUILD_SDCC=1
     export BUILD_SDCC_HTTP=1
@@ -23,6 +31,8 @@ Ends with:
 Seems that nightly.z88dk.org is offline and this has happened before.
 Registered for the [forum](https://www.z88dk.org/forum/) and posted a message.
 Awaiting moderation.
+
+_(Note:  this was fixed by site maintainers)_
 
 ## CP/M Sizing review
 
